@@ -7,4 +7,5 @@ the main page (first) landing page is (index.html), progress from there to explo
 #important update :
 since gemini does not allow to give out individual api keys, the ai intergrated chat bot will only be seen in the demo video, but will not be implemented in the github code.
 
-ejane l1ac
+hope you guys enjoy!!
+- ejane l1ac
