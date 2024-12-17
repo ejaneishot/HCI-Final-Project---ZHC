@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grade 3: Geometry</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    .shape-drawing {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    canvas {
+      border: 1px solid #ccc;
+      background-color: #f4f4f4;
+    }
+
+    .quiz {
+      display: none;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .quiz img {
+      width: 100px;
+      height: 100px;
+      margin: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Identify, describe, and draw 2D shapes</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 0: Introduction -->
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">Let’s Learn About 2D Shapes!</div>
+    <div class="analogy">
+      2D shapes are flat shapes that only have length and width. They don’t have any height. Let’s explore some common 2D shapes: pentagons, hexagons, octagons, and semi-circles!
+    </div>
+  </div>
+
+  <!-- Page 1: Pentagon -->
+  <div class="content" id="page1">
+    <div class="note">Pentagon</div>
+    <div class="analogy">
+      A pentagon has 5 sides and 5 corners.
+      <br><br>
+      <strong>How to Draw:</strong> Draw 5 straight lines that connect together to form a 5-sided shape.
+      <br><br>
+      <button id="start1Button" class="button" onclick="startPentagonQuiz()">Start</button>
+    </div>
+    <div class="shape-drawing">
+      <canvas id="pentagonCanvas" width="200" height="200"></canvas>
+    </div>
+    <div id="pentagonQuiz" class="quiz">
+      <h3>Match the Pentagon!</h3>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmPKpehgpAZVAynzdEZ81qEIWO6wWhps_nHQ&s" alt="Pentagon" onclick="checkPentagonMatch(this)">
+      <img src="https://images.twinkl.co.uk/tw1n/image/private/t_630/u/ux/hex_ver_1.png" alt="Hexagon" onclick="checkPentagonMatch(this)">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7bw__mYckTeZuafN75dEFVc0BDvKeMNhYkA&s" alt="Octagon" onclick="checkPentagonMatch(this)">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7WMzX4Km19Y4pG4L7AMKKWaELI64XuBETBA&s" alt="Semi-circle" onclick="checkPentagonMatch(this)">
+      <div id="pentagonResult"></div>
+    </div>
+  </div>
+
+  <!-- Page 2: Hexagon -->
+  <div class="content" id="page2">
+    <div class="note">Hexagon</div>
+    <div class="analogy">
+      A hexagon has 6 sides and 6 corners.
+      <br><br>
+      <strong>How to Draw:</strong> Draw 6 straight lines that connect together to form a 6-sided shape.
+      <br><br>
+      <button id="start2Button" class="button" onclick="startHexagonQuiz()">Start</button>
+    </div>
+    <div class="shape-drawing">
+      <canvas id="hexagonCanvas" width="200" height="200"></canvas>
+    </div>
+    <div id="hexagonQuiz" class="quiz">
+      <h3>Match the Hexagon!</h3>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmPKpehgpAZVAynzdEZ81qEIWO6wWhps_nHQ&s" alt="Pentagon" onclick="checkPentagonMatch(this)">
+      <img src="https://images.twinkl.co.uk/tw1n/image/private/t_630/u/ux/hex_ver_1.png" alt="Hexagon" onclick="checkPentagonMatch(this)">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7bw__mYckTeZuafN75dEFVc0BDvKeMNhYkA&s" alt="Octagon" onclick="checkPentagonMatch(this)">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7WMzX4Km19Y4pG4L7AMKKWaELI64XuBETBA&s" alt="Semi-circle" onclick="checkPentagonMatch(this)">
+      <div id="hexagonResult"></div>
+    </div>
+  </div>
+
+  <!-- Page 3: Octagon -->
+  <div class="content" id="page3">
+    <div class="note">Octagon</div>
+    <div class="analogy">
+      An octagon has 8 sides and 8 corners.
+      <br><br>
+      <strong>How to Draw:</strong> Draw 8 straight lines that connect together to form an 8-sided shape.
+      <br><br>
+      <button id="start3Button" class="button" onclick="startOctagonQuiz()">Start</button>
+    </div>
+    <div class="shape-drawing">
+      <canvas id="octagonCanvas" width="200" height="200"></canvas>
+    </div>
+    <div id="octagonQuiz" class="quiz">
+      <h3>Match the Octagon!</h3>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmPKpehgpAZVAynzdEZ81qEIWO6wWhps_nHQ&s" alt="Pentagon" onclick="checkPentagonMatch(this)">
+      <img src="https://images.twinkl.co.uk/tw1n/image/private/t_630/u/ux/hex_ver_1.png" alt="Hexagon" onclick="checkPentagonMatch(this)">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7bw__mYckTeZuafN75dEFVc0BDvKeMNhYkA&s" alt="Octagon" onclick="checkPentagonMatch(this)">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7WMzX4Km19Y4pG4L7AMKKWaELI64XuBETBA&s" alt="Semi-circle" onclick="checkPentagonMatch(this)">
+      <div id="octagonResult"></div>
+    </div>
+  </div>
+
+  <!-- Page 4: Semi-circle -->
+  <div class="content" id="page4">
+    <div class="note">Semi-circle</div>
+    <div class="analogy">
+      A semi-circle is half of a circle. It has 1 curved side and 1 straight side.
+      <br><br>
+      <strong>How to Draw:</strong> Draw a half of a circle, with a flat line on the bottom.
+      <br><br>
+      <button id ="start4Button" class="button" onclick="startSemiCircleQuiz()">Start</button>
+    </div>
+    <div class="shape-drawing">
+      <canvas id="semiCircleCanvas" width="200" height="200"></canvas>
+    </div>
+    <div id="semiCircleQuiz" class="quiz">
+      <h3>Match the Semi-circle!</h3>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmPKpehgpAZVAynzdEZ81qEIWO6wWhps_nHQ&s" alt="Pentagon" onclick="checkPentagonMatch(this)">
+      <img src="https://images.twinkl.co.uk/tw1n/image/private/t_630/u/ux/hex_ver_1.png" alt="Hexagon" onclick="checkPentagonMatch(this)">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7bw__mYckTeZuafN75dEFVc0BDvKeMNhYkA&s" alt="Octagon" onclick="checkPentagonMatch(this)">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7WMzX4Km19Y4pG4L7AMKKWaELI64XuBETBA&s" alt="Semi-circle" onclick="checkPentagonMatch(this)">
+      <div id="semiCircleResult"></div>
+    </div>
+  </div>
+
+  <!-- Navigation Buttons -->
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    // Function to go to the next page
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Function to go to the previous page
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Function to draw shapes
+    function drawPentagon() {
+      const canvas = document.getElementById('pentagonCanvas');
+      const ctx = canvas.getContext('2d');
+      const sides = 5;
+      const radius = 70;
+      ctx.beginPath();
+      for (let i = 0; i < sides; i++) {
+        const angle = i * (2 * Math.PI / sides);
+        const x = 100 + radius * Math.cos(angle);
+        const y = 100 + radius * Math.sin(angle);
+        if (i === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      }
+      ctx.closePath();
+      ctx.stroke();
+    }
+
+    function drawHexagon() {
+      const canvas = document.getElementById('hexagonCanvas');
+      const ctx = canvas.getContext('2d');
+      const sides = 6;
+      const radius = 70;
+      ctx.beginPath();
+      for (let i = 0; i < sides; i++) {
+        const angle = i * (2 * Math.PI / sides);
+        const x = 100 + radius * Math.cos(angle);
+        const y = 100 + radius * Math.sin(angle);
+        if (i === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      }
+      ctx.closePath();
+      ctx.stroke();
+    }
+
+    function drawOctagon() {
+      const canvas = document.getElementById('octagonCanvas');
+      const ctx = canvas.getContext('2d');
+      const sides = 8;
+      const radius = 70;
+      ctx.beginPath();
+      for (let i = 0; i < sides; i++) {
+        const angle = i * (2 * Math.PI / sides);
+        const x = 100 + radius * Math.cos(angle);
+        const y = 100 + radius * Math.sin(angle);
+        if (i === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      }
+      ctx.closePath();
+      ctx.stroke();
+    }
+
+    function drawSemiCircle() {
+      const canvas = document.getElementById('semiCircleCanvas');
+      const ctx = canvas.getContext('2d');
+      ctx.beginPath();
+      ctx.arc(100, 100, 70, 0, Math.PI, false);
+      ctx.lineTo(30, 100);
+      ctx.closePath();
+      ctx.stroke();
+    }
+
+    // Draw all shapes
+    drawPentagon();
+    drawHexagon();
+    drawOctagon();
+    drawSemiCircle();
+
+ html
+    // Start quiz functions
+    function startPentagonQuiz() {
+      document.getElementById('pentagonQuiz').style.display = 'block';
+    }
+
+    function startHexagonQuiz() {
+      document.getElementById('hexagonQuiz').style.display = 'block';
+    }
+
+    function startOctagonQuiz() {
+      document.getElementById('octagonQuiz').style.display = 'block';
+    }
+
+    function startSemiCircleQuiz() {
+      document.getElementById('semiCircleQuiz').style.display = 'block';
+    }
+
+    // Check match functions
+    function checkPentagonMatch(selectedImage) {
+      const result = document.getElementById('pentagonResult');
+      if (selectedImage.alt === 'Pentagon') {
+        result.innerText = 'Correct! This is a Pentagon.';
+      } else {
+        result.innerText = 'Try again!';
+      }
+    }
+
+    function checkHexagonMatch(selectedImage) {
+      const result = document.getElementById('hexagonResult');
+      if (selectedImage.alt === 'Hexagon') {
+        result.innerText = 'Correct! This is a Hexagon.';
+      } else {
+        result.innerText = 'Try again!';
+      }
+    }
+
+    function checkOctagonMatch(selectedImage) {
+      const result = document.getElementById('octagonResult');
+      if (selectedImage.alt === 'Octagon') {
+        result.innerText = 'Correct! This is an Octagon.';
+      } else {
+        result.innerText = 'Try again!';
+      }
+    }
+
+    function checkSemiCircleMatch(selectedImage) {
+      const result = document.getElementById('semiCircleResult');
+      if (selectedImage.alt === 'Semi-circle') {
+        result.innerText = 'Correct! This is a Semi-circle.';
+      } else {
+        result.innerText = 'Try again!';
+      }
+    }
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g3geometry2.html'; 
+  }
+}
+  </script>
+</body>
+</html>

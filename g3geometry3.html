@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grade 3: Geometry</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .drag-drop {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .drag-drop .draggable {
+      width: 100px;
+      height: 100px;
+      background-color: #f5f5f5;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 10px;
+      cursor: move;
+    }
+
+    .drag-drop .droppable {
+      width: 100px;
+      height: 100px;
+      background-color: #f5f5f5;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    .drag-drop .droppable:hover {
+      background-color: #e5e5e5;
+    }
+
+    .match-question {
+      margin-bottom: 20px;
+    }
+
+    .match-question .question {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .match-question .answers {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .match-question .answers .answer {
+      width: 100px;
+      height: 100px; /* Fixed: Added missing semicolon */
+      background-color: #f5f5f5;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+
+    .quiz {
+      margin-top: 20px;
+    }
+
+    .quiz .question {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .quiz .options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .quiz .option {
+      background-color: #f5f5f5;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .quiz .option:hover {
+      background-color: #e5e5e5;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Identifying, Describing, and Making 3D Shapes</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 0: Introduction -->
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">Let’s Learn About 3D Shapes and Nets!</div>
+    <div class="analogy">
+        3D shapes are solid shapes with length, width, and height, like cubes, pyramids, and prisms. They are different from flat 2D shapes that only have length and width.
+    </div>
+  </div>
+
+  <!-- Page 1: Pyramid -->
+  <div class="content" id="page1">
+    <div class="note">Pyramid</div>
+    <div class="analogy">
+      A pyramid has a flat base (like a square or triangle) and triangular faces that meet at a point at the top.
+      <br><br>
+      <strong>Features:</strong>
+      <ul>
+        <li><strong>Faces:</strong> Flat triangles and one base.</li>
+        <li><strong>Vertices:</strong> The points where the edges meet.</li>
+        <li><strong>Edges:</strong> The lines where the faces meet.</li>
+      </ul>
+      <button id="start1Button" class="button" onclick="startPyramidActivity()">Start</button>
+    </div>
+    <div id="pyramidActivity" style="display: none;">
+      <div class="drag-drop">
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="face">Face</div>
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="vertex">Vertex</div>
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="edge">Edge</div>
+        <div class="droppable" ondrop="drop(event)" ondragover="allowDrop(event)" id="faceDrop">Face</div>
+        <div class="droppable" ondrop="drop(event)" ondragover="allowDrop(event)" id="vertexDrop">Vertex</div>
+        <div class="droppable" ondrop="drop(event)" ondragover="allowDrop(event)" id="edgeDrop">Edge</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 2: Prism -->
+  <div class="content" id="page2">
+    <div class="note">Prism</div>
+    <div class="analogy">
+      A prism has two identical flat shapes at the ends, with straight sides connecting them.
+      <br><br>
+      <strong>Features:</strong>
+      <ul>
+        <li><strong>Faces:</strong> Two flat ends and rectangular sides.</li>
+        <li><strong>Vertices:</strong> Where the corners of the faces meet.</li>
+        <li><strong>Edges:</strong> The lines where the sides connect.</li>
+      </ul>
+      
+    </div>
+    <div id="prismActivity" style="display: none;">
+      <div class="match-question">
+        <div class="question">Match the parts of a prism:</div>
+        <div class="answers">
+          <div class="answer" onclick="checkMatch('face')">Face</div>
+          <div class=" answer" onclick="checkMatch('vertex')">Vertex</div>
+          <div class="answer" onclick="checkMatch('edge')">Edge</div>
+          <div class="answer" onclick="checkMatch('base')">Base</div>
+        </div>
+      </div>
+      <div class="result" id="prismResult"></div>
+    </div>
+  </div>
+
+  <!-- Page 3: Nets of Shapes -->
+  <div class="content" id="page3">
+    <div class="note">Nets of 3D Shapes</div>
+    <div class="analogy">
+      A net is a flat 2D shape that you can fold to make a 3D shape.
+      <br><br>
+      <strong>Examples:</strong>
+      <ul>
+        <li><strong>Cube Net:</strong> Draw 6 squares connected in a cross shape. Cut it out and fold it to make a cube.</li>
+        <li><strong>Pyramid Net:</strong> Draw a square and 4 triangles around it. Cut it out and fold it to make a pyramid.</li>
+      </ul>
+      <button id="start3Button" class="button" onclick="startNetsQuiz()">Start</button>
+    </div>
+    <div id="netsQuiz" style="display: none;">
+      <div class="quiz">
+        <div class="question">What is a net of a cube made of?</div>
+        <div class="options">
+          <div class="option" onclick="checkAnswer('correct')">6 squares</div>
+          <div class="option" onclick="checkAnswer('wrong')">4 triangles</div>
+          <div class="option" onclick="checkAnswer('wrong')">1 rectangle</div>
+        </div>
+        <div class="result" id="netsResult"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Buttons -->
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    // Function to go to the next page
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Function to go to the previous page
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Drag and drop functions for pyramid activity
+    function allowDrop(event) {
+      event.preventDefault();
+    }
+
+    function drag(event) {
+      event.dataTransfer.setData("text", event.target.id);
+    }
+
+    function drop(event) {
+      event.preventDefault();
+      const data = event.dataTransfer.getData("text");
+      if (event.target.id === data + "Drop") {
+        event.target.innerHTML = document.getElementById(data).innerHTML;
+        document.getElementById(data).style.display = 'none';
+      }
+    }
+
+    // Start pyramid activity
+    function startPyramidActivity() {
+      document.getElementById('pyramidActivity').style.display = 'block';
+    }
+
+    // Start prism activity
+    function startPrismActivity() {
+      document.getElementById('prismActivity').style.display = 'block';
+    }
+
+    // Check match for prism activity
+    function checkMatch(part) {
+      const correctParts = ['face', 'vertex', 'edge', 'base'];
+      if (correctParts.includes(part)) {
+        document.getElementById('prismResult').innerText = part + " matched correctly!";
+      } else {
+        document.getElementById('prismResult').innerText = "Try again!";
+      }
+    }
+
+    // Start nets quiz
+    function startNetsQuiz() {
+      document.getElementById('netsQuiz').style.display = 'block';
+    }
+
+    // Check answer for nets quiz
+    function checkAnswer(answer) {
+      const result = document.getElementById('netsResult');
+      if (answer === 'correct') {
+        result.innerText = "Correct! A net of a cube is made of 6 squares.";
+      } else {
+        result.innerText = "Incorrect. Try again!";
+      }
+    }
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g3geometry4.html'; 
+  }
+}
+  </script>
+</body>
+</html>

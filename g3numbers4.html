@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grade 3: Numbers</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    /* Drag and Drop Styles */
+    .drop-zone {
+      border: 2px dashed #6a5acd;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .draggable {
+      width: 100px;
+      padding: 10px;
+      background-color: #6a5acd;
+      color: white;
+      margin: 5px;
+      cursor: move;
+      text-align: center;
+      border-radius: 5px;
+    }
+
+    .feedback {
+      margin-top: 10px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    /* Quiz Styles */
+    .quiz {
+      display: none;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .quiz img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .option {
+      display: block;
+      margin: 10px 0;
+      cursor: pointer;
+      padding: 10px;
+      background-color: #e0e0e0;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .option:hover {
+      background-color: #d3d3d3;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Compare, Order, and Estimate Numbers</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 0 -->
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">Let’s Learn How to Compare, Order, and Estimate Numbers!</div>
+    <div class="analogy">
+      Comparing numbers means figuring out which number is bigger or smaller.
+      Ordering numbers means putting them in the right sequence.
+      Estimating means making a good guess about a number.
+    </div>
+  </div>
+
+  <!-- Page 1 -->
+  <div class="content" id="page1">
+    <div class="note">How to Compare Numbers</div>
+    <div class="analogy">
+      Comparing numbers means figuring out which number is bigger or smaller.
+      <br><br>
+      <strong>Symbols to use:</strong>
+      <ul>
+        <li><strong>&gt;</strong> means greater than (bigger)</li>
+        <li><strong>&lt;</strong> means less than (smaller)</li>
+        <li><strong>=</strong> means equal to (the same)</li>
+      </ul>
+      <strong>Example:</strong>
+      <br><br>
+      Is 56 greater than 43?<br>
+      <strong>56 &gt; 43</strong> because 56 is bigger than 43.
+      <br><br>
+      <button id="start1Button" class="button" onclick="startCompareQuiz()">Start</button>
+      <div id="compareQuiz" class="quiz" style="display: none;">
+        <h2>Which is greater?</h2>
+        <div class="draggable" draggable="true" id="num1" ondragstart="drag(event)">56</div>
+        <div class="draggable" draggable="true" id="num2" ondragstart="drag(event)">43</div>
+        <div class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)">Drop Here</div>
+        <div class="feedback" id="compareFeedback"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 2 -->
+  <div class="content" id="page2">
+    <div class="note">How to Order Numbers</div>
+    <div class="analogy">
+      Ordering numbers means putting them in the right sequence, from smallest to largest (ascending) or largest to smallest (descending).
+      <br><br>
+      <strong>Examples:</strong>
+      <br><br>
+      Ascending (smallest to largest): 23, 45, 78, 102
+      <br>
+      Descending (largest to smallest): 102, 78, 45, 23
+      <br><br>
+      
+      <div id="orderQuiz" class="quiz" style="display: none;">
+        <h2>Match the numbers in order:</h2>
+        <div class="draggable" draggable="true" id="numA" ondragstart="drag(event)">45</div>
+        <div class="draggable" draggable="true" id="numB" ondragstart="drag(event)">23</div>
+        <div class="draggable" draggable="true" id="numC" ondragstart="drag(event)">102</div>
+        <div class="draggable" draggable="true" id="numD" ondragstart="drag(event)">78</div>
+        <div class="drop-zone" ondrop="dropOrder(event)" ondragover="allowDrop(event)">Drop Here</div>
+        <div class="feedback" id="orderFeedback"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 3 -->
+  <div class="content" id="page3">
+    <div class="note">How to Estimate Numbers</div>
+    <div class="analogy">
+      Estimating means making a good guess about a number without being exact.
+      <br><br>
+      <strong>Example:</strong>
+      <br><br>
+      If you have 92 marbles and want to estimate how many you have, you might round it to 100 because 92 is close to 100.
+      <br><br>
+      <button id="start3Button" class="button" onclick="startEstimateQuiz()">Start</button>
+      <div id="estimateQuiz" class="quiz" style="display: none;">
+        <h2>Estimate the following:</h2>
+        <p>What is 92 rounded to the nearest ten?</p>
+        <div class="option" onclick="checkEstimateAnswer(90)">90</div>
+        <div class="option" onclick="checkEstimateAnswer(100)">100</div>
+        <div class="option" onclick="checkEstimateAnswer(92)">92</div>
+        <div class="feedback" id="estimateFeedback"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    // Function to go to the next page
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Function to go to the previous page
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Function for dragging elements
+    function drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    // Allow drop
+    function allowDrop(ev) {
+      ev.preventDefault();
+    }
+
+    // Drop action for comparison quiz
+    function drop(ev) {
+      ev.preventDefault();
+      const data = ev.dataTransfer.getData("text");
+      const num = document.getElementById(data).innerText;
+      if (num === "56") {
+        document.getElementById("compareFeedback").innerText = "Correct! 56 is greater than 43.";
+      } else {
+        document.getElementById("compareFeedback").innerText = "Incorrect. Try again.";
+      }
+    }
+
+    // Start Comparison Quiz
+    function startCompareQuiz() {
+      document.getElementById("compareQuiz").style.display = "block";
+    }
+
+    // Drop action for ordering quiz
+    function dropOrder(ev) {
+      ev.preventDefault();
+      const numbersInOrder = ["23", "45", "78", "102"];
+      const droppedNumbers = [];
+      for (let i = 0; i < numbersInOrder.length; i++) {
+        const num = document.getElementById(`num${String.fromCharCode(65 + i)}`).innerText;
+        droppedNumbers.push(num);
+      }
+      if (JSON.stringify(droppedNumbers) === JSON.stringify(numbersInOrder)) {
+        document.getElementById("orderFeedback").innerText = "Correct! The order is 23, 45, 78, 102.";
+      } else {
+        document.getElementById("orderFeedback").innerText = "Incorrect. Try again.";
+      }
+    }
+
+    // Start Ordering Quiz
+    function startOrderQuiz() {
+      document.getElementById("orderQuiz").style.display = "block";
+    }
+
+    // Check estimate answer
+    function checkEstimateAnswer(answer) {
+      const correctAnswer = 90; // Correct answer for estimating 92
+      if (answer === correctAnswer) {
+        document.getElementById("estimateFeedback").innerText = "Correct! 92 rounds to 90.";
+      } else {
+        document.getElementById("estimateFeedback").innerText = "Incorrect. Try again.";
+      }
+    }
+
+    // Start Estimation Quiz
+    function startEstimateQuiz() {
+      document.getElementById("estimateQuiz").style.display = "block";
+    }
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g3numbers5.html'; 
+  }
+}
+  </script>
+</body>
+</html>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 3: Measurement</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .drag-item {
+      width: 100px;
+      padding: 10px;
+      margin: 5px;
+      background-color: #f0f0f0;
+      text-align: center;
+      border: 1px solid #ccc;
+      cursor: grab;
+      border-radius: 4px;
+    }
+
+    .drop-zone {
+      width: 120px;
+      height: 120px;
+      border: 2px dashed #6a5acd;
+      display: inline-block;
+      margin: 10px;
+      position: relative;
+      text-align: center;
+      line-height: 120px;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Time Intervals: Hours, Minutes, Weeks, and Days</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 0: Introduction -->
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">Let’s learn about calculating time intervals!</div>
+    <div class="analogy">
+      A time interval is how much time has passed between two events. We can calculate this in hours, minutes, days, and weeks.
+    </div>
+  </div>
+
+  <!-- Page 1: Time Interval (Hours and Minutes) -->
+  <div class="content" id="page1">
+    <div class="note">Time Interval (Hours and Minutes)</div>
+    <div class="analogy">
+      <strong>For hours and minutes:</strong>
+      <ul>
+        <li>Step 1: Look at the start and end times.</li>
+        <li>Step 2: Count the difference in hours and minutes.</li>
+      </ul>
+      <strong>Example 1:</strong><br>
+      Start time: 2:00 PM<br>
+      End time: 5:00 PM<br>
+      Time interval: 3 hours.<br>
+      
+      <div id="dragAndDropActivity" class="hidden">
+        <div class="drop-zone" id="hourZone">Hours</div>
+        <div class="drag-item" draggable="true" id="3hours">3 hours</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 2: Time Interval (Days) -->
+  <div class="content" id="page2">
+    <div class="note">Time Interval (Days)</div>
+    <div class="analogy">
+      <strong>For days:</strong>
+      <ul>
+        <li>Step 1: Count the days between two dates.</li>
+      </ul>
+      <strong>Example:</strong><br>
+      From Monday to Thursday.<br>
+      Total: 4 days.
+      
+      <div id="matchingActivity" class="hidden">
+        <div class="drop-zone" id="thursdayZone">Thursday</div>
+        <div class="drag-item" draggable="true" id="thursday">Monday</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 3: Time Interval (Weeks) -->
+  <div class="content" id="page3">
+    <div class="note">Time Interval (Weeks)</div>
+    <div class="analogy">
+      <strong>For weeks:</strong>
+      <ul>
+        <li>Step 1: Divide the number of days by 7 (since 1 week = 7 days).</li>
+      </ul>
+      <strong>Example:</strong><br>
+      14 days = 14 ÷ 7 = 2 weeks.
+      <button id="start3Button" class="button">Start</button>
+      <div id="quizActivity" class="hidden">
+        <p>How many weeks are in 21 days?</p>
+        <button onclick="checkAnswer(2)">2 weeks</button>
+        <button onclick="checkAnswer(3)">3 weeks</button>
+        <button onclick="checkAnswer(4)">4 weeks</button>
+        <div id="quizFeedback"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Buttons -->
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    // Function to go to the next page
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Function to go to the previous page
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Drag-and-drop activity for Page 1
+    const start1Button = document.getElementById('start1Button');
+    const dragAndDropActivity = document.getElementById('dragAndDropActivity');
+    const hourZone = document.getElementById('hourZone');
+    const hoursItem = document.getElementById('3hours');
+
+    start1Button.addEventListener('click', () => {
+      dragAndDropActivity.classList.remove('hidden');
+    });
+
+    hoursItem.addEventListener('dragstart', (e) => {
+      e.dataTransfer.setData('text/plain', '3hours');
+    });
+
+    hourZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+    });
+
+    hourZone.addEventListener('drop', (e) => {
+      const data = e.dataTransfer.getData('text');
+      if (data === '3hours') {
+        hourZone.textContent = 'Correct!';
+        hourZone.style.backgroundColor = '#d4edda';
+      } else {
+        hourZone.textContent = 'Try again!';
+      }
+    });
+
+    // Matching activity for Page 2
+    const start2Button = document.getElementById('start2Button');
+    const matchingActivity = document.getElementById('matchingActivity');
+    const thursdayZone = document.getElementById('thursdayZone');
+    const thursdayItem = document.getElementById('thursday');
+
+    start2Button.addEventListener('click', () => {
+      matchingActivity.classList.remove('hidden');
+    });
+
+    thursdayItem.addEventListener('dragstart', (e) => {
+      e.dataTransfer.setData('text/plain', 'thursday');
+    });
+
+    thursdayZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+    });
+
+    thursdayZone.addEventListener('drop', (e) => {
+      const data = e.dataTransfer.getData('text');
+      if (data === 'thursday') {
+        thursdayZone.textContent = 'Matched!';
+        thursdayZone.style.backgroundColor = '#d4edda';
+      } else {
+        thursdayZone.textContent = 'Incorrect. Try again!';
+      }
+    });
+
+    // Quiz for Page 3
+    const start3Button = document.getElementById('start3Button');
+    const quizActivity = document.getElementById('quizActivity');
+    const quizFeedback = document.getElementById('quizFeedback');
+
+    start3Button.addEventListener('click', () => {
+      quizActivity.classList.remove('hidden');
+    });
+
+    function checkAnswer(answer) {
+      if (answer === 3) {
+        quizFeedback.textContent = 'Correct! 21 days equals 3 weeks.';
+        quizFeedback.style.color = 'green';
+      } else {
+        quizFeedback.textContent = 'Incorrect. Try again!';
+        quizFeedback.style.color = 'red';
+      }
+    }
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g3main.html'; 
+  }
+}
+  </script>
+</body>
+</html>

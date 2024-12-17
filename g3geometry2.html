@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grade 3: Geometry</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .drag-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .drag-item {
+      width: 100px;
+      height: 100px;
+      background-size: cover;
+      background-position: center;
+      border: 1px solid black;
+      border-radius: 10px;
+      cursor: move;
+    }
+
+    .drop-zone {
+      width: 200px;
+      height: 200px;
+      border: 1px solid black;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+    }
+
+    .quiz-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .quiz-item {
+      width: 200px;
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+      border: 1px solid black;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+    }
+
+    .animation-container {
+      width: 400px;
+      height: 400px;
+      border : 1px solid black;
+      border-radius: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .right-angle {
+      width: 100px;
+      height: 100px;
+      background-color: #6a5acd;
+      position: absolute;
+      transform: rotate(90deg);
+      top: 50%;
+      left: 50%;
+      transform-origin: top left;
+      transition: transform 0.5s;
+    }
+
+    .right-angle.show {
+      transform: rotate(0deg);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Classifying 2D Shapes by Sides, Vertices, and Right Angles</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 0: Introduction -->
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">Let’s learn about classifying 2D shapes by sides, vertices, and right angles!</div>
+    <div class="analogy">
+        Classifying shapes means putting them into groups based on their features, like the number of sides, corners, or angles.
+    </div>
+  </div>  
+
+  <!-- Page 1: Classifying by Sides -->
+  <div class="content" id="page1">
+    <div class="note">Classifying 2D Shapes by Sides</div>
+    <div class="analogy">
+      <strong>Shapes can be classified by the number of sides:</strong>
+      <br><br>
+      A triangle has 3 sides, a square has 4 sides, and a pentagon has 5 sides. The more sides, the more complex the shape.
+      <br><br>
+      <strong>Examples:</strong>
+      <ul>
+        <li>Square: 4 sides</li>
+        <li>Triangle: 3 sides</li>
+        <li>Hexagon: 6 sides</li>
+      </ul>
+      <button id="start1Button" class="button" onclick="startDragDrop()">Start</button>
+    </div>
+    <div id="dragDropContainer" class="drag-container" style="display: none;">
+      <div class="drop-zone" id="dropSquare">Square</div>
+      <div class="drop-zone" id="dropTriangle">Triangle</div>
+      <div class="drop-zone" id="dropHexagon">Hexagon</div>
+      <div class="drag-item" id="square" draggable="true" ondragstart="drag(event)" style="background-image: url('square.png');">Square</div>
+      <div class="drag-item" id="triangle" draggable="true" ondragstart="drag(event)" style="background-image: url('triangle.png');">Triangle</div>
+      <div class="drag-item" id="hexagon" draggable="true" ondragstart="drag(event)" style="background-image: url('hexagon.png');">Hexagon</div>
+    </div>
+  </div>
+
+  <!-- Page 2: Classifying by Vertices -->
+  <div class="content" id="page2">
+    <div class="note">Classifying 2D Shapes by Vertices</div>
+    <div class="analogy">
+      <strong>Shapes can be classified by the number of vertices (corners):</strong>
+      <br><br>
+      The number of corners where the sides meet is called vertices. A square has 4 vertices, while a triangle has 3 vertices.
+      <br><br>
+      <strong>Examples:</strong>
+      <ul>
+        <li>Square: 4 vertices</li>
+        <li>Triangle: 3 vertices</li>
+        <li>Octagon: 8 vertices</li>
+      </ul>
+      
+    </div>
+    <div id="quizContainer" class="quiz-container" style="display: none;">
+      <div class="quiz-item" id="quizSquare" style="background-image: url('square.png');">Square</div>
+      <div class="quiz-item" id="quizTriangle" style="background-image: url('triangle.png');">Triangle</div>
+      <div class="quiz-item" id="quizOctagon" style="background-image: url('octagon.png');">Octagon</div>
+      <div class="answer" id="answer4">4 vertices</div>
+      <div class="answer" id="answer3">3 vertices</div>
+      <div class="answer" id="answer8">8 vertices</div>
+    </div>
+  </div>
+
+  <!-- Page 3: Classifying by Right Angles -->
+  <div class="content" id="page3">
+    <div class="note">Classifying 2D Shapes by Right Angles</div>
+    <div class="analogy">
+      <strong>Right Angles:</strong> A right angle is an L-shaped corner (90 degrees). Shapes like squares and rectangles have right angles.
+      <br><br>
+      <strong>Examples:</strong>
+      <ul>
+        <li>Square: 4 right angles</li>
+        <li>Rectangle: 4 right angles</li>
+        <li>Triangle: 1 right angle (right triangle)</li>
+      </ul>
+      <button id="start3Button" class="button" onclick="startAnimation()">Start</button>
+    </div>
+    <div id="animationContainer" class="animation-container" style="display: none;">
+      <div class="right-angle" id="rightAngle"></div>
+    </div>
+  </div>
+
+  <!-- Navigation Buttons -->
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    // Function to go to the next page
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Function to go to the previous page
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Drag and Drop Functionality for Page 1
+    function startDragDrop() {
+      document.getElementById('dragDropContainer').style.display = 'flex';
+    }
+
+    function drag(event) {
+      event.dataTransfer.setData("text", event.target.id);
+    }
+
+    document.querySelectorAll('.drop-zone').forEach(zone => {
+      zone.addEventListener('dragover', (event) => {
+        event.preventDefault();
+      });
+      zone.addEventListener('drop', (event) => {
+        event.preventDefault();
+        const data = event.dataTransfer.getData("text");
+        const draggedElement = document.getElementById(data);
+        if (zone.id === 'dropSquare' && data === 'square' ||
+            zone.id === 'dropTriangle' && data === 'triangle' ||
+            zone.id === 'dropHexagon' && data === 'hexagon') {
+          zone.appendChild(draggedElement);
+        }
+      });
+    });
+
+    // Quiz Functionality for Page 2
+    function startQuiz() {
+      document.getElementById('quizContainer').style.display = 'flex';
+      document.querySelectorAll('.quiz-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const answer = item.id === 'quizSquare' ? 'answer4' :
+                         item.id === 'quizTriangle' ? 'answer3' :
+                         item.id === 'quizOctagon' ? 'answer8' : '';
+          if (answer) {
+            document.getElementById(answer).style.display = 'block';
+          }
+        });
+      });
+    }
+
+    // Animation for Page 3
+    function startAnimation() {
+      document.getElementById('animationContainer').style.display = 'block';
+      const rightAngle = document.getElementById('rightAngle');
+      rightAngle.classList.add('show');
+      setTimeout(() => {
+        rightAngle.classList.remove('show');
+      }, 2000);
+    }
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g3geometry3.html'; 
+  }
+}
+  </script>
+</body>
+</html>

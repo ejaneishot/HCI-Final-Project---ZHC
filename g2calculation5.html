@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grade 2: Calculation</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    img {
+      display: block;
+      margin: 20px auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .img2 {
+      width: 150px;
+      height: auto;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    table {
+      width: 90%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+    th, td {
+      padding: 12px 15px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+    th {
+      background-color: #6a5acd;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    tr:hover {
+      background-color: #e0e0e0;
+    }
+    .caption {
+      font-weight: bold;
+      background-color: #6a5acd;
+      color: white;
+    }
+
+    .question {
+      margin: 10px 0;
+    }
+
+    .feedback {
+      margin: 10px 0;
+      font-weight: bold;
+    }
+
+    .input-box {
+      width: 60px;
+      height: 40px;
+      font-size: 18px;
+      text-align: center;
+      border: 2px solid #6a5acd;
+      border-radius: 8px;
+    }
+
+    .input-box.correct {
+      background-color: lightgreen;
+    }
+
+    .input-box.incorrect {
+      background-color: lightcoral;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Learn facts for 2x, 3x, 4x, 5x and 10x tables</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">What are multiplication facts?</div>
+    <div class="analogy">
+      Multiplication facts are quick answers to problems like 2 × 3 or 5 × 4. Learning them helps you solve problems faster!
+      <br><br>
+      <div id="container1" class="container"></div>
+    </div>
+  </div>
+
+  <div class="content" id="page1">
+    <div class="note">Multiplication facts (times table):</div>
+    <div class="analogy">
+      <table>
+        <thead>
+          <tr>
+            <th class="caption">Multiplication</th>
+            <th class="caption">2 Times Table</th>
+            <th class="caption">3 Times Table</th>
+            <th class="caption">4 Times Table</th>
+            <th class="caption">5 Times Table</th>
+            <th class="caption">10 Times Table</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>2 × 1 = <input type="text" class="input-box" data-answer="2"></td><td>3 × 1 = <input type="text" class="input-box" data-answer="3"></td><td>4 × 1 = <input type="text" class="input-box" data-answer="4"></td><td>5 × 1 = <input type="text" class="input-box" data-answer="5"></td><td>10 × 1 = <input type="text" class="input-box" data-answer="10"></td></tr>
+          <tr><td>2</td><td>2 × 2 = <input type="text" class="input-box" data-answer="4"></td><td>3 × 2 = <input type="text" class="input-box" data-answer="6"></td><td>4 × 2 = <input type="text" class="input-box" data-answer="8"></td><td>5 × 2 = <input type="text" class="input-box" data-answer="10"></td><td>10 × 2 = <input type="text" class="input-box" data-answer="20"></td></tr>
+          <tr><td>3</td><td>2 × 3 = <input type="text" class="input-box" data-answer="6"></td><td>3 × 3 = <input type="text" class="input-box" data-answer="9"></td><td>4 × 3 = <input type="text" class="input-box" data-answer="12"></td><td>5 × 3 = <input type="text" class="input-box" data-answer="15"></td><td>10 × 3 = <input type="text" class="input-box" data-answer="30"></td></tr>
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+   
+    pages[currentPage].style.display = 'block';
+
+    
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+   
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    
+    const inputBoxes = document.querySelectorAll('.input-box');
+    inputBoxes.forEach(input => {
+      input.addEventListener('input', function () {
+        const correctAnswer = input.getAttribute('data-answer');
+        if (input.value == correctAnswer) {
+          input.classList.add('correct');
+          input.classList.remove('incorrect');
+        } else {
+          input.classList.add('incorrect');
+          input.classList.remove('correct');
+        }
+      });
+    });
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g2calculation6.html'; 
+  }
+}
+  </script>
+</body>
+</html>

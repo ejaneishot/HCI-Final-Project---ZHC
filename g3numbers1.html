@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grade 3: Numbers</title>
+  <style>
+    /* Existing styles (unchanged) */
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .dropzone {
+      padding: 20px;
+      margin: 10px;
+      background-color: #e0e0e0;
+      border: 2px dashed #6a5acd;
+      text-align: center;
+      border-radius: 10px;
+    }
+
+    .drag-item {
+      padding: 10px 20px;
+      background-color: #6a5acd;
+      color: white;
+      margin: 5px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .quiz-option {
+      margin: 10px 0;
+      padding: 10px;
+      background-color: #e6e6fa;
+      cursor: pointer;
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    .quiz-option:hover {
+      background-color: #d8bfd8;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Recite and read/write numbers up to 1000</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 0 -->
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">Let’s Count from 1 to 1000!</div>
+    <div class="analogy">
+      Counting is the process of naming numbers in the correct order. You can count by 1s, 10s, or 100s to help with counting large numbers.
+    </div>
+  </div>
+
+  <!-- Page 1 -->
+  <div class="content" id="page1">
+    <div class="note">Counting by 1s</div>
+    <div class="analogy">
+      To count by 1s, start at 1 and keep adding 1 until you reach 1000. 
+      <br><br><strong>Here’s how:</strong>
+      <p>1, 2, 3, 4, 5, 6... all the way up to 1000!</p>
+      
+      <div id="activity1" class="hidden">
+        <p>Drag the numbers into the correct order (1 to 10):</p>
+        <div id="dropZone1" class="dropzone">Drop here</div>
+        <div class="drag-item" draggable="true">7</div>
+        <div class="drag-item" draggable="true">3</div>
+        <div class="drag-item" draggable="true">5</div>
+        <div class="drag-item" draggable="true">1</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 2 -->
+  <div class="content" id="page2">
+    <div class="note">Counting by 10s</div>
+    <div class="analogy">
+      To count by 10s, start at 10 and keep adding 10.
+      <br><br><strong>Here’s how:</strong>
+      <p>10, 20, 30, 40, 50... up to 1000!</p>
+      <button id="start2Button" class="button">Start</button>
+      <div id="activity2" class="hidden">
+        <p>Which of these is the correct next number after 50?</p>
+        <div class="quiz-option" onclick="checkAnswer2(60)">60</div>
+        <div class="quiz-option" onclick="checkAnswer2(40)">40</div>
+        <div class="quiz-option" onclick="checkAnswer2(70)">70</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 3 -->
+  <div class="content" id="page3">
+    <div class="note">Counting by 100s</div>
+    <div class="analogy">
+      To count by 100s, start at 100 and keep adding 100. 
+      <br><br><strong>Here’s how:</strong>
+      <p>100, 200, 300, 400... up to 1000!</p>
+      
+      <div id="activity3" class="hidden">
+        <p>Order these numbers from smallest to largest:</p>
+        <div id="orderList" class="dropzone">Drop here</div>
+        <button id="checkOrderButton" class="button">Check Order</button>
+        <div id="orderFeedback" style="margin-top: 10px; font-weight: bold;"></div>
+        <div class="drag-item" draggable="true">300</div>
+        <div class="drag-item" draggable="true">100</div>
+        <div class="drag-item" draggable="true">400</div>
+        <div class="drag-item" draggable="true">200</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    // Navigation logic (unchanged)
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+  
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+  
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+  
+    // Page 1 Activity: Drag-and-drop functionality
+    const dragItems = document.querySelectorAll('.drag-item');
+    const dropZone1 = document.getElementById('dropZone1');
+  
+    dragItems.forEach((item) => {
+      item.addEventListener('dragstart', (event) => {
+        event.dataTransfer.setData('text/plain', event.target.textContent);
+        event.target.style.opacity = '0.5';
+      });
+  
+      item.addEventListener('dragend', (event) => {
+        event.target.style.opacity = '1';
+      });
+    });
+  
+    dropZone1.addEventListener('dragover', (event) => {
+      event.preventDefault();
+      dropZone1.style.backgroundColor = '#dcdcdc';
+    });
+  
+    dropZone1.addEventListener('dragleave', (event) => {
+      dropZone1.style.backgroundColor = '#e0e0e0';
+    });
+  
+    dropZone1.addEventListener('drop', (event) => {
+      event.preventDefault();
+      const draggedText = event.dataTransfer.getData('text/plain');
+      const newItem = document.createElement('div');
+      newItem.textContent = draggedText;
+      newItem.className = 'drag-item';
+      dropZone1.appendChild(newItem);
+      dropZone1.style.backgroundColor = '#e0e0e0';
+    });
+  
+    // Page 2 Activity: Quiz functionality
+    document.getElementById('start2Button').addEventListener('click', () => {
+      document.getElementById('activity2').classList.remove('hidden');
+    });
+  
+    function checkAnswer2(answer) {
+      alert(answer === 60 ? 'Correct!' : 'Try again!');
+    }
+  
+    // Page 3 Activity: Ordering functionality
+    const orderItems = document.querySelectorAll('#page3 .drag-item');
+    const orderList = document.getElementById('orderList');
+  
+    orderItems.forEach((item) => {
+      item.addEventListener('dragstart', (event) => {
+        event.dataTransfer.setData('text/plain', event.target.textContent);
+        event.target.style.opacity = '0.5';
+      });
+  
+      item.addEventListener('dragend', (event) => {
+        event.target.style.opacity = '1';
+      });
+    });
+  
+    orderList.addEventListener('dragover', (event) => {
+      event.preventDefault();
+      orderList.style.backgroundColor = '#dcdcdc';
+    });
+  
+    orderList.addEventListener('dragleave', (event) => {
+      orderList.style.backgroundColor = '#e0e0e0';
+    });
+  
+    orderList.addEventListener('drop', (event) => {
+      event.preventDefault();
+      const draggedText = event.dataTransfer.getData('text/plain');
+      const newItem = document.createElement('div');
+      newItem.textContent = draggedText;
+      newItem.className = 'drag-item';
+      orderList.appendChild(newItem);
+      orderList.style.backgroundColor = '#e0e0e0';
+    });
+  
+    // Page 1 Activity: Show activity
+    document.getElementById('start1Button').addEventListener('click', () => {
+      document.getElementById('activity1').classList.remove('hidden');
+    });
+  
+    // Page 3 Activity: Show activity
+    document.getElementById('start3Button').addEventListener('click', () => {
+      document.getElementById('activity3').classList.remove('hidden');
+    });
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g3numbers2.html'; 
+  }
+}
+  </script>
+  
+</body>
+</html>

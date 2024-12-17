@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grade 2: Calculation</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .input-box {
+      width: 60px;
+      height: 60px;
+      margin: 10px;
+      font-size: 24px;
+      text-align: center;
+      border: 2px solid #6a5acd;
+      border-radius: 8px;
+    }
+
+    .input-box.correct {
+      background-color: lightgreen;
+    }
+
+    .input-box.incorrect {
+      background-color: lightcoral;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Subtract single digit numbers and double digit numbers</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">What is subtraction?</div>
+    <div class="analogy">
+      Subtraction means taking something away or finding how much is left. We use the - sign to show subtraction, and the answer is called the difference.
+    </div>
+  </div>
+
+  <div class="content" id="page1">
+    <div class="note">How to subtract single digit numbers:</div>
+    <div class="analogy">
+      <ul>
+        <li>Start with the first number</li>
+        <li>Count backwards the amount of times mentioned in the 2nd number</li>
+        <li><strong>Example:</strong> 8 - 3 we should start at 8 then count back 3 times: 8, 7, 6, 5. The answer is 5!</li>
+      </ul>
+      <button id="start1Button" class="button">Start</button>
+      <div id="container1" class="container"></div>
+    </div>
+  </div>
+
+  <div class="content" id="page2">
+    <div class="note">How to subtract double digit numbers (without borrowing):</div>
+    <div class="analogy">
+      <ul>
+        <li><strong>Subtract the tens first:</strong> for 34 - 12, start with the tens: 30 - 10 = 20.</li>
+        <li><strong>Subtract the ones next:</strong> 4 - 2 = 2.</li>
+        <li><strong>Put it together:</strong> 20 + 2 = 22. So, 34 - 12 = 22.</li>
+      </ul>
+      <button id="start2Button" class="button">Start</button>
+      <div id="container2" class="container"></div>
+    </div>
+  </div>
+
+  <div class="content" id="page3">
+    <div class="note">How to subtract double digit numbers (with borrowing):</div>
+    <div class="analogy">
+      <ul>
+        <li><strong>Start with the ones place:</strong> For 43 - 27, look at the ones first: 3 - 7. You can’t take 7 away from 3, so you need to borrow 1 from the tens.</li>
+        <li><strong>Borrow from the tens:</strong> The 4 in the tens place becomes 3, and the 3 in the ones place becomes 13.</li>
+        <li><strong>Subtract the ones:</strong> 13 - 7 = 6.</li>
+        <li><strong>Subtract the tens:</strong> 3 - 2 = 1.</li>
+        <li><strong>Put it together:</strong> 43 - 27 = 16.</li>
+      </ul>
+      <button id="start3Button" class="button">Start</button>
+      <div id="container3" class="container"></div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    document.getElementById('start1Button').addEventListener('click', () => startQuiz('container1', [
+      { equation: '8 - 3 =', answer: '5' },
+      { equation: '6 - 4 =', answer: '2' }
+    ]));
+
+    document.getElementById('start2Button').addEventListener('click', () => startQuiz('container2', [
+      { equation: '34 - 12 =', answer: '22' },
+      { equation: '45 - 23 =', answer: '22' }
+    ]));
+
+    document.getElementById('start3Button').addEventListener('click', () => startQuiz('container3', [
+      { equation: '43 - 27 =', answer: '16' },
+      { equation: '52 - 38 =', answer: '14' }
+    ]));
+
+    function startQuiz(containerId, problems) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = '';
+      problems.forEach(({ equation, answer }) => {
+        const div = document.createElement('div');
+        const label = document.createElement('span');
+        label.textContent = equation;
+
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'input-box';
+
+        input.addEventListener('input', () => {
+          input.classList.toggle('correct', input.value.trim() === answer);
+          input.classList.toggle('incorrect', input.value.trim() !== answer);
+        });
+
+        div.appendChild(label);
+        div.appendChild(input);
+        container.appendChild(div);
+      });
+    }
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      } else if (currentPage === pages.length - 1) {
+        window.location.href = 'g2calculation3.html'; 
+      }
+    }
+  </script>
+</body>
+</html>

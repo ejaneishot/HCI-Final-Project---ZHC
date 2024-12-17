@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Measurement</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Measurement</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">Length</div>
+    <div class="analogy">
+      Length tells us how long or short something is.<br><br>
+      Comparing lengths: We can compare how long two things are by using our eyes or hands. For example, we can say this pencil is longer than this crayon.<br><br>
+      Vocabulary: <strong>Shorter</strong>, <strong>Longer</strong>
+    </div>
+  </div>
+
+  <div class="content" id="page1">
+    <div class="note">Using Non-Standard Units</div>
+    <div class="analogy">
+      We can use objects like blocks or your hand to measure things. For example, this string is 5 blocks long.
+    </div>
+  </div>
+
+  <div class="content" id="page2">
+    <div class="note">Mass</div>
+    <div class="analogy">
+      Mass tells us how heavy or light something is.<br><br>
+      Comparing mass: We can compare how heavy two things are by holding them. For example, this rock is heavier than this leaf.<br><br>
+      Vocabulary: <strong>Heavier</strong>, <strong>Lighter</strong>
+    </div>
+  </div>
+
+  <div class="content" id="page3">
+    <div class="note">Using Non-Standard Units for Mass</div>
+    <div class="analogy">
+      We can use things like toy cars or blocks to measure weight. For example, this apple weighs as much as 3 toy cars.
+    </div>
+  </div>
+
+  <div class="content" id="page4">
+    <div class="note">Read Time to the Hour</div>
+    <div class="analogy">
+      A clock is a device that helps us tell the time. It has two hands: the long hand and the short hand.<br><br>
+      Long hand: the minute hand. It helps us tell the minute.<br>
+      Short hand: the hour hand. It helps us tell the hour.<br><br>
+      How to read the time to the hour:<br>
+      Look at the long hand (minute hand), if it is pointed to 12, it’s o’clock.<br>
+      Look at the short hand (hour hand), the short hand tells you the hour.<br>
+      Say the time, if the short hand is pointed to 5 for example and the long hand is pointed to 12, you say it’s 5 o’clock.
+    </div>
+  </div>
+
+  <div class="content" id="page5">
+    <div class="note">Units of Time</div>
+    <div class="analogy">
+      Time helps us know when things happen, like when to eat breakfast, go to school, or play with friends.<br><br>
+      There are many different units of time:<br>
+      <strong>Minutes:</strong> A minute is a very short amount of time. It’s how long it might take to tie your shoes.<br>
+      Example: We can count 60 seconds, and that makes 1 minute.<br><br>
+      <strong>Hours:</strong> An hour is longer than a minute. A clock shows us hours. There are 24 hours in one day.<br>
+      Example: One hour is about how long it takes to watch a cartoon.<br><br>
+      <strong>Days:</strong> A day is the time from when you wake up in the morning until you go to bed at night.<br>
+      Example: There are 24 hours in a day.<br><br>
+      <strong>Weeks:</strong> A week is 7 days long. It starts on Sunday and ends on Saturday.<br>
+      Example: We go to school for 5 days in a week, and we have 2 days off on the weekend.<br><br>
+      <strong>Months:</strong> A month is longer than a week. It takes about 4 weeks.<br>
+      Example: There are 12 months in a year. Your birthday happens in one of the months!<br><br>
+      <strong>Years:</strong> A year is 12 months long. It’s how long it takes for the Earth to go all the way around the sun.<br>
+      Example: If your last birthday was in January, you have to wait a year to celebrate your next birthday.
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g1main.html'; // Redirect to g1quizmain.html
+  }
+}
+
+  </script>
+</body>
+</html>

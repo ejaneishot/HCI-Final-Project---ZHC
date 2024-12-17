@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 4: Handling Data</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    img {
+      display: block;
+      margin: 20px auto;
+      max-width: 45%;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .img2 {
+      width: 150px;
+      height: auto;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    /* Table styles */
+    table {
+      width: 90%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #6a5acd;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #e0e0e0;
+    }
+
+    .caption {
+      font-weight: bold;
+      background-color: #6a5acd;
+      color: white;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Sorting Data with Venn and Carroll Diagrams</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 0: Introduction -->
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">Let’s learn how to use Venn and Carroll diagrams to sort data by two or three criteria!</div>
+    <div class="analogy">
+      Venn and Carroll diagrams help us organize data based on different categories or characteristics.
+    </div>
+  </div>
+
+  <!-- Page 1: Venn Diagrams -->
+  <div class="content" id="page1">
+    <div class="note">Venn Diagrams</div>
+    <div class="analogy">
+      A Venn diagram uses circles to show how things are grouped. Overlapping circles show where things share common traits.
+      <br><br>
+      <strong>Example:</strong><br>
+      You have a group of numbers. One circle shows numbers that are in the 5x table, and the other shows numbers that are odd. The overlap would show odd multiples of 5. The outside would show numbers that do not follow either criteria.
+      <br><br>
+      <strong>How to use a Venn Diagram:</strong>
+      <ul>
+        <li>Step 1: Draw two or more overlapping circles.</li>
+        <li>Step 2: Label each circle with a different characteristic (e.g., "Number in the 5x table", "Odd").</li>
+        <li>Step 3: Place the items in the appropriate part of the diagram. If it fits both categories, place it in the overlap. If it only fits one category, place it in the section that doesn’t overlap. If it doesn't fit any, put it outside the circles.</li>
+      </ul>
+      <img src="venn4.png" alt="Venn Diagram Example">
+    </div>
+  </div>
+
+  <!-- Page 2: Carroll Diagrams -->
+  <div class="content" id="page2">
+    <div class="note">Carroll Diagrams</div>
+    <div class="analogy">
+      A Carroll diagram is like a table where you sort data into boxes based on certain rules. It helps you organize things by two or three categories.
+      <br><br>
+      <strong>Example:</strong><br>
+      You have a list of shapes and sort them into a Carroll diagram based on whether they have more or less than 4 sides and whether they are symmetrical or not.
+      <br><br>
+      <strong>How to use a Carroll Diagram:</strong>
+      <ul>
+        <li>Step 1: Draw a table with rows and columns.</li>
+        <li>Step 2: Label the rows and columns based on different characteristics (e.g., "Symmetrical" vs. "Not symmetrical" and "4 corners or less" vs. "More than 4 corners").</li>
+        <li>Step 3: Sort the data into the correct boxes based on these characteristics.</li>
+      </ul>
+      <img src="carroll4.png" alt="Carroll Diagram Example">
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    // Function to go to the next page
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Function to go to the previous page
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g4main.html'; 
+  }
+}
+  </script>
+</body>
+</html>

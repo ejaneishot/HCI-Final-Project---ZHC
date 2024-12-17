@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grade 3: Numbers</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    /* Quiz styles */
+    .quiz {
+      display: none;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .quiz img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .option {
+      display: block;
+      margin: 10px 0;
+      cursor: pointer;
+      padding: 10px;
+      background-color: #e0e0e0;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .option:hover {
+      background-color: #d3d3d3;
+    }
+
+    .feedback {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Rounding Numbers to the Nearest 10 or 100</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 0 -->
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">Let’s Learn How to Round Numbers to the Nearest 10 or 100!</div>
+    <div class="analogy">
+      Rounding means changing a number to make it simpler but still close to the original number. 
+      When we round to the nearest 10 or 100, we look at the digits and decide which 10 or 100 it’s closest to.
+    </div>
+  </div>
+
+  <!-- Page 1 -->
+  <div class="content" id="page1">
+    <div class="note">How to Round to the Nearest 10</div>
+    <div class="analogy">
+      <p><strong>Look at the ones place:</strong></p>
+      <ul>
+        <li>If the ones digit is 5 or more, round up to the next ten.</li>
+        <li>If the ones digit is 4 or less, round down to the previous ten.</li>
+      </ul>
+      <br>
+      <strong>Examples:</strong>
+      <br>
+      <ul>
+        <li>
+            <strong>Round 73 to the nearest 10:</strong> Look at the ones place (3). Since 3 is less than 5, round down to 70.
+        </li>
+        <li><strong>Round 78 to the nearest 10:</strong> Look at the ones place (8). Since 8 is 5 or more, round up to 80.</li>
+      </ul>
+      <button id="start1Button" class="button" onclick="startQuizTens()">Start</button>
+      <div id="quizTens" style="display: none; margin-top: 20px;">
+        <h2>Round the following number to the nearest 10:</h2>
+        <img alt="Rounding 73 to the nearest 10">
+        <div class="option" onclick="checkAnswerTens(70)">70</div>
+        <div class="option" onclick="checkAnswerTens(80)">80</div>
+        <div class="option" onclick="checkAnswerTens(90)">90</div>
+        <div class="feedback" id="feedbackTens"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 2 -->
+  <div class="content" id="page2">
+    <div class="note">How to Round to the Nearest 100</div>
+    <div class="analogy">
+      <p><strong>Look at the tens place:</strong></p>
+      <ul>
+        <li>If the tens digit is 5 or more, round up to the next hundred.</li>
+        <li>If the tens digit is 4 or less, round down to the previous hundred.</li>
+      </ul>
+      <br>
+      <strong>Examples:</strong>
+      <br>
+      <ul>
+        <li><strong>Round 453 to the nearest 100:</strong> Look at the tens place (5). Since 5 is 5 or more, round up to 500.</li>
+        <li><strong>Round 463 to the nearest 100:</strong> Look at the tens place (6). Since 6 is 5 or more, round up to 500.</li>
+      </ul>
+      <button id="start2Button" class="button" onclick="startQuizHundreds()">Start</button>
+      <div id="quizHundreds" style="display: none; margin-top: 20px;">
+        <h2>Round the following number to the nearest 100:</h2>
+        <img src="rounding_hundreds.jpg" alt="Rounding 453 to the nearest 100">
+        <div class="option" onclick="checkAnswerHundreds(400)">400</div>
+        <div class="option" onclick="checkAnswerHundreds(500)">500</div>
+        <div class="option" onclick="checkAnswerHundreds(600)">600</div>
+        <div class="feedback" id="feedbackHundreds"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    // Function to go to the next page
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Function to go to the previous page
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Start Quiz for Rounding to Nearest 10
+    function startQuizTens() {
+      const quizTens = document.getElementById('quizTens');
+      quizTens.style.display = 'block';
+      progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+    }
+
+    // Start Quiz for Rounding to Nearest 100
+    function startQuizHundreds() {
+      const quizHundreds = document.getElementById('quizHundreds');
+      quizHundreds.style.display = 'block';
+      progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+    }
+
+    // Check answer for tens quiz
+    function checkAnswerTens(answer) {
+      const feedback = document.getElementById('feedbackTens');
+      if (answer === 70) {
+        feedback.textContent = "Correct! 73 rounds down to 70.";
+      } else {
+        feedback.textContent = "Incorrect. Try again.";
+      }
+    }
+
+    // Check answer for hundreds quiz
+    function checkAnswerHundreds(answer) {
+      const feedback = document.getElementById('feedbackHundreds');
+      if (answer === 500) {
+        feedback.textContent = "Correct! 453 rounds up to 500.";
+      } else {
+        feedback.textContent = "Incorrect. Try again.";
+      }
+    }
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g3numbers4.html'; 
+  }
+}
+  </script>
+</body>
+</html>

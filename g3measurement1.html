@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grade 3: Measurement</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .drag-drop {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .drag-drop .item {
+      width: 100px;
+      height: 100px;
+      background-color: #f5f5f5;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 10px;
+      cursor: move;
+    }
+
+    .drag-drop .item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .drag-drop .target {
+      width: 200px;
+      height: 200px;
+      background-color: #f5f5f5;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 10px;
+    }
+
+    .drag-drop .target img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="g3main.html" class="close-button">X</a>
+    <h1 class="header-title">Measuring Units and Tools</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 0: Introduction -->
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">Let’s learn about measuring using appropriate units and tools!</div>
+    <div ```html
+    <div class="analogy">
+      Measuring is finding out how long, heavy, or full something is using the right tools.
+    </div>
+  </div>  
+
+  <!-- Page 1: Length Measurement -->
+  <div class="content" id="page1">
+    <div class="note">Length Measurement</div>
+    <div class="analogy">
+      Length is how long or tall something is.
+      <ul>
+        <li><strong>Units:</strong> Centimeters (cm) and Meters (m)</li>
+        <li><strong>Tools:</strong> Use a ruler, measuring tape, or meter stick.</li>
+      </ul>
+      <strong>Example:</strong> Use a ruler to measure a pencil in centimeters.
+      <br><br>
+      <button id="start1Button" class="button" onclick="lengthMeasurement()">Start</button>
+    </div>
+  </div>
+
+  <!-- Page 2: Mass Measurement -->
+  <div class="content" id="page2">
+    <div class="note">Mass Measurement</div>
+    <div class="analogy">
+      Mass is how heavy something is.
+      <ul>
+        <li><strong>Units:</strong> Grams (g) and Kilograms (kg)</li>
+        <li><strong>Tools:</strong> Use a weighing scale.</li>
+      </ul>
+      <strong>Example:</strong> A loaf of bread weighs about 500 grams.
+      <br><br>
+      <button id="start2Button" class="button" onclick="massMeasurement()">Start</button>
+    </div>
+  </div>
+
+  <!-- Page 3: Capacity Measurement -->
+  <div class="content" id="page3">
+    <div class="note">Capacity Measurement</div>
+    <div class="analogy">
+      Capacity is how much liquid fits in a container.
+      <ul>
+        <li><strong>Units:</strong> Milliliters (ml) and Liters (l)</li>
+        <li><strong>Tools:</strong> Use a measuring jug or cup.</li>
+      </ul>
+      <strong>Example:</strong> A small juice box holds 250 milliliters.
+      <br><br>
+      <button id="start3Button" class="button" onclick="capacityMeasurement()">Start</button>
+    </div>
+  </div>
+
+  <!-- Navigation Buttons -->
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    // Function to go to the next page
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Function to go to the previous page
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Function for length measurement
+    function lengthMeasurement() {
+      const lengthPage = document.getElementById('page1');
+      lengthPage.innerHTML = `
+        <div class="drag-drop">
+          <div class="item" draggable="true" id="ruler">
+            <img src="ruler.jpg" alt="Ruler">
+          </div>
+          <div class="item" draggable="true" id="measuring-tape">
+            <img src="measuring-tape.jpg" alt="Measuring Tape">
+          </div>
+          <div class="item" draggable="true" id="meter-stick">
+            <img src="meter-stick.jpg" alt="Meter Stick">
+          </div>
+          <div class="target" id="target">
+            <img src="pencil.jpg" alt="Pencil">
+          </div>
+        </div>
+      `;
+      setupDragDrop();
+    }
+
+    // Function for mass measurement
+    function massMeasurement() {
+      const massPage = document.getElementById('page2');
+      massPage.innerHTML = `
+        <div class="quiz">
+          <h2>What is the weight of a loaf of bread?</h2>
+          <button onclick="checkMassAnswer('500g')">500g</button>
+          <button onclick="checkMassAnswer('1kg')">1kg</button>
+          <button onclick="checkMassAnswer('250g')">250g</button>
+        </div>
+      `;
+    }
+
+    function checkMassAnswer(answer) {
+      if (answer === '500g') {
+        alert('Correct! A loaf of bread weighs about 500 grams.');
+      } else {
+        alert('Try again!');
+      }
+    }
+
+    // Function for capacity measurement
+    function capacityMeasurement() {
+      const capacityPage = document.getElementById('page3');
+      capacityPage.innerHTML = `
+        <div class="quiz">
+          <h2>How many milliliters are in a small juice box?</h2>
+          <button onclick="checkCapacityAnswer('250ml')">250ml</button>
+          <button onclick="checkCapacityAnswer('500ml')">500ml</button>
+          <button onclick="checkCapacityAnswer('1l')">1l</button>
+        </div>
+      `;
+    }
+
+    function checkCapacityAnswer(answer) {
+      if (answer === '250ml') {
+        alert('Correct! A small juice box holds 250 milliliters.');
+      } else {
+        alert('Try again!');
+      }
+    }
+
+    function setupDragDrop() {
+      const items = document.querySelectorAll('.item');
+      const target = document.getElementById('target');
+      items.forEach(item => {
+        item.addEventListener('dragstart', event => {
+          event.dataTransfer.setData('text', event.target.id);
+        });
+      });
+      target.addEventListener('dragover', event => {
+        event.preventDefault();
+      });
+      target.addEventListener('drop', event => {
+        event.preventDefault();
+        const data = event.dataTransfer.getData('text');
+        if (data === 'ruler' || data === 'measuring-tape' || data === 'meter-stick') {
+          alert('Correct! You can use this tool to measure length.');
+        } else {
+          alert('Try again!');
+        }
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grade 3: Work with Fractions and Their Equivalents</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    .drag-drop-container, .quiz-container {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .dropzone {
+      width: 200px;
+      height: 100px;
+      border: 2px dashed #6a5acd;
+      margin: 20px auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #6a5acd;
+      font-weight: bold;
+    }
+
+    .draggable {
+      width: 50px;
+      height: 50px;
+      background-color: #6a5acd;
+      color: white;
+      display: inline-block;
+      line-height: 50px;
+      text-align: center;
+      border-radius: 5px;
+      cursor: grab;
+      margin: 5px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Work with Fractions and Their Equivalents</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 0 -->
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">Let’s Learn About Fractions and Their Equivalents!</div>
+    <div class="analogy">
+      Fractions are parts of a whole. When you divide something into equal parts, each part is called a fraction.
+    </div>
+  </div>
+
+  <!-- Page 1: Understanding Fractions -->
+  <div class="content" id="page1">
+    <div class="note">What Are Fractions?</div>
+    <div class="analogy">
+      Fractions are parts of a whole. When something is divided into equal parts, each part is a fraction.
+      <br><br>
+      <strong>Examples:</strong>
+      <ul>
+        <li><strong>½ (half):</strong> If you cut a pizza into 2 equal parts, each part is one-half.</li>
+        <li><strong>¼ (quarter):</strong> If you cut a sandwich into 4 equal parts, each part is one-quarter.</li>
+        <li><strong>¾ (three-quarters):</strong> If you take 3 out of 4 equal parts, you have three-quarters.</li>
+      </ul>
+      <button id="start1Button" class="button" onclick="startFractionsQuiz()">Start</button>
+    </div>
+  </div>
+
+  <!-- Page 2: Equivalent Fractions -->
+  <div class="content" id="page2">
+    <div class="note">What Are Equivalent Fractions?</div>
+    <div class="analogy">
+      Equivalent fractions are fractions that are equal, even if they look different.
+      <br><br>
+      <strong>Examples:</strong>
+      <ul>
+        <li>½ = ²/₄: One-half is the same as two-quarters because they cover the same amount.</li>
+        <li>¼ = ²/₈: One-quarter is the same as two-eighths.</li>
+      </ul>
+      <button id="start2Button" class="button" onclick="startEquivalentFractionsQuiz()">Start</button>
+    </div>
+  </div>
+
+  <!-- Page 3: How to Work with Fractions -->
+  <div class="content" id="page3">
+    <div class="note">How to Work with Fractions</div>
+    <div class="analogy">
+      <strong>Identifying Fractions:</strong> Look at how many parts a whole is divided into and how many parts you’re counting.
+      <br><br>
+      <strong>Example:</strong> If a shape is divided into 4 parts and 1 part is shaded, it’s ¼.
+      <br><br><br>
+      <strong>Finding Equivalents:</strong> You can find equivalent fractions by multiplying or dividing the top and bottom numbers of the fraction.
+      <br><br>
+      <strong>Example:</strong> If you double the top and bottom numbers of ½, you get ²/₄, which is still the same amount.
+      <br><br>
+      <button id="start3Button" class="button" onclick="startWorkingWithFractionsQuiz()">Start</button>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    // Function to go to the next page
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Function to go to the previous page
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Start Quiz for Page 1
+    function startFractionsQuiz() {
+      const quizContainer = document.createElement('div');
+      quizContainer.className = 'quiz-container';
+      quizContainer.innerHTML = `
+        <h3>Drag and Drop the Correct Fractions</h3>
+        <div class="drag-drop-container">
+          <div class="draggable" id="half" draggable="true" ondragstart="drag(event)">½</div>
+          <div class="draggable" id="quarter" draggable="true" ondragstart="drag(event)">¼</div>
+          <div class="draggable" id="threeQuarter" draggable="true" ondragstart="drag(event)">¾</div>
+          <div class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">Drop here</div>
+        </div>
+        
+      `;
+      pages[currentPage].appendChild(quizContainer);
+      document.getElementById('start1Button').disabled = true; // Disable the start button
+    }
+
+    // Start Quiz for Page 2
+    function startEquivalentFractionsQuiz() {
+      const quizContainer = document.createElement('div');
+      quizContainer.className = 'quiz-container';
+      quizContainer.innerHTML = `
+        <h3>Match the Equivalent Fractions</h3>
+        <div class="drag-drop-container">
+          <div class="draggable" id="half" draggable="true" ondragstart="drag(event)">½</div>
+          <div class="draggable" id="quarter" draggable="true" ondragstart="drag(event)">¼</div>
+          <div class="dropzone" ondrop="dropEquivalent(event, 'half')" ondragover="allowDrop(event)">Match with ½</div>
+          <div class="dropzone" ondrop="dropEquivalent(event, 'quarter')" ondragover="allowDrop(event)">Match with ¼</div>
+        </div>
+        
+      `;
+      pages[currentPage].appendChild(quizContainer);
+      document.getElementById('start2Button').disabled = true; // Disable the start button
+    }
+
+    // Start Quiz for Page 3
+    function startWorkingWithFractionsQuiz() {
+      const quizContainer = document.createElement('div');
+      quizContainer.className = 'quiz-container';
+      quizContainer.innerHTML = `
+        <h3>Small Quiz on Working with Fractions</h3>
+        <div class="quiz-container">
+          <p>What is ½ + ¼?</p>
+          <input type="text" id="answer" placeholder="Your answer">
+          <button class="button" onclick="checkAnswer()">Submit</button>
+        </div>
+        
+      `;
+      pages[currentPage].appendChild(quizContainer);
+      document.getElementById('start3Button').disabled = true; // Disable the start button
+    }
+
+    // Drag and drop functions
+    function allowDrop(ev) {
+      ev.preventDefault();
+    }
+
+    function drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    function drop(ev) {
+      ev.preventDefault();
+      const data = ev.dataTransfer.getData("text");
+      ev.target.textContent = data; // Show the dragged item in the dropzone
+      ev.target.style.color = '#000'; // Change text color to indicate drop
+    }
+
+    function dropEquivalent(ev, fraction) {
+      ev.preventDefault();
+      const data = ev.dataTransfer.getData("text");
+      if ((data === 'half' && fraction === 'half') || (data === 'quarter' && fraction === 'quarter')) {
+        ev.target.textContent = data; // Correct match
+        ev.target.style.color = '#000'; // Change text color to indicate drop
+      } else {
+        alert('Try again!');
+      }
+    }
+
+    function checkAnswer() {
+      const answer = document.getElementById('answer').value;
+      if (answer === '3/4' || answer === '0.75') {
+        alert('Correct! ½ + ¼ = ¾');
+      } else {
+        alert('Incorrect. Try again!');
+      }
+    }
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g3main.html'; 
+  }
+}
+  </script>
+</body>
+</html>

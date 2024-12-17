@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 3: Data Handling</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    table {
+      width: 90%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #6a5acd;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #e0e0e0;
+    }
+
+    .caption {
+      font-weight: bold;
+      background-color: #6a5acd;
+      color: white;
+    }
+
+    img {
+      display: block;
+      margin: 20px auto;
+      max-width: 50%;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Sorting Data with Venn and Carroll Diagrams</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 0: Introduction -->
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">Sorting Data with Venn and Carroll Diagrams</div>
+    <div class="analogy">
+      Sorting means putting things into groups based on their characteristics, such as color, shape, or size. Today, we’ll look at two ways to sort objects: Venn diagrams and Carroll diagrams.
+    </div>
+  </div>
+
+  <!-- Page 1: Venn Diagram -->
+  <div class="content" id="page1">
+    <div class="note">Venn Diagram</div>
+    <div class="analogy">
+      <strong>What is a Venn Diagram?</strong><br>
+      A Venn diagram uses two overlapping circles. You put things in the circles based on their characteristics. If something fits both categories, it goes in the overlap.
+      <br><br>
+      <strong>Example:</strong><br>
+      Let’s sort shapes by being blue and circle.
+      <ul>
+        <li>Blue circles are blue and circle, so they go in the overlap.</li>
+        <li>Orange and green circles are circle but not blue, so they go in the 'circle' circle.</li>
+        <li>Blue squares and triangles are blue but not circle, so they go in the 'blue' circle.</li>
+      </ul>
+      <strong>How to use a Venn Diagram:</strong>
+      <ol>
+        <li>Draw two overlapping circles.</li>
+        <li>Label one circle with one characteristic (e.g., circle), and the other circle with another (e.g., blue).</li>
+        <li>Put items that fit both characteristics in the overlap.</li>
+        <li>Put items that fit only one characteristic in the parts of the circles that don’t overlap.</li>
+      </ol>
+      <img id="image1" src="venn3.png" alt="Venn Diagram Example">
+    </div>
+  </div>
+
+  <!-- Page 2: Carroll Diagram -->
+  <div class="content" id="page2">
+    <div class="note">Carroll Diagram</div>
+    <div class="analogy">
+      <strong>What is a Carroll Diagram?</strong><br>
+      A Carroll diagram is a grid where you sort things into different boxes based on two characteristics.
+      <br><br>
+      <strong>Example:</strong><br>
+      Sort fruits by color (Red, Green) and shape (Round, Not Round).
+      <br><br>
+      <strong>How to use a Carroll Diagram:</strong>
+      <ol>
+        <li>Draw a grid with rows and columns.</li>
+        <li>Label each row and column with the two criteria (e.g., Color: Red, Green; Shape: Round, Not Round).</li>
+        <li>Put the items in the correct boxes based on both characteristics.</li>
+      </ol>
+      <table>
+        <thead>
+          <tr>
+            <th class="caption">Color</th>
+            <th class="caption">Red</th>
+            <th class="caption">Green</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Round</td>
+            <td>Apple, Cherry</td>
+            <td>Grapefruit</td>
+          </tr>
+          <tr>
+            <td>Not Round</td>
+            <td>Strawberry</td>
+            <td>Pear</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Navigation Buttons -->
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    // Function to go to the next page
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Function to go to the previous page
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g3main.html'; 
+  }
+}
+  </script>
+</body>
+</html>

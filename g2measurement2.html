@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 2: Measurement</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none; /* Hide all pages initially */
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .message {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .correct {
+      color: green;
+    }
+
+    .wrong {
+      color: red;
+    }
+
+    img {
+      display: block;
+      margin: 20px auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="g2main.html" class="close-button">X</a>
+    <h1 class="header-title">Know Units of Time</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 0 -->
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">What are Units of Time?</div>
+    <div class="analogy">
+      Units of time help us measure how long something takes or when something happens. We use seconds, minutes, hours, days, weeks, months, and years to tell time.
+    </div>
+  </div>
+
+  <!-- Pages with Quizzes -->
+  <div class="content" id="page1">
+    <div class="note">Seconds:</div>
+    <div class="analogy">
+      Seconds are very short. It takes about 1 second to clap your hands once.<br><br>
+      <button id="start1Button" class="button">Start</button>
+      <div id="container1" class="container"></div>
+    </div>
+  </div>
+
+  <div class="content" id="page2">
+    <div class="note">Minutes:</div>
+    <div class="analogy">
+      A minute is longer than a second. There are 60 seconds in 1 minute.<br><br>
+      <button id="start2Button" class="button">Start</button>
+      <div id="container2" class="container"></div>
+    </div>
+  </div>
+
+  <div class="content" id="page3">
+    <div class="note">Hours:</div>
+    <div class="analogy">
+      An hour is much longer than a minute. There are 60 minutes in 1 hour.<br><br>
+      <button id="start3Button" class="button">Start</button>
+      <div id="container3" class="container"></div>
+    </div>
+  </div>
+
+  <div class="content" id="page4">
+    <div class="note">Days:</div>
+    <div class="analogy">
+      A day is the time from when the sun rises to when it rises again. There are 24 hours in 1 day.<br><br>
+      <button id="start4Button" class="button">Start</button>
+      <div id="container4" class="container"></div>
+    </div>
+  </div>
+
+  <div class="content" id="page5">
+    <div class="note">Weeks, Months, and Years:</div>
+    <div class="analogy">
+      A week has 7 days, a month has about 30 days, and a year has 12 months or 365 days.<br><br>
+      <button id="start5Button" class="button">Start</button>
+      <div id="container5" class="container"></div>
+    </div>
+  </div>
+
+  <!-- Navigation Buttons -->
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    function addQuiz(startButtonId, containerId, question, answers, correctIndex) {
+      document.getElementById(startButtonId).onclick = function () {
+        const container = document.getElementById(containerId);
+        container.innerHTML = `<p>${question}</p>`;
+        answers.forEach((ans, i) => {
+          const btn = document.createElement('button');
+          btn.textContent = ans;
+          btn.className = 'button';
+          btn.style.margin = '5px';
+          btn.onclick = function () {
+            const message = document.createElement('div');
+            message.className = i === correctIndex ? 'message correct' : 'message wrong';
+            message.textContent = i === correctIndex ? 'Correct!' : 'Try again!';
+            container.appendChild(message);
+          };
+          container.appendChild(btn);
+        });
+      };
+    }
+
+    addQuiz('start1Button', 'container1', 'How many seconds are there in 1 minute?', ['10', '30', '60'], 2);
+    addQuiz('start2Button', 'container2', 'How many minutes make 1 hour?', ['30', '60', '120'], 1);
+    addQuiz('start3Button', 'container3', 'How many hours are there in 1 day?', ['12', '24', '48'], 1);
+    addQuiz('start4Button', 'container4', 'How many days are there in 1 week?', ['5', '6', '7'], 2);
+    addQuiz('start5Button', 'container5', 'How many months are there in 1 year?', ['10', '12', '15'], 1);
+
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g2measurement3.html'; 
+  }
+}
+  </script>
+</body>
+</html>

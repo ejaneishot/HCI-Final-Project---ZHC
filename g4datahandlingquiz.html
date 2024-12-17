@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grade 4 Quiz : Data Handling</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .question {
+      margin-bottom: 20px;
+    }
+
+    .option {
+      display: block;
+      margin: 10px 0;
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      display: inline-block;
+      margin-top: 20px;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .result {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      margin-top: 20px;
+    }
+
+    .chart {
+      display: block;
+      margin: 20px 0;
+      max-width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Quiz : Data Handling (Grade 4)</h1>
+  </header>
+
+  <div class="content" id="quizPage">
+    <div class="question" id="questionContainer"></div>
+    <button class="button" id="nextButton">Next</button>
+    <div class="result" id="resultContainer" style="display:none;"></div>
+    <button class="button" id="redirectButton" style="display:none;">Next Quiz</button> 
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "Look at the bar graph below. What is the highest value in the graph?",
+        options: ["15", "20", "25", "30"],
+        correct: 3,
+        chart: `<img src="https://via.placeholder.com/500x200?text=Bar+Graph+Example" class="chart" alt="Bar Graph">`
+      },
+      {
+        question: "If a survey shows that 12 students like basketball, 15 like soccer, and 10 like tennis, which sport is liked the most?",
+        options: ["Basketball", "Soccer", "Tennis", "All sports are equally liked"],
+        correct: 1
+      },
+      {
+        question: "Which of the following is a way to represent data?",
+        options: ["Bar graph", "Circle graph", "Table", "All of the above"],
+        correct: 3
+      },
+      {
+        question: "How many students prefer soccer if there are 12 students in total and 7 prefer soccer?",
+        options: ["7", "5", "12", "9"],
+        correct: 0
+      },
+      {
+        question: "In the following table, what is the total number of books read by all students combined?",
+        options: ["45", "40", "50", "55"],
+        correct: 0,
+        table: `<table>
+                  <tr><th>Student</th><th>Books Read</th></tr>
+                  <tr><td>Alice</td><td>10</td></tr>
+                  <tr><td>Bob</td><td>15</td></tr>
+                  <tr><td>Charlie</td><td>20</td></tr>
+                </table>`
+      },
+      {
+        question: "What is the range of the following data set: 2, 7, 4, 5, 8?",
+        options: ["3", "6", "5", "8"],
+        correct: 1
+      },
+      {
+        question: "How many categories are in the following pie chart?",
+        options: ["2", "4", "5", "6"],
+        correct: 2,
+        chart: `<img src="https://via.placeholder.com/300x300?text=Pie+Chart+Example" class="chart" alt="Pie Chart">`
+      },
+      {
+        question: "In a tally chart, how would 7 be represented?",
+        options: ["| | | | | |", "| | | | | | | |", "|| || ||", "| | | | | | | | |"],
+        correct: 1
+      },
+      {
+        question: "What is the median of the data set: 3, 7, 5, 9, 1?",
+        options: ["3", "5", "7", "9"],
+        correct: 1
+      },
+      {
+        question: "If 12 out of 20 students like reading books, what fraction represents the students who like books?",
+        options: ["12/20", "8/20", "1/2", "3/4"],
+        correct: 0
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    const questionContainer = document.getElementById("questionContainer");
+    const nextButton = document.getElementById("nextButton");
+    const resultContainer = document.getElementById("resultContainer");
+    const redirectButton = document.getElementById("redirectButton");
+
+    function loadQuestion(index) {
+      const questionData = questions[index];
+      questionContainer.innerHTML = `${questionData.question}`;
+      if (questionData.chart) {
+        questionContainer.innerHTML += questionData.chart;
+      }
+      if (questionData.table) {
+        questionContainer.innerHTML += questionData.table;
+      }
+      questionData.options.forEach((option, i) => {
+        questionContainer.innerHTML += `
+          <label class="option">
+            <input type="radio" name="quizOption" value="${i}"> ${option}
+          </label>
+        `;
+      });
+    }
+
+    function showResult() {
+      questionContainer.style.display = "none";
+      nextButton.style.display = "none";
+      resultContainer.style.display = "block";
+      resultContainer.innerHTML = `You scored ${score} out of ${questions.length}!`;
+      redirectButton.style.display = "inline-block"; 
+    }
+
+    nextButton.addEventListener("click", () => {
+      const selectedOption = document.querySelector("input[name='quizOption']:checked");
+      if (selectedOption) {
+        const answer = parseInt(selectedOption.value, 10);
+        if (answer === questions[currentQuestion].correct) {
+          score++;
+        }
+
+        currentQuestion++;
+
+        if (currentQuestion < questions.length) {
+          loadQuestion(currentQuestion);
+        } else {
+          showResult();
+        }
+      } else {
+        alert("Please select an answer before proceeding.");
+      }
+    });
+
+    redirectButton.addEventListener("click", () => {
+      window.location.href = "quizmain.html"; 
+    });
+
+    document.getElementById("quizPage").style.display = "block";
+    loadQuestion(currentQuestion);
+
+  </script>
+</body>
+</html>

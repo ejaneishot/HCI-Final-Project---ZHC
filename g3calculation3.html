@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grade 3: Calculation</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    .quiz-container {
+      margin-top: 20px;
+    }
+
+    .question {
+      margin: 15px 0;
+    }
+
+    .feedback {
+      margin-top: 10px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Use the = sign to represent equality</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 0: Introduction -->
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">Let’s Learn About the Equals Sign!</div>
+    <div class="analogy">
+      The "=" sign means "is equal to." It shows that both sides of an equation have the same value. Let's learn how to use the equals sign in math.
+    </div>
+  </div>
+
+  <!-- Page 1: Example of Using Equals Sign -->
+  <div class="content" id="page1">
+    <div class="note">How to Use the Equals Sign</div>
+    <div class="analogy">
+      <strong>Example:</strong>
+      <br>
+      5 + 3 = 8 means 5 plus 3 is the same as 8.
+      <br><br>
+      <strong>Steps to check if an equation is true:</strong>
+      <ol>
+        <li><strong>Solve both sides of the equation:</strong> For example, 75 + 25 = 95 + 5.<br> Solve the left side: 75 + 25 = 100. Solve the right side: 95 + 5 = 100.</li>
+        <li><strong>Compare the values:</strong> If both sides are equal, the equation is true. If not, the equation is false. In this case, both sides are equal, so the equation is true.</li>
+      </ol>
+      <button id="start1Button" class="button">Start Quiz</button>
+      <div id="quizContainer" class="hidden quiz-container">
+        <div class="question">
+          1. 10 + 5 = 18 - 3 
+          <button onclick="checkAnswer(true, 1)">True</button>
+          <button onclick="checkAnswer(false, 1)">False</button>
+          <div class="feedback" id="feedback1"></div>
+        </div>
+        <div class="question">
+          2. 12 - 4 = 7 + 1
+          <button onclick="checkAnswer(true, 2)">True</button>
+          <button onclick="checkAnswer(false, 2)">False</button>
+          <div class="feedback" id="feedback2"></div>
+        </div>
+        <div class="question">
+          3. 6 + 3 = 5 + 2
+          <button onclick="checkAnswer(false, 3)">True</button>
+          <button onclick="checkAnswer(true, 3)">False</button>
+          <div class="feedback" id="feedback3"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Buttons -->
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    // Function to go to the next page
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Function to go to the previous page
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Quiz functionality
+    document.getElementById('start1Button').onclick = function() {
+      document.getElementById('quizContainer').classList.remove('hidden');
+    };
+
+    function checkAnswer(isCorrect, questionNumber) {
+      const feedbackElement = document.getElementById('feedback' + questionNumber);
+      if (isCorrect) {
+        feedbackElement.textContent = "Correct! Well done!";
+        feedbackElement.style.color = "green";
+      } else {
+        feedbackElement.textContent = "Incorrect. Try again!";
+        feedbackElement.style.color = "red";
+      }
+    }
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g3calculation4.html'; 
+  }
+}
+  </script>
+</body>
+</html>

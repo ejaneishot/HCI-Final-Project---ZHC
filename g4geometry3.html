@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grade 4: Geometry</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    img {
+      display: block;
+      margin: 20px auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .img2 {
+      width: 150px;
+      height: auto;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    #animationContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin-top: 50px;
+    }
+
+    table {
+      width: 90%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+    th, td {
+      padding: 12px 15px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+    th {
+      background-color: #6a5acd;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    tr:hover {
+      background-color: #e0e0e0;
+    }
+    .caption {
+      font-weight: bold;
+      background-color: #6a5acd;
+      color: white;
+    }
+
+    /* Drag and Drop Styles */
+    .drop-area {
+      border: 2px dashed #6a5acd;
+      padding: 20px;
+      margin: 10px 0;
+      text-align: center;
+      min-height: 60px;
+    }
+
+    .draggable {
+      width: 80px;
+      height: 50px;
+      padding: 5px;
+      margin: 5px;
+      background-color: #f5f5f5;
+      border: 1px solid #6a5acd;
+      border-radius: 5px;
+      cursor: grab;
+      text-align: center;
+    }
+
+    .correct {
+      background-color: #4caf50;
+      color: white;
+    }
+
+    .wrong {
+      background-color: #f44336;
+      color: white;
+    }
+
+    #quizResult {
+      margin: 20px 0;
+      font-size: 18px;
+      text-align: center;
+      color: #6a5acd;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Comparing and Ordering Angles</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 1: What are Angles? -->
+  <div class="content" id="page1" style="display: block;">
+    <div class="note">What are Angles?</div>
+    <div class="analogy">
+      An angle is the space between two lines that meet at a point, called the vertex. Angles are measured in degrees (°).
+    </div>
+    <button id="start1Button" class="button" onclick="startPage1()">Start</button>
+    <div id="page1Content" style="display: none;"></div>
+  </div>
+
+  <!-- Page 2: Right Angle (90º) -->
+  <div class="content" id="page2">
+    <div class="note">Right Angle (90º)</div>
+    <div class="analogy">
+      A right angle is an L-shape, like the corner of a piece of paper. Example: A square has four right angles.<br><br>
+      <button id="start2Button" class="button" onclick="startPage2()">Start</button>
+      <div id="page2Content" style="display: none;"></div>
+    </div>
+  </div>
+
+  <!-- Page 3: Acute Angle (<90º) -->
+  <div class="content" id="page3">
+    <div class="note">Acute Angle (<90º)</div>
+    <div class="analogy">
+      An acute angle is smaller than a right angle. It’s sharp and pointy. Example: A 30º angle.<br><br>
+      <button id="start3Button" class="button" onclick="startPage3()">Start</button>
+      <div id="page3Content" style="display: none;"></div>
+    </div>
+  </div>
+
+  <!-- Page 4: Obtuse Angle (>90º but <180º) -->
+  <div class="content" id="page4">
+    <div class="note">Obtuse Angle (>90º but <180º)</div>
+    <div class="analogy">
+      An obtuse angle is bigger than a right angle but smaller than a straight line. Example: A 120° angle.<br><br>
+      <button id="start4Button" class="button" onclick="startPage4()">Start</button>
+      <div id="page4Content" style="display: none;"></div>
+    </div>
+  </div>
+
+  <!-- Page 5: Straight Angle (180º) -->
+  <div class="content" id="page5">
+    <div class="note">Straight Angle (180º)</div>
+    <div class="analogy">
+      A straight angle is like a straight line, measuring exactly 180°. Example: A straight line is a straight angle.<br><br>
+      <button id="start5Button" class="button" onclick="startPage5()">Start</button>
+      <div id="page5Content" style="display: none;"></div>
+    </div>
+  </div>
+
+  <!-- Page 6: How to Compare Angles -->
+  <div class="content" id="page6">
+    <div class="note">How to Compare Angles</div>
+    <div class="analogy">
+      To compare angles, see which one opens more. The bigger the opening, the bigger the angle.<br><br>
+      Example: An angle of 60° is smaller than an angle of 120°.<br><br>
+      <button id="start6Button" class="button">Start</button>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Start Button Functions
+    function startPage1() {
+      const content = `
+        <div class="drop-area" id="dropArea1">Drag here for correct answers</div>
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="draggable1">Angle</div>
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="draggable2">Vertex</div>
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="draggable3">Degree</div>
+        <div id="page1Result"></div>
+      `;
+      document.getElementById('page1Content').innerHTML = content;
+      document.getElementById('page1Content').style.display = 'block';
+      checkDropArea();
+    }
+
+    function startPage2() {
+      const content = `
+        <img src="angle_right.png" alt="Right Angle" />
+        <div class="drop-area" id="dropArea2">Drop the correct description here</div>
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="draggable4">90 degrees</div>
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="draggable5">Square Corner</div>
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="draggable6">Acute Angle</div>
+        <div id="page2Result"></div>
+      `;
+      document.getElementById('page2Content').innerHTML = content;
+      document.getElementById('page2Content').style.display = 'block';
+      checkDropArea();
+    }
+
+    function startPage3() {
+      const content = `
+        <img src="angle_acute.png" alt="Acute Angle" />
+        <div class="drop-area" id="dropArea3">Match the angle description</div>
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="draggable7">Less than 90 degrees</div>
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="draggable8">More than 90 degrees</div>
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="draggable9">Exactly 90 degrees</div>
+        <div id="page3Result"></div>
+      `;
+      document.getElementById('page3Content').innerHTML = content;
+      document.getElementById('page3Content').style.display = 'block';
+      checkDropArea();
+    }
+
+    function startPage4() {
+      const content = `
+        <img src="angle_obtuse.png" alt="Obtuse Angle" />
+        <div class="drop-area" id="dropArea4">Choose the correct statements</div>
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="draggable10">More than 90 degrees</div>
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="draggable11">Less than 180 degrees</div>
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="draggable12">Exactly 180 degrees</div>
+        <div id="page4Result"></div>
+      `;
+      document.getElementById('page4Content').innerHTML = content;
+      document.getElementById('page4Content').style.display = 'block';
+      checkDropArea();
+    }
+
+    function startPage5() {
+      const content = `
+        <img src="angle_straight.png" alt="Straight Angle" />
+        <div class="drop-area" id="dropArea5">Identify the straight angle</div>
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="draggable13">180 degrees</div>
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="draggable14">90 degrees</div>
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="draggable15">360 degrees</div>
+        <div id="page5Result"></div>
+      `;
+      document.getElementById('page5Content').innerHTML = content;
+      document.getElementById('page5Content').style.display = 'block';
+      checkDropArea();
+    }
+
+    function drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    function checkDropArea() {
+      const dropAreas = document.querySelectorAll('.drop-area');
+      dropAreas.forEach(area => {
+        area.ondrop = drop;
+        area.ondragover = allowDrop;
+      });
+    }
+
+    function allowDrop(ev) {
+      ev.preventDefault();
+    }
+
+    function drop(ev) {
+      ev.preventDefault();
+      const data = ev.dataTransfer.getData("text");
+      const droppedElement = document.getElementById(data);
+      if (ev.target.id === "dropArea1" && (data === "draggable1" || data === "draggable2" || data === "draggable3")) {
+        ev.target.appendChild(droppedElement);
+        document.getElementById('page1Result').innerText = "Correct! You matched an angle term.";
+      } else if (ev.target.id === "dropArea2" && (data === "draggable4" || data === "draggable5")) {
+        ev.target.appendChild(droppedElement);
+        document.getElementById('page2Result').innerText = "Correct! This is a right angle.";
+      } else if (ev.target.id === "dropArea3" && data === "draggable7") {
+        ev.target.appendChild(droppedElement);
+        document.getElementById('page3Result').innerText = "Correct! An acute angle is less than 90 degrees.";
+      } else if (ev.target.id === "dropArea4" && (data === "draggable10" || data === "draggable11")) {
+        ev.target.appendChild(droppedElement);
+        document.getElementById('page4Result').innerText = "Correct! An obtuse angle is more than 90 and less than 180 degrees.";
+      } else if (ev.target.id === "dropArea5" && data === "draggable13") {
+        ev.target.appendChild(droppedElement);
+        document.getElementById('page5Result').innerText = "Correct! A straight angle measures 180 degrees.";
+      } else {
+        document.getElementById(`${ev.target.id}Result`).innerText = "Try again!";
+        ev.target.appendChild(droppedElement); // Optional: allow it to be placed again
+      }
+    }
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g4main.html'; 
+  }
+}
+  </script>
+</body>
+</html>

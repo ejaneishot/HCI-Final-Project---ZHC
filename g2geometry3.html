@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grade 2: Geometry</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    img {
+      display: block;
+      margin: 20px auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .img2 {
+      width: 150px;
+      height: auto;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    #animationContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin-top: 50px;
+    }
+
+    .drop-zone {
+      width: 100%;
+      height: 100px;
+      border: 2px dashed #6a5acd;
+      margin: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .drag-item {
+      padding: 10px;
+      background-color: #6a5acd;
+      color: white;
+      border-radius: 5px;
+      cursor: grab;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="quizmain.html" class="close-button">X</a>
+    <h1 class="header-title">Recognize turns</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">What is a turn?</div>
+    <div class="analogy">
+        A turn is when you change direction. It’s like when you turn your body to face a different way.    
+    </div>
+  </div>
+
+  <div class="content" id="page1">
+    <div class="note">Types of turns:</div>
+    <div class="analogy">
+        <strong>Whole turn (360º):</strong>
+      <ul>
+        <li>A whole turn means turning all the way around, like a full circle, until you’re facing the same way again.</li>
+        <li><strong>Example:</strong> If you turn all the way around, you will end up in the same position you started from.</li>
+        <br>
+        <li><strong>Clockwise:</strong> Turning to the right (the same way the hands on a clock move).</li>
+        <li><strong>Anti-clockwise:</strong> Turning to the left (the opposite way the clock hands move).</li>
+      </ul>
+      <button id="start1Button" class="button">Start</button>
+      <div id="container1" class="container"></div>
+    </div>
+  </div>
+
+  <div class="content" id="page2">
+    <div class="note">Types of turns:</div>
+    <div class="analogy">
+        <strong>Half turn (180º):</strong>
+      <ul>
+        <li>A half turn means turning halfway around, like turning to face the opposite direction.</li>
+        <li><strong>Example: </strong>If you’re facing forward and you make a half turn, you’ll be facing the other way.</li>
+      </ul>
+      <button id="start2Button" class="button">Start</button>
+      <div id="container2" class="container"></div>
+    </div>
+  </div>
+
+  <div class="content" id="page3">
+    <div class="note">Types of turns:</div>
+    <div class="analogy">
+        <strong>Quarter turn (90º):</strong>
+      <ul>
+        <li>A quarter turn is a small turn, like turning ¼ of the way around.</li>
+        <li>It’s like turning from facing forward to facing either left or right.</li>
+        <br>
+        <li><strong>Clockwise:</strong> Turning to the right by 90°.</li>
+        <li><strong>Anti-clockwise:</strong> Turning to the left by 90°.</li>
+      </ul>
+      <button id="start3Button" class="button">Start</button>
+      <div id="container3" class="container"></div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Functionality for page 1
+    document.getElementById('start1Button').addEventListener('click', function() {
+      const container1 = document.getElementById('container1');
+      container1.innerHTML = `
+        <div>Match the following terms with their definitions:</div>
+        <div class="drop-zone" id="dropZone1">360 degrees</div>
+        <div class="drag-item" draggable="true" ondragstart="drag(event)">Whole Turn</div>
+        <br />
+        <div class="drag-item" draggable="true" ondragstart="drag(event)">Clockwise</div>
+        <br />
+        <div class="drag-item" draggable="true" ondragstart="drag(event)">Anti-clockwise</div>
+        
+      `;
+      container1.style.display = 'block';
+
+      const dropZone1 = document.getElementById('dropZone1');
+      dropZone1.addEventListener('dragover', allowDrop);
+      dropZone1.addEventListener('drop', function(event) {
+        event.preventDefault();
+        const data = event.dataTransfer.getData("text");
+        if (data === "Whole Turn") {
+          alert("Correct! A whole turn is 360 degrees.");
+        } else {
+          alert("Try again!");
+        }
+      });
+    });
+
+    function allowDrop(event) {
+      event.preventDefault();
+    }
+
+    function drag(event) {
+      event.dataTransfer.setData("text", event.target.innerHTML);
+    }
+
+    // Functionality for page 2
+    document.getElementById('start2Button').addEventListener('click', function() {
+      const container2 = document.getElementById('container2');
+      container2.innerHTML = `
+        <div>Answer the following question:</div>
+        <div>What the angle of a half turn?</div>
+        <input type="text" id="answer2" placeholder="Type your answer here"/>
+        <button class="button" onclick="checkAnswer2()">Check Answer</button>
+        <div id="feedback2"></div>
+        
+      `;
+      container2.style.display = 'block';
+    });
+
+    function checkAnswer2() {
+      const answer = document.getElementById('answer2').value.toLowerCase();
+      const feedback = document.getElementById('feedback2');
+      if (answer.includes("180 degrees") || answer.includes("180")) {
+        feedback.innerHTML = "Correct! A half turn is 180 degrees.";
+      } else {
+        feedback.innerHTML = "Try again! Hint: It's half of a whole turn.";
+      }
+    }
+
+    // Functionality for page 3
+    document.getElementById('start3Button').addEventListener('click', function() {
+      const container3 = document.getElementById('container3');
+      container3.innerHTML = `
+        <div>Fill in the blanks:</div>
+        <div>Turning to the right by 90° is called <input type="text" id="answer3_1" placeholder="Answer 1"/>.</div>
+        <div>Turning to the left by 90° is called <input type="text" id="answer3_2" placeholder="Answer 2"/>.</div>
+        <button class="button" onclick="checkAnswer3()">Submit</button>
+        <div id="feedback3"></div>
+        
+      `;
+      container3.style.display = 'block';
+    });
+
+    function checkAnswer3() {
+      const answer1 = document.getElementById('answer3_1').value.toLowerCase();
+      const answer2 = document.getElementById('answer3_2').value.toLowerCase();
+      const feedback = document.getElementById('feedback3');
+      if (answer1 === "clockwise" && (answer2 === "anti-clockwise" || answer2 === "anti clockwise")) {
+    feedback.innerHTML = "Correct! Great job!";
+      } else {
+        feedback.innerHTML = "Try again! Remember the direction of the turns.";
+      }
+    }
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g2geometry4.html'; 
+  }
+}
+
+  </script>
+</body>
+</html>

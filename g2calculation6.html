@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grade 2: Calculation</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .input-box {
+      width: 80px;
+      height: 40px;
+      font-size: 18px;
+      text-align: center;
+      border: 2px solid #6a5acd;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+
+    .input-box.correct {
+      background-color: lightgreen;
+    }
+
+    .input-box.incorrect {
+      background-color: lightcoral;
+    }
+
+    .feedback {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Double two-digit numbers, find halves</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">What is doubling?</div>
+    <div class="analogy">
+        Doubling means adding a number to itself. So if you double 5, you get 5 + 5 = 10! An example is if you double 12, you do 12 + 12 = 24.
+    </div>
+  </div>
+
+  <div class="content" id="page1">
+    <div class="note">How to double a two-digit number:</div>
+    <div class="analogy">
+      <ul>
+        <li><strong>Split the number into tens and ones:</strong> for 24, split it into 20 (tens) and 4 (ones).</li>
+        <li><strong>Double the tens first: </strong>Double 20: 20 + 20 = 40.</li>
+        <li><strong>Double the ones next:</strong> Double 4: 4 + 4 = 8.</li>
+        <li><strong>Put them together:</strong> 40 + 8 = 48. So, 24 doubled is 48!</li>
+      </ul>
+      <button id="start1Button" class="button">Start</button>
+      <div id="question1" class="question-container" style="display:none;">
+        <label for="answer1">What is double of 15?</label>
+        <input type="number" id="answer1" class="input-box">
+        <button onclick="checkAnswer(1)">Submit</button>
+        <p id="feedback1" class="feedback"></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="content" id="page2">
+    <div class="note">What is halving?</div>
+    <div class="analogy">
+        Finding a half means splitting something into two equal parts. An example is half of 12 is 6 because 6 + 6 = 12.
+    </div>
+  </div>
+
+  <div class="content" id="page3">
+    <div class="note">How to find halves of two-digit numbers:</div>
+    <div class="analogy">
+      <ul>
+        <li><strong>Split the number into tens and ones:</strong> for 24, split it into 20 (tens) and 4 (ones).</li>
+        <li><strong>Find half of the tens first:</strong> half of 20 is 10</li>
+        <li><strong>Find half of the ones next:</strong> half of 4 is 2.</li>
+        <li><strong>Put them together:</strong> 10 + 2 = 12. So, half of 24 is 12!</li>
+      </ul>
+      <button id="start2Button" class="button">Start</button>
+      <div id="question2" class="question-container" style="display:none;">
+        <label for="answer2">What is half of 30?</label>
+        <input type="number" id="answer2" class="input-box">
+        <button onclick="checkAnswer(2)">Submit</button>
+        <p id="feedback2" class="feedback"></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    document.getElementById('start1Button').onclick = function() {
+      document.getElementById('question1').style.display = 'block';
+    };
+
+    document.getElementById('start2Button').onclick = function() {
+      document.getElementById('question2').style.display = 'block';
+    };
+
+    function checkAnswer(questionNumber) {
+      let userAnswer, correctAnswer;
+      if (questionNumber === 1) {
+        userAnswer = document.getElementById('answer1').value;
+        correctAnswer = 30; // Double of 15
+      } else if (questionNumber === 2) {
+        userAnswer = document.getElementById('answer2').value;
+        correctAnswer = 15; // Half of 30
+      }
+
+      const feedbackElement = document.getElementById('feedback' + questionNumber);
+      const inputElement = document.getElementById('answer' + questionNumber);
+      if (parseInt(userAnswer) === correctAnswer) {
+        feedbackElement.textContent = "Correct! Great job!";
+        feedbackElement.style.color = "green";
+        inputElement.classList.add('correct');
+        inputElement.classList.remove('incorrect');
+      } else {
+        feedbackElement.textContent = "Oops! Try again.";
+        feedbackElement.style.color = "red";
+        inputElement.classList.add('incorrect');
+        inputElement.classList.remove('correct');
+      }
+    }
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g2main.html'; 
+  }
+}
+
+  </script>
+</body>
+</html>

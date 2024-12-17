@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grade 1 : Calculation</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note-box {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      margin-top: 20px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .input-box {
+      width: 60px;
+      height: 60px;
+      margin: 10px;
+      font-size: 24px;
+      text-align: center;
+      border: 2px solid #6a5acd;
+      border-radius: 8px;
+    }
+
+    .input-box.correct {
+      background-color: lightgreen;
+    }
+
+    .input-box.incorrect {
+      background-color: lightcoral;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #6a5acd;
+      color: white;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .nav-buttons button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      display: inline-block;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 class="header-title">Grade 1 : Calculation</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  
+  <div class="content" id="page0">
+    <div class="note-box">
+      <h2>Recognising Multiples:</h2>
+      <p>Multiples are numbers you get when you keep adding the same number over and over.</p>
+    </div>
+  </div>
+
+  
+  <div class="content" id="page1">
+    <div class="note-box">
+      <h2>Multiples of 2:</h2>
+      <p>- Start at 0 and keep adding 2 <br>
+         - All multiples of 2 end in either 0, 2, 4, 6, or 8 <br>
+         - Multiples of 2 are numbers that can be divided evenly into 2 groups <br>
+         - Multiples of 2 include all even numbers</p>
+    </div>
+    <button id="start2Button" class="button">Start</button>
+    <div id="container2" class="container"></div>
+  </div>
+
+  <!-- Third Page -->
+  <div class="content" id="page2">
+    <div class="note-box">
+      <h2>Multiples of 10:</h2>
+      <p>- Start at 0 and keep adding 10 <br>
+         - All multiples of 10 end with 0 <br>
+         - Multiples of 10 include only numbers that end in 0</p>
+    </div>
+    <button id="start10Button" class="button">Start</button>
+    <div id="container10" class="container"></div>
+  </div>
+
+  
+  <div class="content" id="page3">
+    <div class="note-box">
+      <h2>Addition:</h2>
+      <p>Addition means putting things together to find out how many we have in total. It’s like counting all the pieces or numbers in two groups to make one big group!</p>
+    </div>
+    <button id="startAdditionButton" class="button">Start</button>
+    <div id="additionContainer" class="container"></div>
+  </div>
+
+  
+  <div class="content" id="page4">
+    <div class="note-box">
+      <h2>Subtraction:</h2>
+      <p>Subtraction means taking away something from a group to see how many are left. When we subtract, we start with a number and count back to take some away.<br>Example: 5 - 2 = 3</p>
+    </div>
+    <button id="startSubtractionButton" class="button">Start</button>
+    <div id="subtractionContainer" class="container"></div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    function generateInputBoxes(containerId, start, step) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = '';
+      for (let i = 0; i < 10; i++) {
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'input-box';
+        input.readOnly = (i === 0 || i === 9);
+        if (i === 0) input.value = start;
+        if (i === 9) input.value = start + step * 9;
+
+        input.addEventListener('input', function () {
+          const value = parseInt(input.value, 10);
+          const correctValue = start + step * i;
+          input.classList.toggle('correct', value === correctValue);
+          input.classList.toggle('incorrect', value !== correctValue);
+        });
+
+        container.appendChild(input);
+      }
+    }
+
+    function startAddition() {
+      const container = document.getElementById('additionContainer');
+      container.innerHTML = '';
+
+      const problems = [
+    { equation: '2 + 3 =', answer: '5' },
+    { equation: '4 + 6 =', answer: '10' },
+    { equation: '7 + 8 =', answer: '15' },
+    { equation: '10 + 5 =', answer: '15' },
+    { equation: '12 + 3 =', answer: '15' },
+  ];
+
+      problems.forEach(({ equation, answer }) => {
+        const div = document.createElement('div');
+        div.style.marginBottom = '10px';
+
+        const label = document.createElement('span');
+        label.textContent = equation;
+
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.maxLength = 2;
+        input.className = 'input-box';
+
+        input.addEventListener('input', () => {
+          const value = input.value.trim();
+          input.classList.toggle('correct', value === answer);
+          input.classList.toggle('incorrect', value !== answer);
+        });
+
+        div.appendChild(label);
+        div.appendChild(input);
+        container.appendChild(div);
+      });
+    }
+
+    function startSubtraction() {
+      const container = document.getElementById('subtractionContainer');
+      container.innerHTML = '';
+
+      const problems = [
+        { equation: '4 - 3 =', answer: '1' },
+        { equation: '7 - 5 =', answer: '2' },
+        { equation: '12 - 3 =', answer: '9' },
+      ];
+
+      problems.forEach(({ equation, answer }) => {
+        const div = document.createElement('div');
+        div.style.marginBottom = '10px';
+
+        const label = document.createElement('span');
+        label.textContent = equation;
+
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.maxLength = 2;
+        input.className = 'input-box';
+
+        input.addEventListener('input', () => {
+          const value = input.value.trim();
+          input.classList.toggle('correct', value === answer);
+          input.classList.toggle('incorrect', value !== answer);
+        });
+
+        div.appendChild(label);
+        div.appendChild(input);
+        container.appendChild(div);
+      });
+    }
+
+    document.getElementById('start2Button').addEventListener('click', () => {
+      generateInputBoxes('container2', 2, 2);
+    });
+
+    document.getElementById('start10Button').addEventListener('click', () => {
+      generateInputBoxes('container10', 10, 10);
+    });
+
+    document.getElementById('startAdditionButton').addEventListener('click', startAddition);
+    document.getElementById('startSubtractionButton').addEventListener('click', startSubtraction);
+
+    
+    pages[0].style.display = 'block';
+
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g1main.html'; 
+  }
+}
+
+  </script>
+</body>
+</html>

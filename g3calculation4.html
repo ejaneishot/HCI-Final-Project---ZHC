@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grade 3: Calculation</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    .matching-container {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .match-item {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #f5f5f5;
+    }
+
+    .result {
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Halving, Doubling, and Remainders</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 0: Introduction -->
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">Let’s Learn About Halving, Doubling, and Remainders!</div>
+    <div class="analogy">
+      Halving, doubling, and dealing with remainders are important math skills. Let's explore what these mean with examples!
+    </div>
+  </div>
+
+  <!-- Page 1: Halving -->
+  <div class="content" id="page1">
+    <div class="note">Halving</div>
+    <div class="analogy">
+      <strong>Halving</strong> means splitting a number into 2 equal parts.
+      <br><br>
+      Example: Half of 12 is 6 because <strong>12 ÷ 2 = 6</strong>.
+      <br><br>
+      <button id="start1Button" class="button">Start</button>
+    </div>
+
+    <div class="quiz-container" id="quizContainer">
+      <h3>True or False Quiz:</h3>
+      <div class="question">1. Half of 10 is 5.</div>
+      <div class="true-false">
+        <button class="button" onclick="checkAnswer(true, 0)">True</button>
+        <button class="button" onclick="checkAnswer(false, 0)">False</button>
+      </div>
+      <div class="question">2. Half of 8 is 4.</div>
+      <div class="true-false">
+        <button class="button" onclick="checkAnswer(true, 1)">True</button>
+        <button class="button" onclick="checkAnswer(false, 1)">False</button>
+      </div>
+      <div class="question">3. Half of 14 is 7.</div>
+      <div class="true-false">
+        <button class="button" onclick="checkAnswer(true, 2)">True</button>
+        <button class="button" onclick="checkAnswer(false, 2)">False</button>
+      </div>
+      <div id="result" style="margin-top: 15px;"></div>
+    </div>
+  </div>
+
+  <!-- Page 2: Doubling -->
+  <div class="content" id="page2">
+    <div class="note">Doubling</div>
+    <div class="analogy">
+      <strong>Doubling</strong> means adding a number to itself.
+      <br><br>
+      Example: Double 6 is 12 because <strong>6 + 6 = 12</strong>.
+      <br><br>
+      <button id="start2Button" class="button">Start</button>
+    </div>
+
+    <div class="matching-container" id="matchingContainer">
+      <h3>Match the Numbers to their Doubles:</h3>
+      <div class="match-item" data-value="2">2</div>
+      <div class="match-item" data-value="4">4</div>
+      <div class="match-item" data-value="6">6</div>
+      <div class="match-item" data-value="8">8</div>
+      <div class="match-item" data-value="10">10</div>
+      <div class="match-item" data-value="12">12</div>
+      <div class="match-item" data-value="1">1</div>
+      <div class="match-item" data-value="3">3</div>
+      <div class="match-item" data-value="5">5</div>
+      <div class="match-item" data-value="7">7</div>
+      <div class="match-item" data-value="9">9</div>
+      <div class="match-item" data-value="11">11</div>
+      <div class="match-item" data-value="13">13</div>
+      <div class="match-item" data-value="14">14</div>
+      <div class="match-item" data-value="15">15</div>
+      <div class="match-item" data-value="16">16</div>
+      <div class="result" id="matchingResult"></div>
+    </div>
+  </div>
+
+  <!-- Page 3: Remainders -->
+  <div class="content" id="page3">
+    <div class="note">Remainders</div>
+    <div class="analogy">
+      <strong>Remainders</strong> are what’s left over after dividing a number.
+      <br><br>
+      Example: If you divide 10 by 3, you get 3 groups of 3, but 1 is left over. So, <strong>10 ÷ 3 = 3 remainder 1</strong>.
+      <br><br>
+      
+    </div>
+  </div>
+
+  <!-- Navigation Buttons -->
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    // Function to go to the next page
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Function to go to the previous page
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Start button for Page 2
+    document.getElementById('start2Button').onclick = function() {
+      document.querySelector('.analogy').style.display = 'none';
+      document.getElementById('matchingContainer').style.display = 'block';
+    };
+
+    // Drag and drop functionality for matching
+    const matchItems = document.querySelectorAll('.match-item');
+    const doubles = {
+      1: 2,
+      2: 4,
+      3: 6,
+      4: 8,
+      5: 10,
+      6: 12,
+      7: 14,
+      8: 16,
+    };
+
+    matchItems.forEach(item => {
+      item.setAttribute('draggable', true);
+      item.ondragstart = drag;
+    });
+
+    // Allow drops on the correct areas
+    matchItems.forEach(item => {
+      item.ondragover = allowDrop;
+      item.ondrop = drop;
+    });
+
+    function allowDrop(ev) {
+      ev.preventDefault();
+    }
+
+    function drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.dataset.value);
+    }
+
+    function drop(ev) {
+      ev.preventDefault();
+      const draggedValue = ev.dataTransfer.getData("text");
+      const droppedValue = ev.target.dataset.value;
+      const resultDiv = document.getElementById('matchingResult');
+
+      // Clear previous result before adding new ones
+      resultDiv.innerHTML = "";
+
+      if (doubles[draggedValue] == droppedValue) {
+        ev.target.innerHTML += ` (Doubled: ${draggedValue * 2})`;
+        ev.target.style.backgroundColor = '#d4edda'; // Change background color to green
+        const img = document.createElement('img');
+        img.alt = "Correct";
+        img.height = 30;
+        resultDiv.appendChild(img);
+      } else {
+        const img = document.createElement('img');
+        img.alt = "Incorrect";
+        img.height = 30;
+        resultDiv.appendChild(img);
+      }
+    }
+
+    // Answer checking for Page 1 quiz
+    function checkAnswer(isTrue, questionIndex) {
+      const correctAnswers = [true, true, true]; // Answers for the questions
+      const resultDiv = document.getElementById('result');
+      const img = document.createElement('img');
+      img.height = 30;
+
+      // Clear previous result before adding new ones
+      resultDiv.innerHTML = "";
+
+      if (isTrue === correctAnswers[questionIndex]) {
+        resultDiv.innerHTML += "Correct! " + img.outerHTML + "<br>";
+      } else {
+        resultDiv.innerHTML += "Incorrect. " + img.outerHTML + "<br>";
+      }
+    }
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g3calculation5.html'; 
+  }
+}
+  </script>
+</body>
+</html>

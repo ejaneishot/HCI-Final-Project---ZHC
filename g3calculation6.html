@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grade 3: Calculation</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    .quiz-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .draggable {
+      width: 100px;
+      padding: 10px;
+      margin: 5px;
+      background-color: #e0e0e0;
+      border: 1px solid #6a5acd;
+      border-radius: 5px;
+      cursor: move;
+    }
+
+    .drop-zone {
+      width: 120px;
+      height: 50px;
+      border: 2px dashed #6a5acd;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 10px;
+    }
+
+    .feedback {
+      margin-top: 20px;
+      font-size: 20px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Add pairs of two-digit numbers and three-digit with two-digit numbers</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 0: Introduction -->
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">Let’s Learn About Adding Two-Digit and Three-Digit Numbers!</div>
+    <div class="analogy">
+      You can add numbers by breaking them down into the tens and ones places. Let’s go through how to add two-digit numbers and three-digit numbers with two-digit numbers.
+    </div>
+  </div>
+
+  <!-- Page 1: Adding Two-Digit Numbers -->
+  <div class="content" id="page1">
+    <div class="note">Adding Two-Digit Numbers</div>
+    <div class="analogy">
+      <strong>Steps to add two-digit numbers:</strong>
+      <ol>
+        <li><strong>Add the tens place:</strong> For 34 + 27, add 30 + 20 = 50.</li>
+        <li><strong>Add the ones place:</strong> 4 + 7 = 11.</li>
+        <li><strong>Combine the results:</strong> 50 + 11 = 61. So, 34 + 27 = 61.</li>
+      </ol>
+      <button id="start1Button" class="button">Start</button>
+      <div class="quiz-container" id="quizContainer" style="display: none;">
+        <div id="question">What is 34 + 27?</div>
+        <div class="drop-zone" id="dropZone">Drop Answer Here</div>
+        <div class="draggable" id="draggable1" draggable="true">61</div>
+        <div class="draggable" id="draggable2" draggable="true">58</div>
+        <div class="draggable" id="draggable3" draggable="true">71</div>
+        <div class="feedback" id="feedback"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 2: Adding Three-Digit with Two-Digit Numbers -->
+  <div class="content" id="page2">
+    <div class="note">Adding Three-Digit with Two-Digit Numbers</div>
+    <div class="analogy">
+      <strong>Steps to add a three-digit number with a two-digit number:</strong>
+      <ol>
+        <li><strong>Add the hundreds place:</strong> For 243 + 56, the two-digit number doesn’t have hundreds, so keep the hundreds the same. Start with 200.</li>
+        <li><strong>Add the tens place:</strong> 40 + 50 = 90.</li>
+        <li><strong>Add the ones place:</strong> 3 + 6 = 9.</li>
+        <li><strong>Combine the results:</strong> 200 + 90 + 9 = 299. So, 243 + 56 = 299.</li>
+      </ol>
+      <button id="start2Button" class="button">Start</button>
+      <div class="quiz-container" id="quizContainer2" style="display: none;">
+        <div id="question2">What is 243 + 56?</div>
+        <div class="drop-zone" id="dropZone2">Drop Answer Here</div>
+        <div class="draggable" id="draggable4" draggable="true">299</div>
+        <div class="draggable" id="draggable5" draggable="true">289</div>
+        <div class="draggable" id="draggable6" draggable="true">300</div>
+        <div class="feedback" id="feedback2"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Buttons -->
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    // Function to go to the next page
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Function to go to the previous page
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Page 1 Quiz Functionality
+    document.getElementById('start1Button').addEventListener('click', () => {
+      document.getElementById('quizContainer').style.display = 'block';
+    });
+
+    document.querySelectorAll('.draggable').forEach(item => {
+      item.addEventListener('dragstart', dragStart);
+    });
+
+    const dropZone = document.getElementById('dropZone');
+    const feedback = document.getElementById('feedback');
+
+    dropZone.addEventListener('dragover', dragOver);
+    dropZone.addEventListener('drop', drop);
+
+    function dragStart(e) {
+      e.dataTransfer.setData('text/plain', e.target.id);
+    }
+
+    function dragOver(e) {
+      e.preventDefault();
+    }
+
+    function drop(e) {
+      e.preventDefault();
+      const draggableElementId = e.dataTransfer.getData('text/plain');
+      const draggableElement = document.getElementById(draggableElementId);
+  
+  // Check if the answer is correct
+      if (draggableElementId === 'draggable1') {
+        dropZone.appendChild(draggableElement);
+        feedback.innerHTML = "Correct! 34 + 27 = 61.";
+      } else {
+    // Move the draggable element back to its original position
+        const originalPosition = document.getElementById('draggable' + draggableElementId.slice(-1));
+        dropZone.removeChild(draggableElement);
+        originalPosition.parentElement.appendChild(draggableElement); // Return to the original container
+        feedback.innerHTML = "Try Again!";
+      }
+      feedback.style.display = 'block';
+    }
+
+    // Page 2 Quiz Functionality
+    document.getElementById('start2Button').addEventListener('click', () => {
+      document.getElementById('quizContainer2').style.display = 'block';
+    });
+
+    document.querySelectorAll('.draggable').forEach(item => {
+      item.addEventListener('dragstart', dragStart);
+    });
+
+    const dropZone2 = document.getElementById('dropZone2');
+    const feedback2 = document.getElementById('feedback2');
+
+    dropZone2.addEventListener('dragover', dragOver2);
+    dropZone2.addEventListener('drop', drop2);
+
+    function dragOver2(e) {
+      e.preventDefault();
+    }
+
+    function drop2(e) {
+      e.preventDefault();
+      const draggableElementId = e.dataTransfer.getData('text/plain');
+      const draggableElement = document.getElementById(draggableElementId);
+  
+  // Check if the answer is correct
+      if (draggableElementId === 'draggable4') {
+        dropZone2.appendChild(draggableElement);
+        feedback2.innerHTML = "Correct! 243 + 56 = 299.";
+      } else {
+    // Move the draggable element back to its original position
+        const originalPosition = document.getElementById('draggable' + draggableElementId.slice(-1));
+        dropZone2.removeChild(draggableElement);
+        originalPosition.parentElement.appendChild(draggableElement); // Return to the original container
+        feedback2.innerHTML = "Try Again!";
+      }
+      feedback2.style.display = 'block';
+    }
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g3main.html'; 
+  }
+}
+  </script>
+</body>
+</html>

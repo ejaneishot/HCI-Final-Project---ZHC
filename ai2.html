@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>ZHC | Chatbot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
+    <script src="ai.js" defer></script>
+
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .chatbot {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            max-width: 90%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            text-align: center;
+            position: relative;
+        }
+
+        .back-btn {
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .chatbox {
+            list-style: none;
+            padding: 15px;
+            overflow-y: auto;
+            max-height: 300px;
+        }
+
+        .chat {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .chat.incoming {
+            justify-content: flex-start;
+        }
+
+        .chat.outgoing {
+            justify-content: flex-end;
+        }
+
+        .chat p {
+            padding: 10px;
+            border-radius: 5px;
+            max-width: 70%;
+        }
+
+        .incoming p {
+            background-color: #e9ecef;
+            color: #333;
+        }
+
+        .outgoing p {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .material-symbols-outlined,
+        .material-symbols-rounded {
+            margin-right: 10px;
+            font-size: 24px;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+        }
+
+        textarea {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            resize: none;
+            height: 50px;
+        }
+
+        #send-btn {
+            cursor: pointer;
+            margin-left: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            padding: 10px;
+            transition: background-color 0.3s;
+        }
+
+        #send-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="chatbot">
+        <header>
+            <button class="back-btn" onclick="window.location.href='main.html'">← Back</button>
+            <h2>ZHC Chatbot</h2>
+        </header>
+        <ul class="chatbox">
+            <li class="chat incoming">
+                <span class="material-symbols-outlined">smart_toy</span>
+                <p>Hi there <br>How can I help you today?</p>
+            </li>
+        </ul>
+        <div class="chat-input">
+            <textarea placeholder="Enter a message..." spellcheck="false" required></textarea>
+            <span id="send-btn" class="material-symbols-rounded">send</span>
+        </div>
+    </div>
+</body>
+</html>

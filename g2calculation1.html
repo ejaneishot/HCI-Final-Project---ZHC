@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grade 2: Calculation</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    img {
+      display: block;
+      margin: 20px auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .container div {
+      margin-bottom: 10px;
+    }
+
+    .container span {
+      font-size: 18px;
+      margin-right: 10px;
+    }
+
+    .input-box {
+      width: 60px;
+      height: 60px;
+      margin: 10px;
+      font-size: 24px;
+      text-align: center;
+      border: 2px solid #6a5acd;
+      border-radius: 8px;
+    }
+
+    .input-box.correct {
+      background-color: lightgreen;
+    }
+
+    .input-box.incorrect {
+      background-color: lightcoral;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 class="header-title">Add single digit numbers and double digit numbers</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">What is addition?</div>
+    <div class="analogy">
+      Addition means putting numbers together to find the total. We use the + sign to show addition, and the answer is called the sum.
+    </div>
+  </div>
+
+  <div class="content" id="page1">
+    <div class="note">How to add single digit numbers:</div>
+    <div class="analogy">
+      <ul>
+        <li>Start with the first number and put it in your head.</li>
+        <li>Count on the amount of times mentioned in the 2nd number.</li>
+        <li>For example: 5 + 3, start with 5 then count on 3 more times so 5, 6, 7, 8. The answer is 8!</li>
+      </ul>
+      <button id="start1Button" class="button">Start</button>
+      <div id="container1" class="container"></div>
+    </div>
+  </div>
+
+  <div class="content" id="page2">
+    <div class="note">How to add double digit numbers (without carrying):</div>
+    <div class="analogy">
+      <ul>
+        <li>Add the tens digit first: if you’re adding 23 + 12, start with the tens: 20 + 10 = 30.</li>
+        <li>Add the ones digit: 3 + 2 = 5.</li>
+        <li>Put them together: 30 + 5 = 35</li>
+      </ul>
+      <button id="start2Button" class="button">Start</button>
+      <div id="container2" class="container"></div>
+    </div>
+  </div>
+
+  <div class="content" id="page3">
+    <div class="note">How to add double digit numbers (with carrying):</div>
+    <div class="analogy">
+      <ul>
+        <li>Add the ones first: for 37 + 25, start with the ones: 7 + 5 = 12.</li>
+        <li>Carry over to the tens: write down the 2 in the ones place and carry the 1 to the tens column.</li>
+        <li>Add the tens: 30 + 20 = 50, don’t forget to add the 1 you carried over! 50 + 1 = 51.</li>
+        <li>Put it together: 37 + 25 = 62.</li>
+      </ul>
+      <button id="start3Button" class="button">Start</button>
+      <div id="container3" class="container"></div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    document.getElementById('start1Button').addEventListener('click', () => startQuiz('container1', [
+      { equation: '1 + 2 =', answer: '3' },
+      { equation: '3 + 4 =', answer: '7' }
+    ]));
+
+    document.getElementById('start2Button').addEventListener('click', () => startQuiz('container2', [
+      { equation: '12 + 13 =', answer: '25' },
+      { equation: '22 + 31 =', answer: '53' }
+    ]));
+
+    document.getElementById('start3Button').addEventListener('click', () => startQuiz('container3', [
+      { equation: '37 + 25 =', answer: '62' },
+      { equation: '48 + 29 =', answer: '77' }
+    ]));
+
+    function startQuiz(containerId, problems) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = '';
+      problems.forEach(({ equation, answer }) => {
+        const div = document.createElement('div');
+        div.style.marginBottom = '10px';
+
+        const label = document.createElement('span');
+        label.textContent = equation;
+
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.maxLength = 2;
+        input.className = 'input-box';
+
+        input.addEventListener('input', () => {
+          const value = input.value.trim();
+          input.classList.toggle('correct', value === answer);
+          input.classList.toggle('incorrect', value !== answer);
+        });
+
+        div.appendChild(label);
+        div.appendChild(input);
+        container.appendChild(div);
+      });
+      
+      function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      } else if (currentPage === pages.length - 1) {
+        window.location.href = 'g2calculation2.html'; 
+      }
+    }
+
+    }
+  </script>
+</body>
+</html>
