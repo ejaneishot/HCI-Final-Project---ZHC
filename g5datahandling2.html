@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 5 : Data Handling</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    img {
+      display: block;
+      margin: 20px auto;
+      max-width: 45%;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    /* Table styles */
+    table {
+      width: 90%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #6a5acd;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #e0e0e0;
+    }
+
+    .caption {
+      font-weight: bold;
+      background-color: #6a5acd;
+      color: white;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Data Comparison and Mode</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 0: Introduction -->
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">Let’s learn how to understand and compare data points, and how to find the mode!</div>
+    <div class="analogy">
+      Data points are pieces of information collected in a survey or experiment. We'll also look at how to find the mode, the most common data point.
+    </div>
+  </div>
+
+  <!-- Page 1: What are Data Points? -->
+  <div class="content" id="page1">
+    <div class="note">What are Data Points?</div>
+    <div class="analogy">
+      Data points are individual pieces of information collected in a survey or experiment.
+      <br><br>
+      <strong>Example:</strong> If you ask five classmates about their favorite fruit, the answers "apple, apple, banana, orange, apple" are your data points. <br><br>
+      
+    </div>
+  </div>
+
+  <!-- Page 2: How to Compare Data Points -->
+  <div class="content" id="page2">
+    <div class="note">How to Compare Data Points</div>
+    <div class="analogy">
+      Look for patterns or trends in the data to make comparisons.
+      <br><br>
+      <strong>Example:</strong><br>
+      Favorite fruits: apple (3), banana (1), orange (1).<br>
+      Apple is chosen more times than any other fruit.<br><br>
+      <button id="start2Button" class="button">Start</button>
+      <div id="activity2" style="display:none;">
+        <p>Quiz: Which fruit was chosen the most? Choose the correct answer:</p>
+        <button onclick="checkAnswer('apple')">Apple</button>
+        <button onclick="checkAnswer('banana')">Banana</button>
+        <button onclick="checkAnswer('orange')">Orange</button>
+        <p id="quizResult"></p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Page 3: What is the Mode? -->
+  <div class="content" id="page3">
+    <div class="note">What is the Mode?</div>
+    <div class="analogy">
+      The mode is the data point that appears the most often in a set of data.
+      <br><br>
+      <strong>Example:</strong><br>
+      In the data set 3, 5, 3, 6, 3, 4, the mode is 3 because it appears the most times.<br><br>
+      <button id="start3Button" class="button">Start</button>
+      <div id="activity3" style="display:none;">
+        <p>Identiy the modes of the data sets:</p>
+        <div>
+          <p>Data Set: 1, 2, 2, 3, 4 - <button onclick="showMode('2')">Mode</button></p>
+          <p>Data Set: 3, 3, 4, 5 - <button onclick="showMode('3')">Mode</button></p>
+        </div>
+        <p id="modeResult"></p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Page 4: Finding the Mode -->
+  <div class="content" id="page4">
+    <div class="note">Steps to Find the Mode</div>
+    <div class="analogy">
+      To find the mode:
+      <ol>
+        <li>Organize the data (use a list or chart).</li>
+        <li>Count how many times each data point appears.</li>
+        <li>The data point with the highest count is the mode.</li>
+      </ol>
+      <strong>Example:</strong><br>
+      Data set: 3, 5, 3, 6, 3, 4<br>
+      Count: 3 appears 3 times, while the other numbers appear once.<br>
+      The mode is 3.<br><br>
+      <div id="activity4" style="display:none;">
+        <p>Watch the animation to understand how to find the mode:</p>
+        <img src="mode.png" alt="Mode Animation" style="width:100%;">
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    // Function to go to the next page
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Function to go to the previous page
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Functions for activities
+    function drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    function allowDrop(ev) {
+      ev.preventDefault();
+    }
+
+    function drop(ev) {
+      ev.preventDefault();
+      var data = ev.dataTransfer.getData("text");
+      ev.target.appendChild(document.getElementById(data));
+    }
+
+   
+    document.getElementById('start2Button').onclick = function() {
+      document.getElementById('activity2').style.display = 'block';
+    };
+
+    function checkAnswer(fruit) {
+      const result = document.getElementById('quizResult');
+      if (fruit === 'apple') {
+        result.textContent = "Correct! Apple is the most chosen fruit.";
+      } else {
+        result.textContent = "Incorrect! Try again.";
+      }
+    }
+
+    document.getElementById('start3Button').onclick = function() {
+      document.getElementById('activity3').style.display = 'block';
+    };
+
+    function showMode(mode) {
+      document.getElementById('modeResult').textContent = "The mode is: " + mode;
+    }
+
+ 
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g5main.html'; 
+  }
+}
+  </script>
+</body>
+</html>

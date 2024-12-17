@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Place Value in Multiplication and Division</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .drag-drop-container {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+
+    .drag-item {
+      padding: 10px 15px;
+      background-color: #e0e7ff;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      cursor: move;
+    }
+
+    .drop-zone {
+      padding: 15px;
+      background-color: #fff;
+      border: 2px dashed #ddd;
+      border-radius: 5px;
+      min-height: 50px;
+      margin-top: 10px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Place Value in Multiplication and Division</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 1: What is Place Value? -->
+  <div class="content" id="page1" style="display: block;">
+    <div class="note">What is Place Value?</div>
+    <div class="analogy">
+      Place value tells us the value of a digit based on its position in a number.
+      <br><br>
+      <strong>Example:</strong>
+      <ul>
+        <li>In 450, the 4 is in the hundreds place (400), and the 5 is in the tens place (50).</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Page 2: Using Place Value to Multiply -->
+  <div class="content" id="page2">
+    <div class="note">Using Place Value to Multiply</div>
+    <div class="analogy">
+      <strong>Step 1: Break the Number into Parts:</strong><br>
+      Multiply each part separately, then add the results.<br>
+      <strong>Example:</strong>
+      <ul>
+        <li>23 × 4: Break 23 into 20 and 3.</li>
+        <li>Multiply: (20 × 4) + (3 × 4) = 80 + 12 = 92.</li>
+      </ul>
+      <br>
+      <strong>Step 2: Multiply by 10, 100, or 1000:</strong><br>
+      Add zeros to the number based on the factor.<br>
+      <strong>Example:</strong>
+      <ul>
+        <li>25 × 100 = 2500.</li>
+      </ul>
+      <br>
+      <strong>Step 3: Use Known Facts:</strong><br>
+      If you know 6 × 7 = 42, then 60 × 7 = 420 (use place value). <br><br>
+      <button id="Start1Button" class="button">Start</button>
+      <div class="drag-drop-container" id="dragDrop1">
+        <h3>Match Place Values:</h3>
+        <div class="drag-item" draggable="true" id="hundreds" ondragstart="drag(event)">400</div>
+        <div class="drag-item" draggable="true" id="tens" ondragstart="drag(event)">50</div>
+        <div class="drag-item" draggable="true" id="ones" ondragstart="drag(event)">0</div>
+        <div class="drop-zone" id="dropHundreds" ondrop="drop(event)" ondragover="allowDrop(event)">Hundreds Place</div>
+        <div class="drop-zone" id="dropTens" ondrop="drop(event)" ondragover="allowDrop(event)">Tens Place</div>
+        <div class="drop-zone" id="dropOnes" ondrop="drop(event)" ondragover="allowDrop(event)">Ones Place</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 3: Using Place Value to Divide -->
+  <div class="content" id="page3">
+    <div class="note">Using Place Value to Divide</div>
+    <div class="analogy">
+      <strong>Step 1: Break the Number into Parts:</strong><br>
+      Divide each part separately.<br>
+      <strong>Example:</strong>
+      <ul>
+        <li>84 ÷ 4: Break 84 into 80 and 4.</li>
+        <li>Divide: (80 ÷ 4) + (4 ÷ 4) = 20 + 1 = 21.</li>
+      </ul>
+      <br>
+      <strong>Step 2: Divide by 10, 100, or 1000:</strong><br>
+      Move the decimal point to the left based on the factor.<br>
+      <strong>Example:</strong>
+      <ul>
+        <li>250 ÷ 10 = 25, 3400 ÷ 100 = 34.</li>
+      </ul>
+      <br>
+      <strong>Step 3: Use Known Facts:</strong><br>
+      If you know 36 ÷ 6 = 6, then 360 ÷ 6 = 60 (use place value). <br><br>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button id="prevButton" class="button">Back</button>
+    <button id="nextButton" class="button">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    // Navigation Functions
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    document.getElementById('nextButton').addEventListener('click', nextPage);
+    document.getElementById('prevButton').addEventListener('click', prevPage);
+
+    // Drag-and-Drop Functions
+    function allowDrop(event) {
+      event.preventDefault();
+    }
+
+    function drag(event) {
+      event.dataTransfer.setData('text', event.target.id);
+    }
+
+    function drop(event) {
+      event.preventDefault();
+      const data = event.dataTransfer.getData('text');
+      const draggedElement = document.getElementById(data);
+      event.target.appendChild(draggedElement);
+    }
+
+    // Start Button Logic
+    document.getElementById('Start1Button').addEventListener('click', () => {
+      document.getElementById('dragDrop1').style.display = 'block';
+    });
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g6calculation3.html'; 
+  }
+}
+  </script>
+</body>
+</html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 5: Measurement</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    img {
+      display: block;
+      margin: 20px auto;
+      max-width: 45%;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    /* Table styles */
+    table {
+      width: 90%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #6a5acd;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #e0e0e0;
+    }
+
+    .caption {
+      font-weight: bold;
+      background-color: #6a5acd;
+      color: white;
+    }
+
+    /* Activity Styles */
+    .activity {
+      display: none;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .drag-drop {
+      border: 2px dashed #6a5acd;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 300px;
+      position: relative;
+    }
+
+    .drag-item {
+      padding: 10px;
+      background-color: #e0e0e0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      cursor: move;
+      margin: 5px;
+      display: inline-block;
+    }
+
+    .drop-zone {
+      width: 100%;
+      height: 100px;
+      border: 2px dashed #6a5acd;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    /* Quiz styles */
+    .quiz {
+      margin-top: 20px;
+    }
+
+    .quiz-question {
+      font-weight: bold;
+    }
+
+    .quiz-option {
+      display: block;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Calculate Time Intervals</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 0: Introduction -->
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">Let's learn how to calculate time intervals in seconds, minutes, days, and years!</div>
+    <div class="analogy">
+      Time intervals help us find how much time has passed between two points in time. This can be done in seconds, minutes, days, or years.
+    </div>
+  </div>
+
+  <!-- Page 1: Calculating Time Intervals in Seconds -->
+  <div class="content" id="page1">
+    <div class="note">Time Interval in Seconds</div>
+    <div class="analogy">
+      To calculate time intervals in seconds, subtract the smaller time from the larger time.
+      <br><br><strong>Example:</strong> From 3:45:15 to 3:45:45:
+      <br>45 seconds - 15 seconds = 30 seconds. <br><br>
+      
+      <div class="activity" id="activity1">
+        <div class="drag-drop">
+          <div class="drag-item" draggable="true" ondragstart="drag(event)" id="item1">30 seconds</div>
+          <div class="drag-item" draggable="true" ondragstart="drag(event)" id="item2">10 seconds</div>
+          <div class="drag-item" draggable="true" ondragstart="drag(event)" id="item3">15 seconds</div>
+          <div class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+        </div>
+        <img src="drag-drop.png" alt="Drag and Drop Activity">
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 2: Calculating Time Intervals in Minutes -->
+  <div class="content" id="page2">
+    <div class="note">Time Interval in Minutes</div>
+    <div class="analogy">
+      If the times are within the same hour, subtract the smaller minute from the larger minute. If across hours, calculate the remaining minutes in the first hour and add them to the next hour.
+      <br><br><strong>Example:</strong> From 2:15 to 2:45:
+      <br>45 minutes - 15 minutes = 30 minutes. <br><br>
+      <button id="start2Button" class="button">Start</button>
+      <div class="activity" id="activity2">
+        <div class="quiz">
+          <div class="quiz-question">What is the time interval from 3:15 to 3:45?</div>
+          <label class="quiz-option"><input type="radio" name="q2" value="30"> 30 minutes</label>
+          <label class="quiz-option"><input type="radio" name="q2" value="15"> 15 minutes</label>
+          <label class="quiz-option"><input type="radio" name="q2" value="45"> 45 minutes</label>
+          <button onclick="checkAnswer('q2', '30')">Check Answer</button>
+        </div>
+        <img src="quiz.png" alt="Quiz Activity">
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 3: Calculating Time Intervals in Days -->
+  <div class="content" id="page3">
+    <div class="note">Time Interval in Days</div>
+    <div class="analogy">
+      To calculate the interval in days, subtract the start date from the end date.
+      <br><br><strong>Example:</strong> From January 5 to January 15:
+      <br>15 - 5 = 10 days. <br><br>
+      <button id="start3Button" class="button">Start</button>
+      <div class="activity" id="activity3">
+        <div class="match">
+          <div class="quiz-question">Match the date with its corresponding day interval:</div>
+          <div>
+            <label><input type="radio" name="match1" value="10"> January 5 to January 15</label>
+          </div>
+          <div>
+            <label><input type="radio" name="match1" value="5"> January 1 to January 6</label>
+          </div>
+          <div>
+            <label><input type="radio" name="match1" value="20"> January 1 to January 21</label>
+          </div>
+          <button onclick="checkMatch('match1', '10')">Check Match</button>
+        </div>
+        <img src="match.png" alt="Match Activity">
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 4: Calculating Time Intervals in Years -->
+  <div class="content" id="page4">
+    <div class="note">Time Interval in Years</div>
+    <div class="analogy">
+      To calculate the interval in years, subtract the smaller year from the larger year.
+      <br><br><strong>Example:</strong> From 2010 to 2023:
+      <br>2023 - 2010 = 13 years. <br><br>
+      
+      <div class="activity" id="activity4">
+        <div class="animation">
+          <div class="quiz-question">Watch the animation below and summarize the time interval:</div>
+          <img src="animation.png" alt="Animation Activity">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    // Function to go to the next page
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Function to go to the previous page
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Drag and drop functions for page 1
+    function allowDrop(event) {
+      event.preventDefault();
+    }
+
+    function drag(event) {
+      event.dataTransfer.setData("text", event.target.id);
+    }
+
+    function drop(event) {
+      event.preventDefault();
+      const data = event.dataTransfer.getData("text");
+      event.target.appendChild(document.getElementById(data));
+    }
+
+    // Check answer for quiz on page 2
+    function checkAnswer(quizName, correctValue) {
+      const options = document.getElementsByName(quizName);
+      let selectedValue;
+      for (let i = 0; i < options.length; i++) {
+        if (options[i].checked) {
+          selectedValue = options[i].value;
+          break;
+        }
+      }
+      alert(selectedValue === correctValue ? 'Correct!' : 'Try again.');
+    }
+
+    // Check match for matching activity on page 3
+    function checkMatch(matchName, correctValue) {
+      const options = document.getElementsByName(matchName);
+      let selectedValue;
+      for (let i = 0; i < options.length; i++) {
+        if (options[i].checked) {
+          selectedValue = options[i].value;
+          break;
+        }
+      }
+      alert(selectedValue === correctValue ? 'Correct!' : 'Try again.');
+    }
+
+    // Show activities when start buttons are clicked
+    
+
+    document.getElementById('start2Button').onclick = function() {
+      document.getElementById('activity2').style.display = 'block';
+    };
+
+    document.getElementById('start3Button').onclick = function() {
+      document.getElementById('activity3').style.display = 'block';
+    };
+
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g5main.html'; 
+  }
+}
+  </script>
+</body>
+</html>

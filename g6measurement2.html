@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 6: Measurement</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    img {
+      display: block;
+      margin: 20px auto;
+      max-width: 45%;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Reading and Interpreting Measurements</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 1: What Are Scales and Instruments? -->
+  <div class="content" id="page1" style="display: block;">
+    <div class="note"><strong>What Are Scales and Instruments?</strong></div>
+    <div class="analogy">
+      <strong>Scales and Instruments:</strong><br>
+      <ul>
+        <li><strong>Scales</strong> show the value of a measurement (e.g., weight, length, or capacity).</li>
+        <li><strong>Instruments</strong> are tools used for measuring. Common examples include:
+          <ul>
+            <li><strong>Thermometers</strong> (for temperature),</li>
+            <li><strong>Rulers</strong> (for length),</li>
+            <li><strong>Weighing scales</strong> (for mass),</li>
+            <li><strong>Measuring jugs</strong> (for capacity).</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Page 2: Ruler (Length) -->
+  <div class="content" id="page2">
+    <div class="note"><strong>Reading Scales and Instruments</strong></div>
+    <div class="analogy">
+      <strong>Ruler (Length):</strong>
+      <ul>
+        <li>Measures in centimeters (cm) or millimeters (mm).</li>
+      </ul>
+
+      <strong>Example:</strong>
+      <ul>
+        <li>If the ruler shows 3 cm, the object is 3 centimeters long.</li>
+        <li>If the measurement is between two marks, estimate the value, e.g., <strong>2.6 cm</strong>.</li>
+      </ul>
+      <img src="ruler.png" alt="Net of a Cube">
+    </div>
+  </div>
+
+  <!-- Page 3: Weighing Scale (Mass) -->
+  <div class="content" id="page3">
+    <div class="note"><strong>Reading Scales and Instruments</strong></div>
+    <div class="analogy">
+        <strong> Scale (Mass):</strong>
+        <ul>
+            <li>Measures in kilograms (kg) or grams (g).</li>
+        </ul>
+      <strong>Example:</strong>
+      <ul>
+        <li>If the scale shows 2.3 kg, the mass is 2.3 kilograms.</li>
+        <li>If the scale shows 3.45 kg, it’s 3 kg and 450 grams.</li>
+      </ul>
+      <img src="scale.jpg" alt="Net of a Cube">
+    </div>
+  </div>
+
+  <!-- Page 4: Thermometer (Temperature) -->
+  <div class="content" id="page4">
+    <div class="note"><strong>Reading Scales and Instruments</strong></div>
+    <div class="analogy">
+        <strong>Thermometer (Temperature):</strong> 
+        <ul>
+            <li>Measures in degrees Celsius (°C).</li>
+        </ul>
+      <strong>Example:</strong>
+      <ul>
+        <li>If the thermometer shows 25°C, the temperature is 25 degrees Celsius.</li>
+      </ul>
+      <img src="thermometer.jpg" alt="Net of a Cube">
+    </div>
+  </div>
+
+  <!-- Page 5: Measuring Jug (Capacity) -->
+  <div class="content" id="page5">
+    <div class="note"><strong>Reading Scales and Instruments</strong></div>
+    <div class="analogy">
+        <strong>Jug (Capacity):</strong> 
+        <ul>
+            <li>Measures in liters (l) or milliliters (ml).</li>
+        </ul>
+      <strong>Example:</strong>
+      <ul>
+        <li>If the jug shows 500 ml, the capacity is 500 milliliters.</li>
+      </ul>
+      <img src="jug.jpg" alt="Net of a Cube">
+    </div>
+  </div>
+
+  <!-- Page 6: Interpreting Readings -->
+  <div class="content" id="page6">
+    <div class="note"><strong>Interpreting Readings</strong></div>
+    <div class="analogy">
+      <ul>
+        <li><strong>Estimate Readings Between Marks:</strong><br>
+            <ul>
+                <li>
+                   If the needle on a scale is between two marks, estimate the value. 
+                </li>
+            </ul>
+          <strong>Example:</strong><br>
+          <ul>
+            <li>
+                A thermometer between 19°C and 20°C might be about 19.5°C.
+            </li>
+          </ul>
+        </li><br>
+
+        <li><strong>Reading Digital Scales:</strong><br>
+            <ul>
+                <li>
+                    Digital instruments often display numbers directly, including decimals.
+                </li>
+            </ul>
+          <strong>Example:</strong><br>
+          <ul>
+            <li>
+                A digital scale reading 75.5 kg means the object weighs 75 kilograms and 500 grams.
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Page 7: Tips for Interpreting Readings -->
+  <div class="content" id="page7">
+    <div class="note"><strong>Tips for Interpreting Readings</strong></div>
+    <div class="analogy">
+      <strong>General Tips:</strong><br>
+      <ul>
+        <li>Always ensure the instrument is properly aligned with the object you're measuring.</li>
+        <li>For <strong>digital instruments</strong>, make sure you understand how the decimals reflect the value.</li>
+        <li><strong>Estimation</strong> is key when dealing with instruments that have a scale with marks in between.</li>
+      </ul><br>
+
+      <strong>Practical Examples:</strong><br>
+      <ol>
+        <li><strong>Ruler Example:</strong>  
+            <ul>
+                <li>
+                   If you're measuring the length of a pencil and it's between <strong>5 cm</strong> and <strong>6 cm</strong>, estimate as <strong>5.5 cm</strong>. 
+                </li>
+            </ul>
+        </li>
+        <li><strong>Weighing Scale Example:</strong> 
+            <ul>
+                <li>
+                    If the scale shows <strong>4.5 kg</strong>, it means <strong>4 kilograms and 500 grams</strong>.
+                </li>
+            </ul> 
+        </li>
+        <li><strong>Thermometer Example:</strong>  
+            <ul>
+                <li>
+                    If the thermometer reads between <strong>30°C</strong> and <strong>31°C</strong>, estimate the temperature as <strong>30.6°C</strong>.
+                </li>
+            </ul>
+        </li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    // Function to go to the next page
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Function to go to the previous page
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g6measurement3.html'; 
+  }
+}
+  </script>
+</body>
+</html>

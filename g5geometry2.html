@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 5: Geometry</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    img {
+      display: block;
+      margin: 20px auto;
+      max-width: 45%;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    /* Table styles */
+    table {
+      width: 90%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #6a5acd;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #e0e0e0;
+    }
+
+    .caption {
+      font-weight: bold;
+      background-color: #6a5acd;
+      color: white;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Identifying Perpendicular and Parallel Lines</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 0: Introduction -->
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">Let’s learn how to identify perpendicular and parallel lines in different shapes!</div>
+    <div class="analogy">
+      Perpendicular and parallel lines are important concepts in geometry. Let’s take a look at how to recognize them.
+    </div>
+  </div>
+
+  <!-- Page 1: Perpendicular Lines -->
+  <div class="content" id="page1">
+    <div class="note">What are Perpendicular Lines?</div>
+    <div class="analogy">
+      Perpendicular lines are two lines that meet at a right angle (90°). They form an L-shape or a cross.
+      <br><br>
+      <strong>Example:</strong> The lines of a letter T are perpendicular because they meet at a right angle where they cross.
+      <img src="perpendicular.png" alt="Perpendicular Lines">
+    </div>
+  </div>
+
+  <!-- Page 2: Recognizing Perpendicular Lines -->
+  <div class="content" id="page2">
+    <div class="note">How to Recognize Perpendicular Lines?</div>
+    <div class="analogy">
+      Look for an L-shape or a right angle (90°) between the lines. This is a clear indication that the lines are perpendicular.
+      <br><br>
+      <strong>Example:</strong> The lines in the corner of a piece of paper are perpendicular.
+    </div>
+  </div>
+
+  <!-- Page 3: Parallel Lines -->
+  <div class="content" id="page3">
+    <div class="note">What are Parallel Lines?</div>
+    <div class="analogy">
+      Parallel lines are two lines that never meet and are always the same distance apart. They go in the same direction and never cross each other.
+      <br><br>
+      <strong>Example:</strong> The two sides of a railroad track are parallel lines.
+      <img src="parallel.png" alt="Parallel Lines">
+    </div>
+  </div>
+
+  <!-- Page 4: Recognizing Parallel Lines -->
+  <div class="content" id="page4">
+    <div class="note">How to Recognize Parallel Lines?</div>
+    <div class="analogy">
+      Look for lines that stay the same distance apart and never touch. These are parallel lines.
+      <br><br>
+      <strong>Example:</strong> The lines of a grid on graph paper are parallel to each other.
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    // Function to go to the next page
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Function to go to the previous page
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g5geometry3.html'; 
+  }
+}
+  </script>
+</body>
+</html>

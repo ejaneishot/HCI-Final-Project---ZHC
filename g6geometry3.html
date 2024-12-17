@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 6: Geometry</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    img {
+      display: block;
+      margin: 20px auto;
+      max-width: 45%;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .activity {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+
+    .draggable {
+      display: inline-block;
+      padding: 10px 15px;
+      background-color: #6a5acd;
+      color: white;
+      border-radius: 5px;
+      margin: 5px;
+      cursor: grab;
+    }
+
+    .drop-area {
+      margin: 10px;
+      padding: 20px;
+      background-color: #e0e0e0;
+      border: 2px dashed #6a5acd;
+      border-radius: 5px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Measuring Angles and Verifying the 180° Sum in Triangles</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 1: Measuring Angles -->
+  <div class="content" id="page1" style="display: block;">
+    <div class="note">Measuring Angles</div>
+    <div class="analogy">
+      <strong>Angles are formed where two lines meet at a point.</strong><br>
+      Use a protractor to measure angles in degrees (°).<br><br>
+      <strong>Steps to Measure Angles:</strong><br>
+      <ol>
+        <li>Place the center hole of the protractor on the vertex of the angle.</li>
+        <li>Line up one side of the angle with the 0° line of the protractor.</li>
+        <li>Read the measurement on the protractor where the other side of the angle points.</li>
+      </ol>
+      <button id="Start1Button" class="button">Start</button>
+    </div>
+    <div id="activity1" class="activity" style="display: none;">
+      <div>Drag and drop the correct angle measurements to the corresponding angle images:</div>
+      <div class="drop-area" id="drop1">Drop Here for 90°</div>
+      <div class="drop-area" id="drop2">Drop Here for 45°</div>
+      <div>
+        <div id="drag1" class="draggable" draggable="true">right angle</div>
+        <div id="drag2" class="draggable" draggable="true">acute angle</div>
+        <div id="drag3" class="draggable" draggable="true">obtuse angle</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 2: Sum of Angles in a Triangle -->
+  <div class="content" id="page2">
+    <div class="note">Sum of Angles in a Triangle</div>
+    <div class="analogy">
+      <strong>The sum of the interior angles of any triangle is always 180°.</strong><br><br>
+      Example: If you have a triangle with angles of 60°, 70°, and 50°, their sum should be:<br>
+      <strong>60° + 70° + 50° = 180°.</strong><br><br>
+      This is true for all triangles, no matter their size or shape. <br><br>
+      <button id="Start2Button" class="button">Start</button>
+    </div>
+    <div id="activity2" class="activity" style="display: none;">
+      <div>Match the angles to complete the triangle:</div>
+      <ul>
+        <li>First angle: <input type="text" id="angle1"> °</li>
+        <li>Second angle: <input type="text" id="angle2"> °</li>
+        <li>Third angle: <input type="text" id="angle3"> °</li>
+      </ul>
+      <button class="button" onclick="checkTriangle()">Submit</button>
+      <p id="triangleResult"></p>
+    </div>
+  </div>
+
+  <!-- Page 3: How to Verify the 180° Sum -->
+  <div class="content" id="page3">
+    <div class="note">How to Verify the 180° Sum</div>
+    <div class="analogy">
+      <strong>Steps to Verify the 180° Sum:</strong><br>
+      <ol>
+        <li>Measure the three angles of a triangle using a protractor.</li>
+        <li>Add the three angles together.</li>
+        <li>Check that the total is 180°.</li>
+      </ol>
+      <button id="Start3Button" class="button">Start</button>
+    </div>
+    <div id="activity3" class="activity" style="display: none;">
+      <div>Quiz: True or False?</div>
+      <p>The sum of the angles of a triangle can be more than 180°.</p>
+      <button onclick="answerQuiz(true)">True</button>
+      <button onclick="answerQuiz(false)">False</button>
+      <p id="quizResult"></p>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    document.getElementById('Start1Button').addEventListener('click', function () {
+      document.getElementById('activity1').style.display = 'block';
+    });
+
+    document.getElementById('Start2Button').addEventListener('click', function () {
+      document.getElementById('activity2').style.display = 'block';
+    });
+
+    document.getElementById('Start3Button').addEventListener('click', function () {
+      document.getElementById('activity3').style.display = 'block';
+    });
+
+    function checkTriangle() {
+      const angle1 = parseInt(document.getElementById('angle1').value) || 0;
+      const angle2 = parseInt(document.getElementById('angle2').value) || 0;
+      const angle3 = parseInt(document.getElementById('angle3').value) || 0;
+      const result = document.getElementById('triangleResult');
+
+      if (angle1 + angle2 + angle3 === 180) {
+        result.textContent = 'Correct! The angles add up to 180°.';
+      } else {
+        result.textContent = 'Incorrect. The angles do not add up to 180°.';
+      }
+    }
+
+    function answerQuiz(answer) {
+      const result = document.getElementById('quizResult');
+      if (!answer) {
+        result.textContent = 'Correct! The sum of the angles in a triangle is always 180°.';
+      } else {
+        result.textContent = 'Incorrect. The sum of the angles in a triangle is never more than 180°.';
+      }
+    }
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g6geometry4.html'; 
+  }
+}
+  </script>
+</body>
+</html>

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 4: Numbers</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    table {
+      width: 90%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #6a5acd;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #e0e0e0;
+    }
+
+    .caption {
+      font-weight: bold;
+      background-color: #6a5acd;
+      color: white;
+    }
+
+    img {
+      display: block;
+      margin: 20px auto;
+      max-width: 50%;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    ul {
+      margin-top: 20px;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    .activity {
+      display: none;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Odd and Even Numbers, Negative Numbers</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 0: What Are Odd Numbers? -->
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">What Are Odd Numbers?</div>
+    <div class="analogy">
+      <strong>Odd Numbers:</strong><br>
+      Odd numbers leave 1 leftover when divided by 2.<br>
+      Examples: 1, 3, 5, 7, 9, 11 and so on!
+      <br><br>
+      <button id="start1Button" class="button">Start</button>
+      <div id="oddNumbersActivity" class="activity">
+        <img src="odd_even_numbers.png" alt="Odd and Even Numbers">
+        <p>Match the numbers to their type:</p>
+        <ul>
+          <li><span draggable="true" id="odd1" ondragstart="drag(event)">1</span> (Odd)</li>
+          <li><span draggable="true" id="even1" ondragstart="drag(event)">2</span> (Even)</li>
+          <li><span draggable="true" id="odd2" ondragstart="drag(event)">3</span> (Odd)</li>
+          <li><span draggable="true" id="even2" ondragstart="drag(event)">4</span> (Even)</li>
+        </ul>
+        <div ondrop="drop(event)" ondragover="allowDrop(event)" class="drop-zone" style="border: 1px dashed #6a5acd; padding: 10px; margin-top: 10px;">
+          Drop Here
+        </div>
+        <p id="oddEvenResult"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 1: What Are Even Numbers? -->
+  <div class="content" id="page1">
+    <div class="note">What Are Even Numbers?</div>
+    <div class="analogy">
+      <strong>Even Numbers:</strong><br>
+      Even numbers can be divided by 2 without leftovers.<br>
+      Examples: 2, 4, 6, 8, 10, 12 and so on!
+      <br><br>
+      <button id="start2Button" class="button">Start</button>
+      <div id="evenNumbersActivity" class="activity">
+        <img src="odd_even_numbers.png" alt="Odd and Even Numbers">
+        <p>Quiz: Which of the following numbers are even?</p>
+        <ul>
+          <li><input type="checkbox" id="evenCheck1" value="2"> 2</li>
+          <li><input type="checkbox" id="evenCheck2" value="3"> 3</li>
+          <li><input type="checkbox" id="evenCheck3" value="4"> 4</li>
+          <li><input type="checkbox" id="evenCheck4" value="5"> 5</li>
+        </ul>
+        <button onclick="checkEvenNumbers()" class="button">Check Answers</button>
+        <p id="evenQuizResult"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 2: What Are Negative Numbers? -->
+  <div class="content" id="page2">
+    <div class="note">What Are Negative Numbers?</div>
+    <div class="analogy">
+      Negative numbers are less than 0. They are written with a minus sign (-) in front of them.<br>
+      Examples: -1, -5, -10.
+      <br><br>
+      <button id="start3Button" class="button">Start</button>
+      <div id="negativeNumbersActivity" class="activity">
+        <img src="negative_numbers.png" alt="Negative Numbers">
+        <p>Fill in the blank: What is -3 + 5?</p>
+        <input type="text" id="negativeAnswer" placeholder="Type your answer" />
+        <button onclick="checkNegativeAnswer()" class="button">Check Answer</button>
+        <p id="negativeResult"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 3: Real Life Examples of Negative Numbers -->
+  <div class="content" id="page3">
+    <div class="note">Real Life Example of Negative Numbers</div>
+    <div class="analogy">
+      Negative numbers are used to measure temperature below 0 degrees.<br>
+      For example, when 5ºC gets 10ºC colder, it means 5ºC - 10ºC which gives -5ºC.
+      <br><br>
+      <button id="start4Button" class="button">Start</button>
+      <div id="realLifeNegativeActivity" class="activity">
+        <img src="temperature_example.png" alt="Temperature Example">
+        <p>Quiz: What happens to the temperature if it drops by 15ºC from 2ºC?</p>
+        <input type="text" id="realLifeNegativeAnswer" placeholder="Type your answer" />
+        <button onclick="checkRealLifeNegativeAnswer()" class="button">Check Answer</button>
+        <p id="realLifeNegativeResult"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Buttons -->
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    // Function to go to the next page
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Function to go to the previous page
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Functions for interactive activities
+    document.getElementById('start1Button').addEventListener('click', function() {
+      document.getElementById('oddNumbersActivity').style.display = 'block';
+    });
+
+    document.getElementById('start2Button').addEventListener('click', function() {
+      document.getElementById('evenNumbersActivity').style.display = 'block';
+    });
+
+    document.getElementById('start3Button').addEventListener('click', function() {
+      document.getElementById('negativeNumbersActivity').style.display = 'block';
+    });
+
+    document.getElementById('start4Button').addEventListener('click', function() {
+      document.getElementById('realLifeNegativeActivity').style.display = 'block';
+    });
+
+    // Drag and drop functions for odd/even numbers
+    function allowDrop(event) {
+      event.preventDefault();
+    }
+
+    function drag(event) {
+      event.dataTransfer.setData("text", event.target.id);
+    }
+
+    function drop(event) {
+      event.preventDefault();
+      const data = event.dataTransfer.getData("text");
+      const element = document.getElementById(data);
+      if (data.startsWith('odd') && event.target.classList.contains('drop-zone')) {
+        event.target.innerHTML += '<p>' + element.innerText + ' is Odd</p>';
+      } else if (data.startsWith('even') && event.target.classList.contains('drop-zone')) {
+        event.target.innerHTML += '<p>' + element.innerText + ' is Even</p>';
+      }
+      element.remove();
+    }
+
+    // Check answers for even numbers quiz
+    function checkEvenNumbers() {
+      const evenCheck1 = document.getElementById('evenCheck1').checked;
+      const evenCheck2 = document.getElementById('evenCheck2').checked;
+      const evenCheck3 = document.getElementById('evenCheck3').checked;
+      const evenCheck4 = document.getElementById('evenCheck4').checked;
+      let result = 'Correct answers: ';
+      if (evenCheck1) result += '2, ';
+      if (evenCheck3) result += '4, ';
+      if (!evenCheck2 && !evenCheck4) result += 'none of the odd ones';
+      document.getElementById('evenQuizResult').innerText = result;
+    }
+
+    // Check answer for negative number activity
+    function checkNegativeAnswer() {
+      const answer = document.getElementById('negativeAnswer').value;
+      if (parseInt(answer) === 2) {
+        document.getElementById('negativeResult').innerText = 'Correct!';
+      } else {
+        document.getElementById('negativeResult').innerText = 'Try again.';
+      }
+    }
+
+    // Check answer for real life negative number activity
+    function checkRealLifeNegativeAnswer() {
+      const answer = document.getElementById('realLifeNegativeAnswer').value;
+      if (parseInt(answer) === -13) {
+        document.getElementById('realLifeNegativeResult').innerText = 'Correct!';
+      } else {
+        document.getElementById('realLifeNegativeResult').innerText = 'Try again.';
+      }
+    }
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g4main.html'; 
+  }
+}
+  </script>
+</body>
+</html>

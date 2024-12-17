@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZHC | Rate Us</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      justify-content: flex-start; 
+      align-items: flex-start;
+      height: 100vh;
+      margin: 0;
+      padding: 20px; 
+      position: relative; 
+    }
+
+    .back-button {
+      position: absolute; 
+      top: 20px; 
+      right: 20px; 
+      padding: 10px 15px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #f44336; 
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center; 
+      margin-bottom: 10px; 
+    }
+
+    .logo {
+      width: 120px; 
+      height: auto; 
+      margin-right: 15px; 
+    }
+
+    .name {
+      font-size: 40px; 
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .reviews {
+      font-size: 18px; 
+      color: #555;
+      margin: 5px 0 20px 50px; 
+    }
+
+    .rating {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .star {
+      width: 30px;
+      height: 30px;
+      margin: 5px 0 20px 50px;
+      color: #ccc; 
+      font-size: 24px;
+      cursor: pointer; 
+    }
+
+    .review-box {
+      margin: 5px 0 20px 50px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      resize: vertical;
+      min-height: 100px;
+      font-size: 16px; 
+    }
+
+    .name-input {
+      margin-left: 50px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      width: 100%;
+      padding: 5px;
+    }
+
+    .verified-container {
+      display: flex;
+      align-items: center;
+      background-color: rgba(144, 238, 144, 0.5); 
+      border-radius: 5px;
+      padding: 10px;
+      margin-left: 50px; 
+      margin-top: 10px; 
+    }
+
+    .verified-icon {
+      width: 20px; 
+      height: 20px;
+      margin-right: 10px; 
+    }
+
+    .verified-text {
+      font-size: 18px; 
+      font-weight: bold;
+    }
+
+    .submitted-reviews {
+      margin-left: 50px; 
+      margin-top: 20px; 
+      width: 100%;
+    }
+
+    .review-item {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      margin-top: 5px;
+      background-color: #f9f9f9;
+    }
+
+    .submit-button {
+      margin-left: 50px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #4CAF50; 
+      color: white;
+      border: none;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <a href="help.html">
+  <button class="back-button" onclick="window.history.back();">Back</button></a>
+  <div class="container">
+    <div class="logo-container">
+      <img src="chillguynobg.png" alt="Logo" class="logo"> 
+      <div class="name"> ZHC</div>
+    </div>
+    <div class="reviews">1.6k Reviews | Excellent</div>
+    <div class="verified-container" img src="https://parspng.com/wp-content/uploads/2022/07/tickpng.parspng.com-4.png" alt="Verified" class="verified-icon"> 
+      <div class="verified-text"> VERIFIED COMPANY</div>
+    </div>
+    <br />
+    <input type="text" class="name-input" placeholder="Your Name" />
+    <div class="review-box" contenteditable="true" placeholder ="Write down a review..."></div>
+    
+    <div class="rating">
+      <div class="star" data-value="1">★</div>
+      <div class="star" data-value="2">★</div>
+      <div class="star" data-value="3">★</div>
+      <div class="star" data-value="4">★</div>
+      <div class="star" data-value="5">★</div>
+    </div>
+    
+    <button class="submit-button">Submit Review</button>
+    <div class="submitted-reviews" id="submitted-reviews">
+      <div class="review-item">
+        <strong>Yushang Z F L</strong><br>
+        Great service! Highly recommend.<br>
+        <span style="color: FFD300;">(5 stars)</span>
+      </div>
+      <div class="review-item">
+        <strong>Darrus Ong</strong><br>
+        The product quality is excellent.<br>
+        <span style="color: FFD300;">(4 stars)</span>
+      </div>
+      <div class="review-item">
+        <strong>Sashza A</strong><br>
+        Had a wonderful experience, will come back again!<br>
+        <span style="color: FFD300;">(5 stars)</span>
+      </div>
+      <div class="review-item">
+        <strong>Amba Labu</strong><br>
+        My kids really enjoy this web.<br>
+        <span style="color: FFD300;">(4 stars)</span>
+      </div>
+      <div class="review-item">
+        <strong>Nico Hulkenberg</strong><br>
+        My kids get a good grade studying from here. They are starting to love math a whole, thank you ZHC.<br>
+        <span style="color: FFD300;">(5 stars)</span>
+      </div>
+    </div>
+    <br />
+    <br />
+    <br />
+  </div>
+  <script>
+    let selectedRating = 0;
+
+    document.querySelectorAll('.star').forEach((star) => {
+      star.addEventListener('click', () => {
+        selectedRating = parseInt(star.getAttribute('data-value'));
+        document.querySelectorAll('.star').forEach((s, index) => {
+          s.style.color = index < selectedRating ? 'gold' : '#ccc'; 
+        });
+      });
+    });
+
+    const reviewBox = document.querySelector('.review-box');
+    const nameInput = document.querySelector('.name-input');
+    const submittedReviewsContainer = document.getElementById('submitted-reviews');
+    const submitButton = document.querySelector('.submit-button');
+
+    submitButton.addEventListener('click', () => {
+      if (reviewBox.textContent.trim() !== '' && nameInput.value.trim() !== '' && selectedRating > 0) {
+        const reviewText = reviewBox.textContent.trim();
+        const nameText = nameInput.value.trim();
+        const reviewItem = document.createElement('div');
+        reviewItem.className = 'review-item';
+        reviewItem.innerHTML = `<strong>${nameText}</strong><br>${reviewText}<br><span style="color: FFD300;">(${selectedRating} stars)</span>`;
+        submittedReviewsContainer.appendChild(reviewItem);
+        reviewBox.textContent = ''; 
+        nameInput.value = ''; 
+        selectedRating = 0; 
+        document.querySelectorAll('.star').forEach((s) => s.style.color = '#ccc'); 
+      } else {
+        alert("Please fill in your name, review, and select a rating before submitting.");
+      }
+    });
+  </script>
+</body>
+</html> 

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 6: Numbers</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+  
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+  
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+  
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+  
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+  
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+  
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+  
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+  
+    img {
+      display: block;
+      margin: 20px auto;
+      max-width: 45%;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+  
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px; /* Space between buttons */
+      margin-top: 20px; /* Space above buttons */
+    }
+  
+    .nav-buttons button {
+      width: 120px; /* Button width */
+      background-color: #6a5acd; /* Button background color */
+      color: white; /* Button text color */
+      padding: 12px; /* Button padding */
+      border: none; /* Remove default border */
+      border-radius: 5px; /* Rounded corners */
+      cursor: pointer; /* Pointer cursor on hover */
+      transition: background-color 0.3s ease, transform 0.3s ease; /* Transition effects */
+    }
+  
+    .nav-buttons button:hover {
+      background-color: #5a4db8; /* Darker background on hover */
+      transform: scale(1.05); /* Slightly enlarge on hover */
+    }
+  
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+  
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+  
+    /* Table styles */
+    table {
+      width: 90%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+  
+    th, td {
+      padding: 12px 15px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+  
+    th {
+      background-color: #6a5acd;
+      color: white;
+    }
+  
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+  
+    tr:hover {
+      background-color: #e0e0e0;
+    }
+  
+    .caption {
+      font-weight: bold;
+      background-color: #6a5acd;
+      color: white;
+    }
+  
+    /* Drag and drop styles */
+    .drop-area {
+      width: 100%;
+      height: 50px;
+      border: 2px dashed #6a5acd;
+      border-radius: 5px;
+      margin: 10px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .draggable {
+      width: 100px;
+      height: 30px;
+      background-color: #6a5acd;
+      color: white;
+      display: inline-block;
+      text-align: center;
+      line-height: 30px;
+      margin: 5px;
+      cursor: grab;
+    }
+  
+    .draggable:active {
+      cursor: grabbing;
+    }
+  
+    .correct {
+      background-color: green;
+    }
+  
+    .wrong {
+      background-color: red;
+    }
+  </style>  
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Place Value in Whole Numbers and Decimals</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 0: Introduction -->
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">Let’s explore place value in whole numbers and decimals!</div>
+    <div class="analogy">
+      Place value tells us the value of each digit in a number depending on its position.
+    </div>
+  </div>
+
+  <!-- Page 1: Place Value in Whole Numbers -->
+  <div class="content" id="page1">
+    <div class="note">Place Value in Whole Numbers</div>
+    <div class="analogy">
+      Place value tells you the value of each digit in a number based on where it is.
+      <br><br>
+      <strong>Example:</strong><br>
+      In the number 4,572, the place value of each digit is:
+      <ul>
+        <li>4 is in the thousands place (4,000)</li>
+        <li>5 is in the hundreds place (500)</li>
+        <li>7 is in the tens place (70)</li>
+        <li>2 is in the ones place (2)</li>
+      </ul>
+      <br>
+      <strong>Larger numbers:</strong><br>
+      In 53,689, the place values are:
+      <ul>
+        <li>5 in the ten thousands (50,000)</li>
+        <li>3 in the thousands (3,000)</li>
+        <li>6 in the hundreds (600)</li>
+        <li>8 in the tens (80)</li>
+        <li>9 in the ones (9)</li>
+      </ul>
+      
+      <div id="page1Activities" style="display: none;">
+        <div class="drop-area" id="dropArea1">Drop Here</div>
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="draggable1">4,000</div>
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="draggable2">500</div>
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="draggable3">70</div>
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="draggable4">2</div>
+        <div class="drop-area" id="dropArea2">Drop Here</div>
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="draggable5">50,000</div>
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="draggable6">3,000</div>
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="draggable7">600</div>
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="draggable8">80</div>
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="draggable9">9</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 2: Place Value in Decimals -->
+  <div class="content" id="page2">
+    <div class="note">Place Value in Decimals</div>
+    <div class="analogy">
+      In decimals, the place values start after the decimal point.
+      <br><br>
+      <strong>Example:</strong><br>
+      In 4.38:
+      <ul>
+        <li>4 is in the units place (4)</li>
+        <li>3 is in the tenths place (0.3)</li>
+        <li>8 is in the hundredths place (0.08)</li>
+      </ul>
+      <br>
+      <strong>In 0.543:</strong><br>
+      <ul>
+        <li>5 is in the tenths place (0.5)</li>
+        <li>4 is in the hundredths place (0.04)</li>
+        <li>3 is in the thousandths place (0.003)</li>
+      </ul>
+      
+      <div id="page2Activities" style="display: none;">
+        <div class="drop-area" id="dropArea3">Drop Here</div>
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="draggable10">4</div>
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="draggable11">0.3</div>
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="draggable12">0.08</div>
+        <div class="drop-area" id="dropArea4">Drop Here</div>
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="draggable13">0.5</div>
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="draggable14">0.04</div>
+        <div class="draggable" draggable="true" ondragstart="drag(event)" id="draggable15">0.003</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button onclick="prevPage()">Previous</button>
+    <button onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    let currentPage = 0;
+    const pages = document.querySelectorAll('.content');
+
+    
+
+    function drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    function drop(ev, dropAreaId) {
+      ev.preventDefault();
+      const data = ev.dataTransfer.getData("text");
+      const draggableElement = document.getElementById(data);
+      const dropArea = document.getElementById(dropAreaId);
+
+      if (dropAreaId === 'dropArea1' && (data === 'draggable1' || data === 'draggable2' || data === 'draggable3' || data === 'draggable4')) {
+        dropArea.appendChild(draggableElement);
+        draggableElement.classList.add('correct');
+      } else if (dropAreaId === 'dropArea2' && (data === 'draggable5' || data === 'draggable6' || data === 'draggable7' || data === 'draggable8' || data === 'draggable9')) {
+        dropArea.appendChild(draggableElement);
+        draggableElement.classList.add('correct');
+      } else {
+        dropArea.appendChild(draggableElement);
+        draggableElement.classList.add('wrong');
+      }
+    }
+
+    function allowDrop(ev) {
+      ev.preventDefault();
+    }
+
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        updateProgressBar();
+      }
+    }
+
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        updateProgressBar();
+      }
+    }
+
+    function updateProgressBar() {
+      const progressFill = document.getElementById('progressFill');
+      const percentage = ((currentPage + 1) / pages.length) * 100;
+      progressFill.style.width = percentage + '%';
+    }
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g6numbers3.html'; 
+  }
+}
+  </script>
+</body>
+</html>

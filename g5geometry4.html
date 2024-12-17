@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 5: Geometry</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    img {
+      display: block;
+      margin: 20px auto;
+      max-width: 45%;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .quiz {
+      margin-top: 20px;
+      display: none;
+      background-color: #f9f9f9;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .quiz-question {
+      margin-bottom: 10px;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Calculating Angles on a Straight Line</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 0: Introduction -->
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">Let’s learn how to calculate angles on a straight line!</div>
+    <div class="analogy">
+      The total of all the angles on a straight line is always 180°. This is because a straight line creates a 180° angle.
+      <br><br>
+      If two angles are on a straight line, their sum will always be 180°.
+    </div>
+  </div>
+
+  <!-- Page 1: What does "Angles on a Straight Line" Mean? -->
+  <div class="content" id="page1">
+    <div class="note">What does “Angles on a Straight Line” Mean?</div>
+    <div class="analogy">
+      The total of all the angles on a straight line is 180°. If you have two angles that are on a straight line, the sum of those two angles will always be 180°.
+      <br><br>
+      <strong>Example:</strong> 
+      If one angle is 110° on a straight line, the other angle must be:
+      <br><br>
+      <strong>180° - 110° = 70°</strong>
+      <img src="angleline.png" alt="Angles on a Straight Line">
+    </div>
+  </div>
+
+  <!-- Page 2: Steps to Calculate Angles on a Straight Line -->
+  <div class="content" id="page2">
+    <div class="note">How to Calculate Angles on a Straight Line</div>
+    <div class="analogy">
+      Follow these steps to calculate angles on a straight line:
+      <ol>
+        <li><strong>Step 1:</strong> Identify the given angle on the straight line.</li>
+        <li><strong>Step 2:</strong> Subtract the given angle from 180° to find the other angle.</li>
+        <li><strong>Step 3:</strong> Check if the sum of the two angles equals 180°.</li>
+      </ol>
+      <strong>Example:</strong> 
+      If the given angle is 110°, subtract it from 180°:
+      <br><br>
+      <strong>180° - 110° = 70°</strong>
+      <br><br>
+      So, the other angle is 70°.
+      <br><br>
+      <button id="start1Button" class="button" onclick="showQuiz()">Start</button>
+      <div id="quiz1" class="quiz">
+        <div class="quiz-question">
+          What is the other angle if one angle is 130°?
+          <br>
+          <input type="number" id="answer1" placeholder="Enter answer (°)">
+          <button class="button" onclick="checkAnswer(50)">Submit Answer</button>
+          <p id="feedback1"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    // Function to go to the next page
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Function to go to the previous page
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Function to show the quiz after clicking the start button
+    function showQuiz() {
+      document.getElementById('quiz1').style.display = 'block';
+    }
+
+    // Function to check the answer
+    function checkAnswer(correctAnswer) {
+      const userAnswer = document.getElementById('answer1').value;
+      const feedback = document.getElementById('feedback1');
+      if (parseInt(userAnswer) === correctAnswer) {
+        feedback.innerText = "Correct! The other angle is indeed 50°.";
+      } else {
+        feedback.innerText = "Incorrect. Please try again.";
+      }
+    }
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g5main.html'; 
+  }
+}
+  </script>
+</body>
+</html>

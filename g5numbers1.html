@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 5: Numbers</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    img {
+      display: block;
+      margin: 20px auto;
+      max-width: 45%;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .img2 {
+      width: 150px;
+      height: auto;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    /* Table styles */
+    table {
+      width: 90%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #6a5acd;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #e0e0e0;
+    }
+
+    .caption {
+      font-weight: bold;
+      background-color: #6a5acd;
+      color: white;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Counting in Steps and Place Value</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 0: Introduction -->
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">Let’s learn about counting in steps and understanding place value in large numbers!</div>
+    <div class="analogy">
+      Counting in steps helps us count quickly in intervals, and place value helps us understand the value of each digit in large numbers.
+    </div>
+  </div>
+
+  <!-- Page 1: Counting in Steps -->
+  <div class="content" id="page1">
+    <div class="note">Counting in Steps</div>
+    <div class="analogy">
+      Counting in steps means counting by a certain number each time, instead of just adding 1 each time.
+      <br><br>
+      <strong>Example:</strong><br>
+      If you count in steps of 5, you would say: 5, 10, 15, 20, 25, 30…<br>
+      If you count in steps of 100, you would say: 100, 200, 300, 400, 500…
+      <br><br>
+      
+    </div>
+    <div id="activity1" style="display: none;">
+      <div class="note">Drag and drop the correct numbers into the boxes below to complete the counting in steps:</div>
+  
+      <div>
+        <div style="display: inline-block; width: 80px; height: 80px; border: 1px solid #ccc; margin: 10px; text-align: center;" ondrop="drop(event)" ondragover="allowDrop(event)">
+          <div id="drop1" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 100%; height: 100%;"></div>
+        </div>
+        <div draggable="true" id="num1" ondragstart="drag(event)" style="width: 80px; height: 80px; border: 1px solid #6a5acd; text-align: center; margin: 10px;">5</div>
+        <div draggable="true" id="num2" ondragstart="drag(event)" style="width: 80px; height: 80px; border: 1px solid #6a5acd; text-align: center; margin: 10px;">10</div>
+        <div draggable="true" id="num3" ondragstart="drag(event)" style="width: 80px; height: 80px; border: 1px solid #6a5acd; text-align: center; margin: 10px;">15</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 2: Place Value -->
+  <div class="content" id="page2">
+    <div class="note">What is Place Value?</div>
+    <div class="analogy">
+      Place value tells us what each digit in a number represents, based on where it is in the number.
+      <br><br>
+      <strong>Example:</strong><br>
+      In the number 4,385, the digit 4 represents 4,000 (four thousands), the digit 3 represents 300 (three hundreds), the digit 8 represents 80 (eight tens), and the digit 5 represents 5 (five ones).
+      <br><br>
+      <button id="start2Button" class="button">Start</button>
+    </div>
+    <div id="activity2" style="display: none;">
+      <div class="note">Remove 4 from the number:</div>
+
+      <div>
+        <label><input type="radio" name="match2" value="4000"> 4,385 - 4,000</label><br>
+        <label><input type="radio" name="match2" value="300"> 4,385 - 300</label><br>
+        <label><input type="radio" name="match2" value="80"> 4,385 - 80</label><br>
+        <label><input type="radio" name="match2" value="5"> 4,385 - 5</label><br>
+      </div>
+      <button onclick="checkAnswer2()" class="button">Check Answer</button>
+      <div id="result2" style="margin-top: 10px;"></div>
+    </div>
+  </div>
+
+  <!-- Page 3: How to read large numbers -->
+  <div class="content" id="page3">
+    <div class="note">How to Read Large Numbers</div>
+    <div class="analogy">
+      When you look at a large number, break it down by place value to understand how much each digit is worth.
+      <br><br>
+      <strong>Example:</strong><br>
+      In 12,546, the 1 is in the ten thousand place, so it means 10,000. The 2 is in the thousands place, so it means 2,000, and so on.
+      <br><br>
+      <button id="start3Button" class="button">Start</button>
+    </div>
+    <div id="activity3" style="display: none;">
+      <div class="note">Answer the quiz question below:</div>
+      <img src="quiz.png" alt="Quiz Activity">
+      <div>
+        <strong>Question:</strong> What is the value of the digit 3 in the number 3,456?
+        <br>
+        <input type="text" id="quizAnswer" placeholder="Your answer">
+        <button onclick="checkQuizAnswer()" class="button">Submit</button>
+        <div id="quizResult" style="margin-top: 10px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    // Function to go to the next page
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Function to go to the previous page
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Functions for Page 1
+    
+
+    function allowDrop(ev) {
+      ev.preventDefault();
+    }
+
+    function drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    function drop(ev) {
+      ev.preventDefault();
+      const data = ev.dataTransfer.getData("text");
+      ev.target.appendChild(document.getElementById(data));
+    }
+
+    // Functions for Page 2
+    document.getElementById('start2Button').onclick = function() {
+      document.getElementById('activity2').style.display = 'block';
+    };
+
+    function checkAnswer2() {
+      const radios = document.getElementsByName('match2');
+      let resultText = "Incorrect. Please try again.";
+      for (let i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {
+          if (radios[i].value === "4000") {
+            resultText = "Correct! 4 represents 4,000.";
+          }
+          break;
+        }
+      }
+      document.getElementById('result2').innerText = resultText;
+    }
+
+    // Functions for Page 3
+    document.getElementById('start3Button').onclick = function() {
+      document.getElementById('activity3').style.display = 'block';
+    };
+
+    function checkQuizAnswer() {
+      const answer = document.getElementById('quizAnswer').value;
+      const correctAnswer = "300";
+      const resultText = (answer === correctAnswer) ? "Correct!" : "Incorrect. The correct answer is 300.";
+      document.getElementById('quizResult').innerText = resultText;
+    }
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g5numbers2.html'; 
+  }
+}
+  </script>
+</body>
+</html>

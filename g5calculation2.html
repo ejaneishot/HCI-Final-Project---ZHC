@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 5: Calculation</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    img {
+      display: block;
+      margin: 20px auto;
+      max-width: 45%;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .img2 {
+      width: 150px;
+      height: auto;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    /* Table styles */
+    table {
+      width: 90%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #6a5acd;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #e0e0e0;
+    }
+
+    .caption {
+      font-weight: bold;
+      background-color: #6a5acd;
+      color: white;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Divisibility Tests</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 0: Intro to Divisibility -->
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">Let’s learn about divisibility tests!</div>
+    <div class="analogy">
+      <strong>What is divisibility?</strong>
+      <p>A divisibility test helps you quickly check if one number can be divided evenly (with no remainder) by another number.</p>
+    </div>
+  </div>
+
+  <!-- Page 1: Divisible by 2 -->
+  <div class="content" id="page1">
+    <div class="note">Divisible by 2</div>
+    <div class="analogy">
+      <p>A number is divisible by 2 if its last digit is even (0, 2, 4, 6, or 8).</p>
+      <p><strong>Examples:</strong></p>
+      <ul>
+        <li>34 is divisible by 2 because its last digit (4) is even.</li>
+        <li>45 is not divisible by 2 because its last digit (5) is odd.</li>
+      </ul>
+      <button id="start1Button" class="button">Start</button>
+      <div id="activity1" style="display: none;">
+        <h3>Drag and Drop: Identify Even Numbers</h3>
+        <p>Drag the following numbers to the correct column:</p>
+        <div id="dropZone">
+          <div>
+            <span draggable="true" ondragstart="drag(event)">34</span>
+            <span draggable="true" ondragstart="drag(event)">45</span>
+            <span draggable="true" ondragstart="drag(event)">62</span>
+            <span draggable="true" ondragstart="drag(event)">51</span>
+          </div>
+          <div>
+            <p>Even Numbers:</p>
+            <div id="evenNumbers" ondrop="drop(event)" ondragover="allowDrop(event)" style="border: 1px solid #ccc; padding: 10px; min-height: 50px;"></div>
+            <p>Odd Numbers:</p>
+            <div id="oddNumbers" ondrop="drop(event)" ondragover="allowDrop(event)" style="border: 1px solid #ccc; padding: 10px; min-height: 50px;"></div>
+          </div>
+        </div>
+        <button onclick="checkEvenNumbers()" class="button">Check Answers</button>
+        <script>
+          function allowDrop(event) {
+            event.preventDefault();
+          }
+
+          function drag(event) {
+            event.dataTransfer.setData("text", event.target.innerText);
+          }
+
+          function drop(event) {
+            event.preventDefault();
+            const data = event.dataTransfer.getData("text");
+            event.target.innerHTML += "<div>" + data + "</div>";
+          }
+
+          function checkEvenNumbers() {
+            const evenNumbers = ['34', '62'];
+            const oddNumbers = ['45', '51'];
+            const droppedEvens = Array.from(document.querySelectorAll('#evenNumbers div')).map(el => el.innerText.trim());
+            const droppedOdds = Array.from(document.querySelectorAll('#oddNumbers div')).map(el => el.innerText.trim());
+            const isEvenCorrect = droppedEvens.every(num => evenNumbers.includes(num)) && droppedEvens.length === evenNumbers.length;
+            const isOddCorrect = droppedOdds.every(num => oddNumbers.includes(num)) && droppedOdds.length === oddNumbers.length;
+
+            alert(isEvenCorrect && isOddCorrect ? "Correct! Great job!" : "Some answers are incorrect. Try again!");
+          }
+        </script>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 2: Divisible by 5 -->
+  <div class="content" id="page2">
+    <div class="note">Divisible by 5</div>
+    <div class="analogy">
+      <p>A number is divisible by 5 if its last digit is 0 or 5.</p>
+      <p><strong>Examples:</strong></p>
+      <ul>
+        <li>40 is divisible by 5 because its last digit is 0.</li>
+        <li>43 is not divisible by 5 because its last digit is 3.</li>
+      </ul>
+      <button id="start2Button" class="button">Start</button>
+      <div id="activity2" style="display: none;">
+        <h3>Match the Correct Answer</h3>
+        <table>
+          <tr>
+            <th>Number</th>
+            <th>Last Digit</th>
+          </tr>
+          <tr>
+            <td>25</td>
+            <td><input type="text" placeholder="Enter Last Digit" /></td>
+          </tr>
+          <tr>
+            <td>40</td>
+            <td><input type="text" placeholder="Enter Last Digit" /></td>
+          </tr>
+          <tr>
+            <td>73</td>
+            <td><input type="text" placeholder="Enter Last Digit" /></td>
+          </tr>
+          <tr>
+            <td>60</td>
+            <td><input type="text" placeholder="Enter Last Digit" /></td>
+          </tr>
+          <tr>
+            <td>87</td>
+            <td><input type="text" placeholder="Enter Last Digit" /></td>
+          </tr>
+        </table>
+        <button onclick="checkLastDigits()" class="button">Check Answers</button>
+        <script>
+          function checkLastDigits() {
+            const correctAnswers = ["5", "0", "3", "0", "7"];
+            const inputs = document.querySelectorAll('input[type="text"]');
+            let correctCount = 0;
+
+            inputs.forEach((input, index) => {
+              if (input.value.trim() === correctAnswers[index]) {
+                correctCount++;
+              }
+            });
+
+            alert(correctCount === correctAnswers.length ? "Correct! Great job!" : "Some answers are incorrect. Try again!");
+          }
+        </script>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 3: Divisible by 10 -->
+  <div class="content" id="page3">
+    <div class="note">Divisible by 10</div>
+    <div class="analogy">
+      <p>A number is divisible by 10 if its last digit is 0.</p>
+      <p><strong>Examples:</strong></p>
+      <ul>
+        <li>70 is divisible by 10 because its last digit is 0.</li>
+        <li>73 is not divisible by 10 because its last digit is 3.</li>
+      </ul>
+      <button id="start3Button" class="button">Start</button>
+      <div id="activity3" style="display: none;">
+        <h3>Small Quiz: Divisible by 10</h3>
+        
+        <p>Is the following number divisible by 10? 120</p>
+        <input type="text" id="quizAnswer1" placeholder="Yes or No" />
+        <p>Is the following number divisible by 10? 135</p>
+        <input type="text" id="quizAnswer2" placeholder="Yes or No" />
+        <button onclick="checkQuizAnswers3()" class="button">Check Answers</button>
+        <script>
+          function checkQuizAnswers3() {
+            const answers = [true, false];
+            const userAnswers = [
+              document.getElementById('quizAnswer1').value.trim().toLowerCase() === 'yes',
+              document.getElementById('quizAnswer2').value.trim().toLowerCase() === 'yes'
+            ];
+            const correctCount = userAnswers.filter((ans, index) => ans === answers[index]).length;
+
+            alert(correctCount === answers.length ? "Correct! Great job!" : "Some answers are incorrect. Try again!");
+          }
+        </script>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 4: Divisible by 100 -->
+  <div class="content" id="page4">
+    <div class="note">Divisible by 100</div>
+    <div class="analogy">
+      <p>A number is divisible by 100 if its last two digits are 00.</p>
+      <p><strong>Examples:</strong></p>
+      <ul>
+        <li>400 is divisible by 100 because its last two digits are 00.</li>
+        <li>450 is not divisible by 100 because its last two digits are 50.</li>
+      </ul>
+      <button id="start4Button" class="button">Start</button>
+      <div id="activity4" style="display: none;">
+        <h3>Drag and Drop: Identify Divisible by 100</h3>
+        <img src="last_two_digits.png" alt="Last Two Digits" />
+        <p>Drag the following numbers to the correct column:</p>
+        <div id="dropZone">
+          <div>
+            <span draggable="true" ondragstart="drag(event)">100</span>
+            <span draggable="true" ondragstart="drag(event)">200</span>
+            <span draggable="true" ondragstart="drag(event)">250</span>
+            <span draggable="true" ondragstart="drag(event)">300</span>
+          </div>
+          <div>
+            <p>Divisible by 100:</p>
+            <div id="divBy100" ondrop="drop(event)" ondragover="allowDrop(event)" style="border: 1px solid #ccc; padding: 10px; min-height: 50px;"></div>
+            <p>Not Divisible by 100:</p>
+            <div id="notDivBy100" ondrop="drop(event)" ondragover="allowDrop(event)" style="border: 1px solid #ccc; padding: 10px; min-height: 50px;"></div>
+          </div>
+        </div>
+        <button onclick="checkDivisibilityBy100()" class="button">Check Answers</button>
+        <script>
+          function checkDivisibilityBy100() {
+            const divisible = ["100", "200", "300"];
+            const userDivisible = [...document.querySelectorAll('#divBy100 > div')].map(el => el.textContent.trim());
+            const correct = userDivisible.every(num => divisible.includes(num)) && userDivisible.length === divisible.length;
+            alert(correct ? "Correct! Great job!" : "Some answers are incorrect. Try again!");
+          }
+        </script>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    // Function to go to the next page
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Function to go to the previous page
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Show activity section when start button is clicked
+    document.getElementById('start1Button').onclick = function() {
+      document.getElementById('activity1').style.display = 'block';
+    };
+    document.getElementById('start2Button').onclick = function() {
+      document.getElementById('activity2').style.display = 'block';
+    };
+    document.getElementById('start3Button').onclick = function() {
+      document.getElementById('activity3').style.display = 'block';
+    };
+    document.getElementById('start4Button').onclick = function() {
+      document.getElementById('activity4').style.display = 'block';
+    };
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g5calculation3.html'; 
+  }
+}
+  </script>
+</body>
+</html>

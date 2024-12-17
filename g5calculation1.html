@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 5: Calculation</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    img {
+      display: block;
+      margin: 20px auto;
+      max-width: 45%;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .img2 {
+      width: 150px;
+      height: auto;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    /* Table styles */
+    table {
+      width: 90%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #6a5acd;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #e0e0e0;
+    }
+
+    .caption {
+      font-weight: bold;
+      background-color: #6a5acd;
+      color: white;
+    }
+
+    .activity {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .drop-zone {
+      width: 100%;
+      height: 100px;
+      border: 2px dashed #6a5acd;
+      margin: 10px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      color: #6a5acd;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Know Decimal Pairs Totaling 1 and 10</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 0: Introduction -->
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">Let’s learn about decimal pairs that add up to 1 and 10!</div>
+    <div class="analogy">
+      Decimal pairs are two numbers that add up to a specific value, such as 1 or 10. 
+    </div>
+  </div>
+
+  <!-- Page 1: Decimal Pairs Totaling 1 -->
+  <div class="content" id="page1">
+    <div class="note">Decimal Pairs Totaling 1</div>
+    <div class="analogy">
+      <ul>
+        <li>0.5 + 0.5 = 1</li>
+        <li>0.8 + 0.2 = 1</li>
+        <li>0.7 + 0.3 = 1</li>
+        <li>0.9 + 0.1 = 1</li>
+      </ul>
+      <strong>How to find pairs:</strong>
+      <ul>
+        <li>If you know one decimal, subtract it from 1 to find the other decimal.</li>
+        <li><strong>Example:</strong> If you have 0.6, subtract it from 1:</li>
+        <ul>
+          <li>1 - 0.6 = 0.4, so 0.6 + 0.4 = 1.</li>
+        </ul>
+      </ul>
+      <button id="start1Button" class="button">Start</button>
+      <div id="decimalPairsActivity" class="activity">
+        
+        <div class="drop-zone" id="dropZone1">0.6</div>
+        <div class="drop-zone" id="dropZone2">0.4</div>
+        <div class="drop-zone" id="dropZone3">0.2</div>
+        <p>Drag the numbers to their corresponding pairs:</p>
+        <div draggable="true" id="number04" ondragstart="drag(event)">0.4</div>
+        <div draggable="true" id="number06" ondragstart="drag(event)">0.6</div>
+        <div draggable="true" id="number08" ondragstart="drag(event)">0.8</div>
+        <div draggable="true" id="number09" ondragstart="drag(event)">0.9</div>
+        <p id="dragDropResult"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 2: Decimal Pairs Totaling 10 -->
+  <div class="content" id="page2">
+    <div class="note">Decimal Pairs Totaling 10</div>
+    <div class="analogy">
+      <ul>
+        <li>5 + 5 = 10</li>
+        <li>7.3 + 2.7 = 10</li>
+        <li>8.6 + 1.4 = 10</li>
+        <li>9.2 + 0.8 = 10</li>
+      </ul>
+      <strong>How to find pairs:</strong>
+      <ul>
+        <li>If you know one decimal, subtract it from 10 to find the other decimal.</li>
+        <li><strong>Example:</strong> If you have 6.4, subtract it from 10:</li>
+        <ul>
+          <li>10 - 6.4 = 3.6, so 6.4 + 3.6 = 10.</li>
+        </ul>
+      </ul>
+      <button id="start2Button" class="button">Start</button>
+      <div id="decimalPairsQuiz" class="activity">
+        
+        <p>What is 10 - 3.2?</p>
+        <input type="text" id="quizAnswer2">
+        <button class="button" onclick="checkAnswer2()">Check Answer</button>
+        <p id="quizResult2"></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    // Function to go to the next page
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Function to go to the previous page
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Drag and drop functionality for page 1
+    document.getElementById('start1Button').onclick = function() {
+      document.getElementById('decimalPairsActivity').style.display = 'block';
+    };
+
+    function drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    for (let i = 1; i <= 3; i++) {
+      document.getElementById(`dropZone${i}`).ondrop = drop;
+      document.getElementById(`dropZone${i}`).ondragover = allowDrop;
+    }
+
+    function allowDrop(ev) {
+      ev.preventDefault();
+    }
+
+    function drop(ev) {
+      ev.preventDefault();
+      const data = ev.dataTransfer.getData("text");
+      const draggedElement = document.getElementById(data);
+      const dropZoneId = ev.target.id;
+
+      if (dropZoneId === 'dropZone1' && data === 'number04') {
+        document.getElementById('dragDropResult').textContent = "Correct! 0.4 goes with 0.6.";
+      } else if (dropZoneId === 'dropZone2' && data === 'number06') {
+        document.getElementById('dragDropResult').textContent = "Correct! 0.6 goes with 0.4.";
+      } else if (dropZoneId === 'dropZone3' && data === 'number08') {
+        document.getElementById('dragDropResult').textContent = "Correct! 0.8 goes with 0.2.";
+      } else {
+        document.getElementById('dragDropResult').textContent = "Try again!";
+      }
+    }
+
+    // Quiz functionality for page 2
+    document.getElementById('start2Button').onclick = function() {
+      document.getElementById('decimalPairsQuiz').style.display = 'block';
+    };
+
+    function checkAnswer2() {
+      const answer = document.getElementById('quizAnswer2').value;
+      if (answer == 6.8) {
+        document.getElementById('quizResult2').textContent = "Correct! 10 - 3.2 = 6.8.";
+      } else {
+        document.getElementById('quizResult2').textContent = "Incorrect. Try again!";
+      }
+    }
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g5calculation2.html'; 
+  }
+}
+  </script>
+</body>
+</html>

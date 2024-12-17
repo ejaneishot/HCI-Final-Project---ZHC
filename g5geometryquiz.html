@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grade 5 Quiz : Geometry</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .question {
+      margin-bottom: 20px;
+    }
+
+    .option {
+      display: block;
+      margin: 10px 0;
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      display: inline-block;
+      margin-top: 20px;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .result {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      margin-top: 20px;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Quiz : Geometry (Grade 5)</h1>
+  </header>
+
+  <div class="content" id="quizPage">
+    <div class="question" id="questionContainer"></div>
+    <button class="button" id="nextButton">Next</button>
+    <div class="result" id="resultContainer" style="display:none;"></div>
+    <button class="button" id="redirectButton" style="display:none;">Next Quiz</button> 
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "Which of the following is a type of triangle?",
+        options: ["Square", "Circle", "Equilateral", "Rectangle"],
+        correct: 2
+      },
+      {
+        question: "How many sides does a hexagon have?",
+        options: ["5", "6", "7", "8"],
+        correct: 1
+      },
+      {
+        question: "What is the sum of the interior angles of a triangle?",
+        options: ["90°", "180°", "360°", "270°"],
+        correct: 1
+      },
+      {
+        question: "Which of the following shapes has four equal sides?",
+        options: ["Rectangle", "Square", "Circle", "Triangle"],
+        correct: 1
+      },
+      {
+        question: "Which shape has no corners?",
+        options: ["Square", "Circle", "Triangle", "Rectangle"],
+        correct: 1
+      },
+      {
+        question: "What is the name of the 3D shape with 6 square faces?",
+        options: ["Cube", "Sphere", "Cone", "Cylinder"],
+        correct: 0
+      },
+      {
+        question: "What do we call a line that touches a circle at only one point?",
+        options: ["Chord", "Radius", "Tangent", "Diameter"],
+        correct: 2
+      },
+      {
+        question: "How many vertices does a cube have?",
+        options: ["4", "6", "8", "12"],
+        correct: 2
+      },
+      {
+        question: "What is the name of the 3D shape with a circular base and a pointed top?",
+        options: ["Cone", "Cube", "Cylinder", "Pyramid"],
+        correct: 0
+      },
+      {
+        question: "What is the perimeter of a square with side length 4 cm?",
+        options: ["12 cm", "16 cm", "8 cm", "10 cm"],
+        correct: 1
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    const questionContainer = document.getElementById("questionContainer");
+    const nextButton = document.getElementById("nextButton");
+    const resultContainer = document.getElementById("resultContainer");
+    const redirectButton = document.getElementById("redirectButton");
+
+    function loadQuestion(index) {
+      const questionData = questions[index];
+      questionContainer.innerHTML = `${questionData.question}`;
+      questionData.options.forEach((option, i) => {
+        questionContainer.innerHTML += `
+          <label class="option">
+            <input type="radio" name="quizOption" value="${i}"> ${option}
+          </label>
+        `;
+      });
+    }
+
+    function showResult() {
+      questionContainer.style.display = "none";
+      nextButton.style.display = "none";
+      resultContainer.style.display = "block";
+      resultContainer.innerHTML = `You scored ${score} out of ${questions.length}!`;
+      redirectButton.style.display = "inline-block"; 
+    }
+
+    nextButton.addEventListener("click", () => {
+      const selectedOption = document.querySelector("input[name='quizOption']:checked");
+      if (selectedOption) {
+        const answer = parseInt(selectedOption.value, 10);
+        if (answer === questions[currentQuestion].correct) {
+          score++;
+        }
+
+        currentQuestion++;
+
+        if (currentQuestion < questions.length) {
+          loadQuestion(currentQuestion);
+        } else {
+          showResult();
+        }
+      } else {
+        alert("Please select an answer before proceeding.");
+      }
+    });
+
+    redirectButton.addEventListener("click", () => {
+      window.location.href = "quizmain.html"; 
+    });
+
+    document.getElementById("quizPage").style.display = "block";
+    loadQuestion(currentQuestion);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multiplying and Dividing Large Numbers</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    .interactive {
+      margin-top: 20px;
+      display: none;
+      padding: 15px;
+      background-color: #e9ecef;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .drag-drop {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .drop-zone {
+      width: 100px;
+      height: 100px;
+      border: 2px dashed #6a5acd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 10px;
+    }
+
+    .quiz {
+      margin-top: 10px;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Multiplying and Dividing Large Numbers</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 1: Multiplying Large Numbers (Partitioning) -->
+  <div class="content" id="page1" style="display: block;">
+    <div class="note">Multiplying Large Numbers (Partitioning)</div>
+    <div ```html
+    <div class="analogy">
+      <strong>Break Down the Numbers (Partitioning):</strong><br>
+      Split the larger number into smaller parts. Multiply each part separately, then add the results.<br><br>
+      <strong>Example:</strong>
+      <ul>
+        <li>256 × 4: Break 256 into 200, 50, and 6.</li>
+        <li>Multiply: 200 × 4 = 800</li>
+        <li>50 × 4 = 200</li>
+        <li>6 × 4 = 24</li>
+        <li>Add: 800 + 200 + 24 = 1024.</li>
+      </ul>
+      
+      <div id="interactive1" class="interactive">
+        <div class="drag-drop">
+          <div class="drop-zone" id="drop1">Drop Here</div>
+          <div class="drop-zone" id="drop2">Drop Here</div>
+          <div class="drop-zone" id="drop3">Drop Here</div>
+        </div>
+        <img src="partitioning_example.png" alt="Partitioning Example" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 2: Multiplying Large Numbers (Standard Algorithm) -->
+  <div class="content" id="page2">
+    <div class="note">Multiplying Large Numbers (Standard Algorithm)</div>
+    <div class="analogy">
+      <strong>Using the Standard Algorithm:</strong><br>
+      Write the larger number on top and the smaller number below it. Multiply each digit starting from the right.<br><br>
+      <strong>Example:</strong>
+      <ul>
+        <li>312 × 3:</li>
+        <li>3 × 2 = 6</li>
+        <li>3 × 1 = 3</li>
+        <li>3 × 3 = 9</li>
+        <li>Final Answer: 936</li>
+      </ul>
+      <button id="Start2Button" class="button">Start</button>
+      <div id="interactive2" class="interactive">
+        <div class="quiz">
+          <strong>Quiz: What is 312 × 3?</strong>
+          <input type="text" id="answer2" placeholder="Your answer" />
+          <button onclick="checkAnswer2()">Submit</button>
+        </div>
+        <img src="standard_algorithm_example.png" alt="Standard Algorithm Example" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 3: Double-Digit Multiplication (Lattice Method) -->
+  <div class="content" id="page3">
+    <div class="note">Double-Digit Multiplication (Lattice Method)</div>
+    <div class="analogy">
+      <strong>Double-Digit Multiplication (Lattice Method):</strong><br>
+      Multiply each digit of the first number by each digit of the second number, then add.<br><br>
+      <strong>Example:</strong>
+      <ul>
+        <li>23 × 12:</li>
+        <li>23 × 10 = 230</li>
+        <li>23 × 2 = 46</li>
+        <li>Add: 230 + 46 = 276</li>
+      </ul>
+      <div id="interactive3" class="interactive">
+        <div class="drag-drop">
+          <div class="drop-zone" id="drop4">Drop Here</div>
+          <div class="drop-zone" id="drop5">Drop Here</div>
+        </div>
+        <img src="lattice_method_example.png" alt="Lattice Method Example" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 4: Dividing Large Numbers (Long Division) -->
+  <div class="content" id="page4">
+    <div class="note">Dividing Large Numbers (Long Division)</div>
+    <div class="analogy">
+      <strong>Long Division (Step-by-Step):</strong><br>
+      Divide the first part of the number by the divisor, then bring down the next digit.<br><br>
+      <strong>Example:</strong>
+      <ul>
+        <li>864 ÷ 8:</li>
+        <li>8 goes into 8: 1 time (write 1 above).</li>
+        <li>8 goes into 6: 0 times (write 0 above ```html
+        ).</li>
+        <li>8 goes into 64: 8 times (write 8 above).</li>
+        <li>Final Answer: 108</li>
+      </ul>
+      <button id="Start4Button" class="button">Start</button>
+      <div id="interactive4" class="interactive">
+        <div class="quiz">
+          <strong>Quiz: What is 864 ÷ 8?</strong>
+          <input type="text" id="answer4" placeholder="Your answer" />
+          <button onclick="checkAnswer4()">Submit</button>
+        </div>
+        <img src="long_division_example.png" alt="Long Division Example" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 5: Dividing Large Numbers (Estimation) -->
+  <div class="content" id="page5">
+    <div class="note">Dividing Large Numbers (Estimation)</div>
+    <div class="analogy">
+      <strong>Estimate First:</strong><br>
+      Round the number to make division easier, then adjust.<br><br>
+      <strong>Example:</strong>
+      <ul>
+        <li>732 ÷ 6:</li>
+        <li>Estimate: 720 ÷ 6 = 120</li>
+        <li>Check: 732 ÷ 6 = 122 (adjust slightly).</li>
+      </ul>
+      <button id="Start5Button" class="button">Start</button>
+      <div id="interactive5" class="interactive">
+        <div class="quiz">
+          <strong>Quiz: Estimate 732 ÷ 6.</strong>
+          <input type="text" id="answer5" placeholder="Your answer" />
+          <button onclick="checkAnswer5()">Submit</button>
+        </div>
+        <img src="estimation_example.png" alt="Estimation Example" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 6: Dividing Large Numbers (Division with Remainders) -->
+  <div class="content" id="page6">
+    <div class="note">Dividing Large Numbers (Division with Remainders)</div>
+    <div class="analogy">
+      <strong>Division with Remainders:</strong><br>
+      If the divisor doesn’t go evenly, the leftover is the remainder.<br><br>
+      <strong>Example:</strong>
+      <ul>
+        <li>37 ÷ 5 = 7 R2</li>
+      </ul>
+      <button id="Start6Button" class="button">Start</button>
+      <div id="interactive6" class="interactive">
+        <div class="quiz">
+          <strong>Quiz: What is 37 ÷ 5?</strong>
+          <input type="text" id="answer6" placeholder="Your answer" />
+          <button onclick="checkAnswer6()">Submit</button>
+        </div>
+        <img src="division_with_remainders_example.png" alt="Division with Remainders Example" />
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button id="prevButton" class="button">Back</button>
+    <button id="nextButton" class="button">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    // Function to go to the next page
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Function to go to the previous page
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Event listeners for navigation buttons
+    document.getElementById('nextButton').addEventListener('click', nextPage);
+    document.getElementById('prevButton').addEventListener('click', prevPage);
+
+    // Start button functionalities
+    
+
+    document.getElementById('Start2Button').addEventListener('click', () => {
+      document.getElementById('interactive2').style.display = 'block';
+    });
+
+    
+    document.getElementById('Start4Button').addEventListener('click', () => {
+      document.getElementById('interactive4').style.display = 'block';
+    });
+
+    document.getElementById('Start5Button').addEventListener('click', () => {
+      document.getElementById('interactive5').style.display = 'block';
+    });
+
+    document.getElementById('Start6Button').addEventListener('click', () => {
+      document.getElementById('interactive6').style.display = 'block';
+    });
+
+    // Answer checking functions
+    function checkAnswer2() {
+      const answer = document.getElementById('answer2').value;
+      alert(answer === '936' ? 'Correct!' : 'Try again!');
+    }
+
+    function checkAnswer4() {
+      const answer = document.getElementById('answer4').value;
+      alert(answer === '108' ? 'Correct!' : 'Try again!');
+    }
+
+    function checkAnswer5() {
+      const answer = document.getElementById('answer5').value;
+      alert(answer === '120' ? 'Correct!' : 'Try again!');
+    }
+
+    function checkAnswer6() {
+      const answer = document.getElementById('answer6').value;
+      alert(answer === '7 R2' ? 'Correct!' : 'Try again!');
+    }
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g6main.html'; 
+  }
+}
+  </script>
+</body>
+</html>

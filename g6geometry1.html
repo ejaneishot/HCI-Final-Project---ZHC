@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 6: Geometry</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    img {
+      display: block;
+      margin: 20px auto;
+      max-width: 45%;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Additional Styles for Activities */
+    .activity {
+      margin-top: 20px;
+      display: none;
+    }
+
+    .drop-zone {
+      border: 2px dashed #6a5acd;
+      padding: 10px;
+      margin: 10px 0;
+      min-height: 50px;
+    }
+
+    .drag-item {
+      padding: 10px;
+      background-color: #e0e0e0;
+      margin: 5px;
+      cursor: move;
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    .quiz {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Classifying Polygons, Quadrilaterals, and 3D Shapes</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 1: Introduction to Polygons -->
+  <div class="content" id="page1" style="display: block;">
+    <div class="note">Classifying Polygons</div>
+    <div class="analogy">
+      <strong>What are Polygons?</strong><br>
+      Polygons are closed 2D shapes with straight sides.<br><br>
+      <strong>Examples:</strong><br>
+      <ul>
+        <li>Triangle</li>
+        <li>Square</li>
+        <li>Pentagon</li>
+        <li>Hexagon</li>
+      </ul>
+      <strong>Non-Examples:</strong><br>
+      <ul>
+        <li>Shapes with curves (like circles)</li>
+        <li>Shapes with gaps</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Page 2: Classifying Quadrilaterals -->
+  <div class="content" id="page2">
+    <div class="note">Classifying Quadrilaterals</div>
+    <div class="analogy">
+      <strong>Quadrilaterals are polygons with 4 sides.</strong><br>
+      Common types of quadrilaterals include:<br>
+      <ul>
+        <li><strong>Square:</strong> 4 equal sides, all right angles.</li>
+        <li><strong>Rectangle:</strong> Opposite sides equal, all right angles.</li>
+        <li><strong>Parallelogram:</strong> Opposite sides parallel and equal, angles may not be right.</li>
+        <li><strong>Rhombus:</strong> 4 equal sides, opposite angles equal.</li>
+        <li><strong>Trapezium:</strong> At least one pair of parallel sides.</li>
+      </ul>
+      
+      <div id="activity1" class="activity">
+        <h3>Match the Quadrilaterals</h3>
+        <div class="drop-zone" id="dropZone"></div>
+        <div class="drag-item" draggable="true" id="dragSquare">Square</div>
+        <div class="drag-item" draggable="true" id="dragRectangle">Rectangle</div>
+        <div class="drag-item" draggable="true" id="dragParallelogram">Parallelogram</div>
+        <div class="drag-item" draggable="true" id="dragRhombus">Rhombus</div>
+        <div class="drag-item" draggable="true" id="dragTrapezium">Trapezium</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 3: Identifying 3D Shapes - Introduction -->
+  <div class="content" id="page3">
+    <div class="note">Identifying 3D Shapes</div>
+    <div class="analogy">
+      <strong>3D Shapes have length, width, and height.</strong><br><br>
+      Properties to identify 3D shapes:<br>
+      <ul>
+        <li><strong>Faces:</strong> Flat surfaces.</li>
+        <li><strong>Edges:</strong> Lines where two faces meet.</li>
+        <li><strong>Vertices:</strong> Points where edges meet.</li>
+      </ul>
+      <button id="Start2Button" class="button">Start</button>
+      <div id="activity2" class="activity">
+        <h3>3D Shapes Quiz</h3>
+        <div class="quiz">
+          <p>What shape has 6 square faces?</p>
+          <input type="text" id="cubeAnswer" placeholder="Type your answer...">
+          <button id="submitQuiz" class="button">Submit</button>
+          <div id="quizFeedback"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 4: Identifying a Cube -->
+  <div class="content" id="page4">
+    <div class="note">Identifying a Cube</div>
+    <div class="analogy">
+      <strong>Cube:</strong><br>
+      A cube has the following properties:<br>
+      <ul>
+        <li>6 square faces</li>
+        <li>12 edges</li>
+        <li>8 vertices</li>
+      </ul>
+      <img src="cube.png" alt="Cube Example">
+    </div>
+  </div>
+
+  <!-- Page 5: Identifying a Cylinder -->
+  <div class="content" id="page5">
+    <div class="note">Identifying a Cylinder</div>
+    <div class="analogy">
+      <strong>Cylinder:</strong><br>
+      A cylinder has the following properties:<br>
+      <ul>
+        <li>2 circular faces</li>
+        <li>1 curved face</li>
+        <li>No vertices</li>
+      </ul>
+      <img src="cylinder.jpeg" alt="Cylinder Example">
+    </div>
+  </div>
+
+  <!-- Page 6: Identifying a Pyramid -->
+  <div class="content" id="page6">
+    <div class="note">Identifying a Pyramid</div>
+    <div class="analogy">
+      <strong>Pyramid:</strong><br>
+      A pyramid has the following properties:<br>
+      <ul>
+        <li>Triangular faces meeting at a vertex</li>
+        <li>1 base</li>
+      </ul>
+      <img src="pyramid.png" alt="Pyramid Example">
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    // Function to go to the next page
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Function to go to the previous page
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Start button functions
+    
+
+    document.getElementById('Start2Button').addEventListener('click', function() {
+      document.getElementById('activity2').style.display = 'block';
+      document.getElementById('submitQuiz').addEventListener('click', checkAnswer);
+    });
+
+    function setUpDragDrop() {
+      const dropZone = document.getElementById('dropZone');
+
+      document.querySelectorAll('.drag-item').forEach(item => {
+        item.addEventListener('dragstart', dragStart);
+      });
+
+      dropZone.addEventListener('dragover', dragOver);
+      dropZone.addEventListener('drop', drop);
+    }
+
+    function dragStart(event) {
+      event.dataTransfer.setData('text/plain', event.target.id);
+    }
+
+    function dragOver(event) {
+      event.preventDefault();
+    }
+
+    function drop(event) {
+      event.preventDefault();
+      const id = event.dataTransfer.getData('text/plain');
+      const draggedElement = document.getElementById(id);
+      event.target.appendChild(draggedElement);
+      checkMatching();
+    }
+
+    function checkMatching() {
+      const correctMatches = ['dragSquare', 'dragRectangle', 'dragParallelogram', 'dragRhombus', 'dragTrapezium'];
+      let matchedCount = 0;
+      correctMatches.forEach(id => {
+        const element = document.getElementById(id);
+        if (element.parentNode.id === 'dropZone') {
+          matchedCount++;
+        }
+      });
+      if (matchedCount === correctMatches.length) {
+        alert('Great job! You matched all the quadrilaterals correctly.');
+      }
+    }
+
+    function checkAnswer() {
+      const answer = document.getElementById('cubeAnswer').value.toLowerCase();
+      const feedback = document.getElementById('quizFeedback');
+      if (answer === 'cube') {
+        feedback.innerText = 'Correct! A cube has 6 square faces.';
+      } else {
+        feedback.innerText = 'Try again!';
+      }
+    }
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g6geometry2.html'; 
+  }
+}
+  </script>
+</body>
+</html>

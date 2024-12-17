@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 5: Numbers</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    img {
+      display: block;
+      margin: 20px auto;
+      max-width: 45%;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px; /* Adds spacing between buttons */
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+      background-color: #6a5acd; /* Button background color */
+      color: white; /* Text color */
+      padding: 12px 24px; /* Padding for the buttons */
+      border: none;
+      border-radius: 5px; /* Rounded corners */
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .nav-buttons button:hover {
+      background-color: #5a4db8; /* Darker color on hover */
+      transform: scale(1.05); /* Slight scale on hover */
+    }
+
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    /* Table styles */
+    table {
+      width: 90%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #6a5acd;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #e0e0e0;
+    }
+
+    .caption {
+      font-weight: bold;
+      background-color: #6a5acd;
+      color: white;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Order and Compare Numbers</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 0: Introduction -->
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">Let’s learn how to order and compare numbers!</div>
+    <div class="analogy">
+      These skills help us understand how numbers relate to each other.
+    </div>
+  </div>
+
+  <!-- Page 1: How to Compare Whole Numbers -->
+  <div class="content" id="page1">
+    <div class="note">How to Compare Whole Numbers</div>
+    <div class="analogy">
+      <ul>
+        <li>To compare whole numbers, look at the leftmost digits.</li>
+        <li>The larger number is the one with the bigger digit in that place.</li>
+      </ul>
+      <strong>Example:</strong> 50 is greater than 30 because 5 is bigger than 3.
+      <br><br>
+      <button id="start1Button" class="button">Start</button>
+    </div>
+    <div id="activity1" style="display: none;">
+      <div class="note">Drag and drop to compare these numbers:</div>
+      <div>
+        <div draggable="true" id="num1" ondragstart="drag(event)" style="display:inline-block; border: 1px solid #6a5acd; padding: 10px; margin: 5px;">40</div>
+        <div draggable="true" id="num2" ondragstart="drag(event)" style="display:inline-block; border: 1px solid #6a5acd; padding: 10px; margin: 5px;">70</div>
+      </div>
+      <div class="comparison-area" ondrop="drop(event)" ondragover="allowDrop(event)" style="border: 2px dashed #6a5acd; padding: 20px; margin-top: 20px;">
+        Drop here to compare!
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 2: How to Compare Negative Numbers -->
+  <div class="content" id="page2">
+    <div class="note">How to Compare Negative Numbers</div>
+    <div class="analogy">
+      <ul>
+        <li>For negative numbers, the smaller the number, the more negative it is.</li>
+        <li>The number farther from zero is smaller.</li>
+      </ul>
+      <strong>Example:</strong> -7 is less than -3 because -7 is farther from zero.
+      <br><br>
+      <button id="start2Button" class="button">Start</button>
+    </div>
+    <div id="activity2" style="display: none;">
+      <div class="note">Quiz: Which number is smaller?</div>
+      <div>
+        <label><input type="radio" name="negativeNumbers" value="-3"> -3</label><br>
+        <label><input type="radio" name="negativeNumbers" value="-7"> -7</label><br>
+        <button class="button" onclick="checkNegativeQuiz()">Submit</button>
+        <div id="negativeResult"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 3: How to Compare Decimal Numbers -->
+  <div class="content" id="page3">
+    <div class="note">How to Compare Decimal Numbers</div>
+    <div class="analogy">
+      <ul>
+        <li>To compare decimals, start from the left and compare each place value (tenths, hundredths, thousandths).</li>
+        <li>The number with the higher digit in the first place that differs is greater.</li>
+      </ul>
+      <strong>Example:</strong> 3.56 is greater than 3.45 because 5 is greater than 4 in the hundredths place.
+      <br><br>
+      
+    </div>
+    <div id="activity3" style="display: none;">
+      <div class="note">Match the decimals to their correct values:</div>
+      <div>
+        <div style="margin: 10px;">0.7 <span id="match1" ondrop="dropMatch(event, '0.7')" ondragover="allowDrop(event)" class="drop-area"></span></div>
+        <div style="margin: 10px;">0.56 <span id="match2" ondrop="dropMatch(event, '0.56')" ondragover="allowDrop(event)" class="drop-area"></span></div>
+        <div style="margin: 10px;">0.85 <span id="match3" ondrop="dropMatch(event, '0.85')" ondragover="allowDrop(event)" class="drop-area"></span></div>
+      </div>
+      <div style="margin-top: 20px;">
+        <div id="value1" draggable="true" ondragstart="drag(event)">0.70</div>
+        <div id="value2" draggable="true" ondragstart="drag(event)">0.56</div>
+        <div id="value3" draggable="true" ondragstart="drag(event)">0.85</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 4: Activity to Compare Numbers -->
+  <div class="content" id="page4">
+    <div class="note">Activity: Order these numbers from least to greatest:</div>
+    <div>
+      <div id="numberSet">
+        <span id="numA">5</span>
+        <span id="numB">3</span>
+        <span id="numC">8</span>
+        <span id="numD">1</span>
+      </div>
+      <button id="start4Button" class="button">Start</button>
+      <div id="orderedNumbers" style="margin-top: 20px;"></div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button onclick="navigate(-1)">Previous</button>
+    <button onclick="navigate(1)">Next</button>
+  </div>
+
+  <script>
+    let currentPage = 0;
+    const pages = document.querySelectorAll('.content');
+
+    function navigate(direction) {
+      pages[currentPage].style.display = 'none';
+      currentPage += direction;
+      if (currentPage < 0) currentPage = 0;
+      if (currentPage >= pages.length) currentPage = pages.length - 1;
+      pages[currentPage].style.display = 'block';
+      updateProgressBar();
+    }
+
+    function updateProgressBar() {
+      const fill = document.getElementById('progressFill');
+      const percentage = (currentPage / (pages.length - 1)) * 100;
+      fill.style.width = percentage + '%';
+    }
+
+    document.getElementById('start1Button').addEventListener('click', function() {
+      document.getElementById('activity1').style.display = 'block';
+    });
+
+    document.getElementById('start2Button').addEventListener('click', function() {
+      document.getElementById('activity2').style.display = 'block';
+    });
+
+    
+
+    document.getElementById('start4Button').addEventListener('click', function() {
+      orderNumbers();
+    });
+
+    function drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    function allowDrop(ev) {
+      ev.preventDefault();
+    }
+
+    function drop(ev) {
+      ev.preventDefault();
+      const data = ev.dataTransfer.getData("text");
+      const droppedElement = document.getElementById(data);
+      const numbers = [40, 70];
+      let comparisonResult = '';
+      if (data === 'num1') {
+        comparisonResult = numbers[0] > numbers[1] ? '40 is greater than 70' : '40 is less than 70';
+      } else {
+        comparisonResult = numbers[1] > numbers[0] ? '70 is greater than 40' : '70 is less than 40';
+      }
+      ev.target.innerHTML = droppedElement.innerHTML + '<br>' + comparisonResult;
+    }
+
+    function checkNegativeQuiz() {
+      const selectedValue = document.querySelector('input[name="negativeNumbers"]:checked').value;
+      const resultText = selectedValue === '-7' ? "Correct! -7 is smaller than -3." : "Wrong! -7 is smaller than -3.";
+      document.getElementById('negativeResult').innerText = resultText;
+    }
+
+    function dropMatch(ev, value) {
+      ev.preventDefault();
+      const data = ev.dataTransfer.getData("text");
+      const droppedElement = document.getElementById(data);
+      if (droppedElement.innerHTML === value) {
+        ev.target.innerHTML = droppedElement.innerHTML;
+      } else {
+        alert("Wrong match!");
+      }
+    }
+
+    function orderNumbers() {
+      const numberArray = [5, 3, 8, 1];
+      const orderedNumbers = numberArray.sort((a, b) => a - b);
+      document.getElementById('orderedNumbers').innerText = 'Ordered Numbers: ' + orderedNumbers.join(', ');
+    }
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g5numbers4.html'; 
+  }
+}
+  </script>
+</body>
+</html>

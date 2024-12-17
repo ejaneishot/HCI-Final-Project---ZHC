@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 6: Geometry</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    img {
+      display: block;
+      margin: 20px auto;
+      max-width: 45%;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    #activity1 {
+      display: none;
+      margin-top: 20px;
+      background-color: #f5f5f5;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .dropZone {
+      width: 100%;
+      height: 150px;
+      border: 2px dashed #6a5acd;
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .drag-item {
+      width: 80px;
+      height: 80px;
+      margin: 5px;
+      background-color: #6a5acd;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: move;
+      border-radius: 5px;
+    }
+
+    .matched {
+      background-color: #5a4db8;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a ```html
+    <h1 class="header-title">Recognizing and Creating Nets of 3D Shapes</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 1: What Is a Net of a 3D Shape? -->
+  <div class="content" id="page1" style="display: block;">
+    <div class="note">What Is a Net of a 3D Shape?</div>
+    <div class="analogy">
+      <strong>A net is a 2D pattern that you can fold to make a 3D shape.</strong><br>
+      Think of it as a "unfolded" version of a 3D shape.<br><br>
+      A net helps visualize how the faces of a 3D shape come together to form its structure.<br><br>
+      <button id="Start1Button" class="button">Start Activity</button>
+      <div id="activity1">
+        <p>Drag the correct shape names to their nets!</p>
+        <div class="dropZone" id="dropZone1">Drop Here</div>
+        <div class="dropZone" id="dropZone2">Drop Here</div>
+        <div class="dropZone" id="dropZone3">Drop Here</div>
+        <div class="drag-item" id="dragCube" draggable="true">Cube</div>
+        <div class="drag-item" id="dragPrism" draggable="true">Prism</div>
+        <div class="drag-item" id="dragPyramid" draggable="true">Pyramid</div>
+        <div class="drag-item" id="dragCylinder" draggable="true">Cylinder</div>
+        <div class="drag-item" id="dragWrong" draggable="true">Wrong Shape</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 2: Example of a Cube Net -->
+  <div class="content" id="page2">
+    <div class="note">Net of a Cube</div>
+    <div class="analogy">
+      <strong>Cube:</strong><br>
+      A cube has 6 square faces.<br>
+      The net for a cube looks like a cross made of 6 squares arranged in a way that they can fold into a cube.<br><br>
+      <img src="cubenet.png" alt="Net of a Cube">
+    </div>
+  </div>
+
+  <!-- Page 3: Example of a Rectangular Prism Net -->
+  <div class="content" id="page3">
+    <div class="note">Net of a Rectangular Prism</div>
+    <div class="analogy">
+      <strong>Rectangular Prism:</strong><br>
+      A rectangular prism has 6 rectangular faces.<br>
+      The net for a rectangular prism is made up of 6 rectangles arranged in a pattern that will fold into a 3D box.<br><br>
+      <img src="prism.png" alt="Net of a Rectangular Prism">
+    </div>
+  </div>
+
+  <!-- Page 4: Example of a Pyramid Net -->
+  <div class="content" id="page4">
+    <div class="note">Net of a Pyramid</div>
+    <div class="analogy">
+      <strong>Pyramid:</strong><br>
+      A pyramid has a square base and 4 triangular faces.<br>
+      The net for a pyramid has a square with 4 triangles connected to its edges, which fold up to form the pyramid.<br><br>
+      <img src="pyramidnet.jpg" alt="Net of a Pyramid">
+    </div>
+  </div>
+
+  <!-- Page 5: Example of a Cylinder Net -->
+  <div class="content" id="page5">
+    <div class="note">Net of a Cylinder</div>
+    <div class="analogy">
+      <strong>Cylinder:</strong><br>
+      A cylinder has 2 circular faces and 1 rectangular face for the side.<br>
+      The net for a cylinder consists of 2 circles (for the top and bottom) and 1 rectangle (for the side), which fold into the cylindrical shape.<br><br>
+      <img src="cylindernet.jpg" alt="Net of a Cylinder">
+    </div>
+  </div>
+
+  <!-- Page 6: Creating Nets -->
+  <div class="content" id="page6">
+    <div class="note">Creating Nets</div>
+    <div class="analogy">
+      <strong>Creating Nets:</strong><br>
+      <ol>
+        <li>Choose the 3D shape you want to make.</li>
+        <li>Draw the faces of the shape in a 2D arrangement, ensuring the faces can fold up to form the 3D shape.</li>
+        <li>Cut out and fold the net to see if it creates the correct shape.</li>
+      </ol>
+      <button id="Start2Button" class="button">Start</button>
+      <div id="activity2">
+        <h3>Match the 3D shape with its net!</h3>
+        <div class="matching-pairs">
+          <div>
+            <img src="cubenet.png" alt="Net of a Cube" style="width: 100px;" data-answer="Cube">
+            <span class="answer" draggable="true">Cube</span>
+          </div>
+          <div>
+            <img src="prism.png" alt="Net of a Rectangular Prism" style="width: 100px;" data-answer="Prism">
+            <span class="answer" draggable="true">Prism</span>
+          </div>
+          <div>
+            <img src="pyramidnet.jpg" alt="Net of a Pyramid" style="width: 100px;" data-answer="Pyramid">
+            <span class="answer" draggable="true">Pyramid</span>
+          </div>
+          <div>
+            <img src="cylindernet.jpg" alt="Net of a Cylinder" style="width: 100px;" data-answer="Cylinder">
+            <span class="answer" draggable="true">Cylinder</span>
+          </div>
+        </div>
+        <div id="dropZoneMatch" style="border: 2px dashed #6a5acd; margin-top: 10px; padding: 10px;">
+          Drop Answers Here
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    // Function to go to the next page
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Function to go to the previous page
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Drag and Drop Activity for Page 1
+    const dragItems = document.querySelectorAll('.drag-item');
+    const dropZones = document.querySelectorAll('.dropZone');
+    const activity1 = document.getElementById('activity1');
+    const start1Button = document.getElementById('Start1Button');
+
+    start1Button.onclick = function() {
+      activity1.style.display = 'block';
+    };
+
+    dragItems.forEach(item => {
+      item.addEventListener('dragstart', dragStart);
+    });
+
+    dropZones.forEach(zone => {
+      zone.addEventListener('dragover', dragOver);
+      zone.addEventListener('drop', drop);
+    });
+
+    function dragStart(e) {
+      e.dataTransfer.setData('text/plain', e.target.id);
+    }
+
+    function dragOver(e) {
+      e.preventDefault();
+    }
+
+    function drop(e) {
+      e.preventDefault();
+      const data = e.dataTransfer.getData('text/plain');
+      const draggedElement = document.getElementById(data);
+      const shapeName = draggedElement.innerText;
+
+      if (e.target.classList.contains('dropZone')) {
+        e.target.appendChild(draggedElement);
+        draggedElement.classList.add('matched');
+        if (shapeName === 'Cube' && e.target.id === 'dropZone1') {
+          alert(`${shapeName} has been dropped correctly!`);
+        } else if (shapeName === 'Prism' && e.target.id === 'dropZone2') {
+          alert(`${shapeName} has been dropped correctly!`);
+        } else if (shapeName === 'Pyramid' && e.target.id === 'dropZone3') {
+          alert(`${shapeName} has been dropped correctly!`);
+        } else {
+          alert(`Incorrect drop for ${shapeName}. Try again!`);
+        }
+      }
+    }
+
+    // Matching Activity for Page 6
+    const start2Button = document.getElementById('Start2Button');
+    const activity2 = document.getElementById('activity2');
+    const dropZoneMatch = document.getElementById('dropZoneMatch');
+
+    start2Button.onclick = function() {
+      activity2.style.display = 'block';
+    };
+
+    const answers = document.querySelectorAll('.answer');
+
+    answers.forEach(answer => {
+      answer.addEventListener('dragstart', dragStartMatch);
+    });
+
+    dropZoneMatch.addEventListener('dragover', dragOverMatch);
+    dropZoneMatch.addEventListener('drop', dropMatch);
+
+    function dragStartMatch(e) {
+      e.dataTransfer.setData('text/plain', e.target.innerText);
+    }
+
+    function dragOverMatch(e) {
+      e.preventDefault();
+    }
+
+    function dropMatch(e) {
+      e.preventDefault();
+      const data = e.dataTransfer.getData('text/plain');
+      const shapeAnswer = data;
+
+      const img = document.querySelector(`img[data-answer="${shapeAnswer}"]`);
+      if (img) {
+        alert(`You matched the ${shapeAnswer} correctly!`);
+        dropZoneMatch.appendChild(img);
+      } else {
+        alert(`Try again!`);
+      }
+    }
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g6geometry3.html'; 
+  }
+}
+  </script>
+</body>
+</html>

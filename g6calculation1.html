@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 6: Calculation</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    .interactive-section {
+      margin-top: 20px;
+      padding: 15px;
+      border: 2px solid #6a5acd;
+      border-radius: 10px;
+      background-color: #f9f9ff;
+    }
+
+    .drag-item {
+      display: inline-block;
+      padding: 10px;
+      margin: 5px;
+      background-color: #6a5acd;
+      color: white;
+      border-radius: 5px;
+      cursor: grab;
+    }
+
+    .drop-zone {
+      display: inline-block;
+      padding: 10px;
+      margin: 5px;
+      border: 2px dashed #6a5acd;
+      border-radius: 5px;
+      min-width: 100px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Quick Calculations with Numbers and Decimals</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 1: Adding and Subtracting Numbers and Decimals -->
+  <div class="content" id="page1" style="display: block;">
+    <div class="note">Adding and Subtracting Numbers and Decimals</div>
+    <div class="analogy">
+      <strong>Whole Numbers:</strong>
+      Simply add or subtract like normal.
+      <ul>
+        <li>Example: 45 + 32 = 77</li>
+        <li>Example: 85 - 27 = 58</li>
+      </ul>
+      <strong>Decimals:</strong>
+      Line up the decimal points and add or subtract as usual.
+      <ul>
+        <li>Example: 3.4 + 2.6 = 6.0</li>
+        <li>Example: 5.7 - 2.3 = 3.4</li>
+      </ul>
+      <button id="start1Button" class="button">Start</button>
+      <div id="interactive1" class="interactive-section" style="display: none;">
+        <strong>Drag and Drop:</strong> Match the results to their calculations.
+        <div>
+          <div id="drag1" class="drag-item" draggable="true">6.0</div>
+          <div id="drag2" class="drag-item" draggable="true">3.4</div>
+          <div id="drag3" class="drag-item" draggable="true">77</div>
+        </div>
+        <div>
+          <div class="drop-zone" data-answer="6.0">3.4 + 2.6 =</div>
+          <div class="drop-zone" data-answer="3.4">5.7 - 2.3 =</div>
+          <div class="drop-zone" data-answer="77">45 + 32 =</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 2: Multiplying by 10, 100, and 1000 -->
+  <div class="content" id="page2">
+    <div class="note">Multiplying by 10, 100, and 1000</div>
+    <div class="analogy">
+      <strong>Multiplying by 10:</strong>
+      Move the decimal point one place to the right.
+      <ul>
+        <li>Example: 5 × 10 = 50</li>
+        <li>Example: 0.7 × 10 = 7.0</li>
+      </ul>
+      <button id="start2Button" class="button">Start</button>
+      <div id="interactive2" class="interactive-section" style="display: none;">
+        <strong>Quiz:</strong> What is the result of these calculations?
+        <ul>
+          <li>5 × 10 = <input type="number" id="quiz1"></li>
+          <li>0.7 × 10 = <input type="number" id="quiz2"></li>
+        </ul>
+        <button onclick="checkQuiz2()">Check Answers</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 3: Dividing by 10, 100, and 1000 -->
+  <div class="content" id="page3">
+    <div class="note">Dividing by 10, 100, and 1000</div>
+    <div class="analogy">
+      <strong>Dividing by 10:</strong>
+      Move the decimal point one place to the left.
+      <ul>
+        <li>Example: 50 ÷ 10 = 5</li>
+        <li>Example: 2.5 ÷ 10 = 0.25</li>
+      </ul>
+      <button id="start3Button" class="button">Start</button>
+      <div id="interactive3" class="interactive-section" style="display: none;">
+        <strong>Animation:</strong> Watch numbers divide by 10.
+        <div id="animation"></div>
+        <button onclick="startAnimation()">Start Animation</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button id="prevButton" class="button">Back</button>
+    <button id="nextButton" class="button">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    // Navigation Functions
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    document.getElementById('nextButton').addEventListener('click', nextPage);
+    document.getElementById('prevButton').addEventListener('click', prevPage);
+
+    // Page 1: Drag and Drop
+    const dragItems = document.querySelectorAll('.drag-item');
+    const dropZones = document.querySelectorAll('.drop-zone');
+
+    dragItems.forEach(item => {
+      item.addEventListener('dragstart', event => {
+        event.dataTransfer.setData('text', event.target.id);
+      });
+    });
+
+    dropZones.forEach(zone => {
+      zone.addEventListener('dragover', event => {
+        event.preventDefault();
+      });
+
+      zone.addEventListener('drop', event => {
+        event.preventDefault();
+        const id = event.dataTransfer.getData('text');
+        const draggedItem = document.getElementById(id);
+        if (zone.dataset.answer === draggedItem.textContent) {
+          zone.appendChild(draggedItem);
+        } else {
+          alert('Incorrect match!');
+        }
+      });
+    });
+
+    document.getElementById('start1Button').addEventListener('click', () => {
+      document.getElementById('interactive1').style.display = 'block';
+    });
+
+    // Page 2: Quiz
+    function checkQuiz2() {
+      const quiz1 = document.getElementById('quiz1').value;
+      const quiz2 = document.getElementById('quiz2').value;
+      if (quiz1 == 50 && quiz2 == 7.0) {
+        alert('Correct!');
+      } else {
+        alert('Try again.');
+      }
+    }
+
+    document.getElementById('start2Button').addEventListener('click', () => {
+      document.getElementById('interactive2').style.display = 'block';
+    });
+
+    // Page 3: Animation
+    function startAnimation() {
+      const animation = document.getElementById('animation');
+      animation.innerHTML = '';
+      let number = 50;
+      const interval = setInterval(() => {
+        if (number >= 0.05) {
+          animation.innerHTML += `<div>${number} ÷ 10 = ${number / 10}</div>`;
+          number /= 10;
+        } else {
+          clearInterval(interval);
+        }
+      }, 1000);
+    }
+
+    document.getElementById('start3Button').addEventListener('click', () => {
+      document.getElementById('interactive3').style.display = 'block';
+    });
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g6calculation2.html'; 
+  }
+}
+  </script>
+</body>
+</html>

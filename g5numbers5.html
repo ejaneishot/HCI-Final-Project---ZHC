@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 5: Numbers</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    img {
+      display: block;
+      margin: 20px auto;
+      max-width: 45%;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .img2 {
+      width: 150px;
+      height: auto;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px; /* Adds spacing between buttons */
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+      background-color: #6a5acd; /* Button background color */
+      color: white; /* Text color */
+      padding: 12px 24px; /* Padding for the buttons */
+      border: none;
+      border-radius: 5px; /* Rounded corners */
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .nav-buttons button:hover {
+      background-color: #5a4db8; /* Darker color on hover */
+      transform: scale(1.05); /* Slight scale on hover */
+    }
+
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    /* Table styles */
+    table {
+      width: 90%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #6a5acd;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #e0e0e0;
+    }
+
+    .caption {
+      font-weight: bold;
+      background-color: #6a5acd;
+      color: white;
+    }
+
+    /* Additional styles for quizzes */
+    .quiz {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .drop-area {
+      border: 2px dashed #6a5acd;
+      border-radius: 10px;
+      height: 50px;
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .drag-item {
+      background-color: #6a5acd;
+      color: white;
+      padding: 10px;
+      margin: 0 5px;
+      border-radius: 5px;
+      cursor: grab;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Use Fractions, Ratios, and Percentages to Solve Problems</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 0: Introduction -->
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">Let’s explore how to use fractions, ratios, and percentages to solve real-life problems!</div>
+    <div class="analogy">
+      These tools help us compare quantities and break down complex problems into simpler parts.
+    </div>
+  </div>
+
+  <!-- Page 1: Using Fractions to Solve Problems -->
+  <div class="content" id="page1">
+    <div class="note">Using Fractions to Solve Problems</div>
+    <div class="analogy">
+      <ul>
+        <li>Fractions show how much of a whole something is.</li>
+        <li>For example, 3/4 means 3 out of 4 equal parts.</li>
+      </ul>
+      <strong>Example 1:</strong>
+      <ul>
+        <li>You have a pizza cut into 8 slices, and you eat 3 slices. What fraction of the pizza did you eat?</li>
+        <li>Answer: You ate 3/8 of the pizza.</li>
+      </ul>
+      <strong>Example 2:</strong>
+      <ul>
+        <li>You have 12 apples, and you give 1/4 of them to a friend. How many apples did you give away?</li>
+        <li>Solution: 1/4 of 12 = 12 × 1/4 = 3 apples.</li>
+      </ul>
+      <button id="start1Button" class="button">Start</button>
+      <div id="fractionQuiz" class="quiz">
+        <p style="font-size: 24px; text-align: center;">0.375</p>
+        <div class="drop-area" ondrop="drop(event, '3/8')" ondragover="allowDrop(event)">Match the Fraction</div>
+        <div class="drag-item" draggable="true" ondragstart="drag(event)">3/8</div>
+        <div class="drag-item" draggable="true" ondragstart="drag(event)">1/2</div>
+        <div class="drag-item" draggable="true" ondragstart="drag(event)">1/4</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 2: Using Ratios to Solve Problems -->
+  <div class="content" id="page2">
+    <div class="note">Using Ratios to Solve Problems</div>
+    <div class="analogy">
+      <ul>
+        <li>Ratios tell us how two things compare.</li>
+        <li>For example, a ratio of 2:3 means for every 2 of one thing, there are 3 of another.</li>
+      </ul>
+      <strong>Example 1:</strong>
+      <ul>
+        <li>You have a bag with 6 red marbles and 9 blue marbles. What is the ratio of red to blue marbles?</li>
+        <li>Answer: The ratio of red to blue is 6:9, which simplifies to 2:3.</li>
+      </ul>
+      <strong>Example 2:</strong>
+      <ul>
+        <li>In a class, the ratio of boys to girls is 3:4. If there are 15 boys, how many girls are there?</li>
+        <li>Solution: Set up a proportion: 3/4 = 15/x</li>
+        <li>3x = 4 × 15</li>
+        <li>3x = 60</li>
+        <li>x = 20 girls.</li>
+      </ul>
+      <button id="start2Button" class="button">Start</button>
+      <div id="ratioQuiz" class="quiz">
+        <p style="font-size: 24px; text-align: center;">4 girls and 6 boys</p>
+        <div class="drop-area" ondrop="drop(event, '2:3')" ondragover="allowDrop(event)">Match the Ratio</div>
+        <div class="drag-item" draggable="true" ondragstart="drag(event)">2:3</div>
+        <div class="drag-item" draggable="true" ondragstart="drag(event)">1:2</div>
+        <div class="drag-item" draggable="true" ondragstart="drag(event)">3:4</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 3: Using Percentages to Solve Problems -->
+  <div class="content" id="page3">
+    <div class="note">Using Percentages to Solve Problems</div>
+    <div class="analogy">
+      <ul>
+        <li>Percentages express a part of 100.</li>
+        <li>For example, 25% means 25 out of 100.</li>
+      </ul>
+      <strong>Example 1:</strong>
+      <ul>
+        <li>You scored 80 out of 100 on a test. What percentage did you score?</li>
+        <li>Answer: (80/100) × 100 = 80%.</li>
+      </ul>
+      <strong>Example 2:</strong>
+      <ul>
+        <li>There are 30 students in a class, and 10 are girls. What percentage of the class are girls?</li>
+        <li>Solution: (10/30) × 100 = 33.33%.</li>
+      </ul>
+      <button id="start3Button" class="button">Start</button>
+      <div id="percentageQuiz" class="quiz">
+        <p style="font-size: 24px; text-align: center;">8/10</p>
+        <div class="drop-area" ondrop="drop(event, '80%')" ondragover="allowDrop(event)">Match the Percentage</div>
+        <div class="drag-item" draggable="true" ondragstart="drag(event)">80%</div>
+        <div class="drag-item" draggable="true" ondragstart="drag(event)">50%</div>
+        <div class="drag-item" draggable="true" ondragstart="drag(event)">33.33%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button onclick="prevPage()">Previous</button>
+    <button onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    let currentPage = 0;
+    const pages = document.querySelectorAll('.content');
+    const progressFill = document.getElementById('progressFill');
+
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        updateProgress();
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        updateProgress();
+      }
+    }
+
+    function updateProgress() {
+      const progress = ((currentPage + 1) / pages.length) * 100;
+      progressFill.style.width = progress + '%';
+    }
+
+    document.getElementById('start1Button').onclick = function() {
+      document.getElementById('fractionQuiz').style.display = 'block';
+    };
+
+    document.getElementById('start2Button').onclick = function() {
+      document.getElementById('ratioQuiz').style.display = 'block';
+    };
+
+    document.getElementById('start3Button').onclick = function() {
+      document.getElementById('percentageQuiz').style.display = 'block';
+    };
+
+    function allowDrop(event) {
+      event.preventDefault();
+    }
+
+    function drag(event) {
+      event.dataTransfer.setData("text", event.target.innerHTML);
+    }
+
+    function drop(event, correctAnswer) {
+      event.preventDefault();
+      const data = event.dataTransfer.getData("text");
+      if (data === correctAnswer) {
+        alert("Correct!");
+      } else {
+        alert("Try Again!");
+      }
+    }
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g5main.html'; 
+  }
+}
+  </script>
+</body>
+</html>

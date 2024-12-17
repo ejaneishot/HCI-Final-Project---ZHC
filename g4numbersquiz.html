@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grade 4 Quiz : Numbers</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .question {
+      margin-bottom: 20px;
+    }
+
+    .option {
+      display: block;
+      margin: 10px 0;
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      display: inline-block;
+      margin-top: 20px;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .result {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      margin-top: 20px;
+    }
+
+    .chart {
+      display: block;
+      margin: 20px 0;
+      max-width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Quiz : Numbers (Grade 4)</h1>
+  </header>
+
+  <div class="content" id="quizPage">
+    <div class="question" id="questionContainer"></div>
+    <button class="button" id="nextButton">Next</button>
+    <div class="result" id="resultContainer" style="display:none;"></div>
+    <button class="button" id="redirectButton" style="display:none;">Next Quiz</button> 
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "What is the place value of 5 in the number 562,341?",
+        options: ["50,000", "5,000", "500", "50"],
+        correct: 0
+      },
+      {
+        question: "What is 3,453 rounded to the nearest hundred?",
+        options: ["3,500", "3,400", "3,450", "3,400"],
+        correct: 1
+      },
+      {
+        question: "What is the result of 7 x 6?",
+        options: ["42", "36", "48", "56"],
+        correct: 0
+      },
+      {
+        question: "Which number is greater? 275 or 257?",
+        options: ["275", "257", "Both are equal", "Cannot compare"],
+        correct: 0
+      },
+      {
+        question: "What is the value of 8 in the number 47,892?",
+        options: ["80", "800", "8,000", "80,000"],
+        correct: 1
+      },
+      {
+        question: "What is the next number in the sequence: 14, 28, 42, ____?",
+        options: ["56", "49", "50", "60"],
+        correct: 0
+      },
+      {
+        question: "What is 9 + 7?",
+        options: ["14", "15", "16", "17"],
+        correct: 3
+      },
+      {
+        question: "What is 50 divided by 5?",
+        options: ["5", "10", "25", "15"],
+        correct: 1
+      },
+      {
+        question: "What is the value of the digit 4 in the number 4,932?",
+        options: ["4", "40", "400", "4,000"],
+        correct: 2
+      },
+      {
+        question: "Which number is an odd number?",
+        options: ["24", "18", "32", "45"],
+        correct: 3
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    const questionContainer = document.getElementById("questionContainer");
+    const nextButton = document.getElementById("nextButton");
+    const resultContainer = document.getElementById("resultContainer");
+    const redirectButton = document.getElementById("redirectButton");
+
+    function loadQuestion(index) {
+      const questionData = questions[index];
+      questionContainer.innerHTML = `${questionData.question}`;
+      questionData.options.forEach((option, i) => {
+        questionContainer.innerHTML += `
+          <label class="option">
+            <input type="radio" name="quizOption" value="${i}"> ${option}
+          </label>
+        `;
+      });
+    }
+
+    function showResult() {
+      questionContainer.style.display = "none";
+      nextButton.style.display = "none";
+      resultContainer.style.display = "block";
+      resultContainer.innerHTML = `You scored ${score} out of ${questions.length}!`;
+      redirectButton.style.display = "inline-block"; 
+    }
+
+    nextButton.addEventListener("click", () => {
+      const selectedOption = document.querySelector("input[name='quizOption']:checked");
+      if (selectedOption) {
+        const answer = parseInt(selectedOption.value, 10);
+        if (answer === questions[currentQuestion].correct) {
+          score++;
+        }
+
+        currentQuestion++;
+
+        if (currentQuestion < questions.length) {
+          loadQuestion(currentQuestion);
+        } else {
+          showResult();
+        }
+      } else {
+        alert("Please select an answer before proceeding.");
+      }
+    });
+
+    redirectButton.addEventListener("click", () => {
+      window.location.href = "quizmain.html"; 
+    });
+
+    document.getElementById("quizPage").style.display = "block";
+    loadQuestion(currentQuestion);
+
+  </script>
+</body>
+</html>

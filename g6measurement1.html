@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 6: Measurement</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    img {
+      display: block;
+      margin: 20px auto;
+      max-width: 45%;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .drag-drop-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .drop-area {
+      border: 2px dashed #6a5acd;
+      width: 30%;
+      height: 100px;
+      position: relative;
+      text-align: center;
+      line-height: 100px;
+      color: #6a5acd;
+    }
+
+    .draggable {
+      background-color: #6a5acd;
+      color: white;
+      padding: 10px;
+      margin: 10px;
+      cursor: grab;
+      border-radius: 5px;
+    }
+
+    .quiz-container {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .quiz-image {
+      max-width: 100%;
+      height: auto;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Metric Units and Conversion</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 1: Metric Units -->
+  <div class="content" id="page1" style="display: block;">
+    <div class="note">What Are Metric Units?</div>
+    <div class="analogy">
+      The metric system uses standard units of measurement for length, mass, and capacity. Common metric units include:
+      <ul>
+        <li><strong>Length:</strong> kilometers (km), meters (m), centimeters (cm), millimeters (mm)</li>
+        <li><strong>Mass:</strong> kilograms (kg), grams (g)</li>
+        <li><strong>Capacity:</strong> liters (l), milliliters (ml)</li>
+      </ul>
+    </div>
+    <button id="Start1Button" class="button">Start</button>
+    <div id="activity1" style="display:none;"></div>
+  </div>
+
+  <!-- Page 2: Length Conversion -->
+  <div class="content" id="page2">
+    <div class="note">Converting Between Units</div>
+    <div class="analogy">
+      <strong>Length Conversion:</strong><br>
+      <ul>
+        <li>1 km = 1000 m</li>
+        <li>1 m = 100 cm</li>
+        <li>1 cm = 10 mm</li>
+      </ul>
+      <strong>Example:</strong><br>
+      Convert 2.5 meters to centimeters:
+      <ul>
+        <li>2.5 m × 100 = 250 cm</li>
+      </ul>
+      <button id="Start2Button" class="button">Start</button>
+      <div id="activity2" style="display:none;"></div>
+    </div>
+  </div>
+
+  <!-- Page 3: Mass Conversion -->
+  <div class="content" id="page3">
+    <div class="note">Converting Between Units</div>
+    <div class="analogy">
+      <strong>Mass Conversion:</strong><br>
+      <ul>
+        <li>1 kg = 1000 g</li>
+      </ul>
+      <strong>Example:</strong><br>
+      Convert 3.6 kg to grams:
+      <ul>
+        <li>3.6 kg × 1000 = 3600 g</li>
+      </ul>
+      <button id="Start3Button" class="button">Start</button>
+      <div id="activity3" style="display:none;"></div>
+    </div>
+  </div>
+
+  <!-- Page 4: Capacity Conversion -->
+  <div class="content" id="page4">
+    <div class="note">Converting Between Units</div>
+    <div class="analogy">
+      <strong>Capacity Conversion:</strong><br>
+      <ul>
+        <li>1 l = 1000 ml</li>
+      </ul>
+      <strong>Example:</strong><br>
+      Convert 1.2 liters to milliliters:
+      <ul>
+        <li>1.2 l × 1000 = 1200 ml</li>
+      </ul>
+      
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    // Function to go to the next page
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Function to go to the previous page
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Function to handle Start button on Page 1
+    // Function to handle Start button on Page 1
+    document.getElementById('Start1Button').onclick = function() {
+      const activityDiv = document.getElementById('activity1');
+      activityDiv.innerHTML = `
+        <h3>Drag and Drop Metric Units</h3>
+        <div class="drag-drop-container">
+          <div class="drop-area" id="dropLength" ondrop="drop(event, 'dropLength')" ondragover="allowDrop(event)">Drop Length Units Here</div>
+          <div class="drop-area" id="dropMass" ondrop="drop(event, 'dropMass')" ondragover="allowDrop(event)">Drop Mass Units Here</div>
+          <div class="drop-area" id="dropCapacity" ondrop="drop(event, 'dropCapacity')" ondragover="allowDrop(event)">Drop Capacity Units Here</div>
+        </div>
+        <div>
+          <div class="draggable" draggable="true" ondragstart="drag(event)" id="km">Kilometers (km)</div>
+          <div class="draggable" draggable="true" ondragstart="drag(event)" id="g">Grams (g)</div>
+          <div class="draggable" draggable="true" ondragstart="drag(event)" id="l">Liters (l)</div>
+          <div class="draggable" draggable="true" ondragstart="drag(event)" id="cm">Centimeters (cm)</div>
+          <div class="draggable" draggable="true" ondragstart="drag(event)" id="kg">Kilograms (kg)</div>
+          <div class="draggable" draggable="true" ondragstart="drag(event)" id="ml">Milliliters (ml)</div>
+        </div>
+      `;
+      activityDiv.style.display = 'block';
+    };
+
+
+    // Function to handle Start button on Page 2
+    document.getElementById('Start2Button').onclick = function() {
+      const activityDiv = document.getElementById('activity2');
+      activityDiv.innerHTML = `
+        <h3>Match the Conversion</h3>
+        <img src="quiz-length.png" class="quiz-image" alt="Length Quiz">
+        <div class="quiz-container">
+          <button class="button" onclick="checkAnswer('length', 'correct')">1 km = 1000 m</button>
+          <button class="button" onclick="checkAnswer('length', 'wrong')">1 km = 100 m</button>
+          <button class="button" onclick="checkAnswer('length', 'correct')">1 m = 100 cm</button>
+          <button class="button" onclick="checkAnswer('length', 'wrong')">1 cm = 100 m</button>
+        </div>
+      `;
+      activityDiv.style.display = 'block';
+    };
+
+    // Function to handle Start button on Page 3
+    document.getElementById('Start3Button').onclick = function() {
+      const activityDiv = document.getElementById('activity3');
+      activityDiv.innerHTML = `
+        <h3>Mass Conversion Quiz</h3>
+        <img src="quiz-mass.png" class="quiz-image" alt="Mass Quiz">
+        <div class="quiz-container">
+          <button class="button" onclick="checkAnswer('mass', 'correct')">3 kg = 3000 g</button>
+          <button class="button" onclick="checkAnswer('mass', 'wrong')">3 kg = 300 g</button>
+          <button class="button" onclick="checkAnswer('mass', 'wrong')">3 kg = 30 g</button>
+          <button class="button" onclick="checkAnswer('mass', 'correct')">1 kg = 1000 g</button>
+        </div>
+      `;
+      activityDiv.style.display = 'block';
+    };
+
+    // Drag and Drop functions
+    function allowDrop(event) {
+      event.preventDefault();
+    }
+
+// Drag function
+    function drag(event) {
+      event.dataTransfer.setData("text", event.target.id);
+    }
+
+// Drop function to handle the dropped item
+    function drop(event, unitType) {
+      event.preventDefault();
+      const data = event.dataTransfer.getData("text");
+      const draggableElement = document.getElementById(data);
+      const dropArea = document.getElementById(unitType);
+
+      if (unitType === 'dropLength' && (data === 'km' || data === 'cm')) {
+        dropArea.innerHTML = `Dropped: ${draggableElement.innerText}`;
+      } else if (unitType === 'dropMass' && (data === 'kg' || data === 'g')) {
+        dropArea.innerHTML = `Dropped: ${draggableElement.innerText}`;
+      } else if (unitType === 'dropCapacity' && (data === 'l' || data === 'ml')) {
+        dropArea.innerHTML = `Dropped: ${draggableElement.innerText}`;
+      } else {
+        alert("Incorrect unit for this category!");
+      }
+    }
+
+    // Function to check quiz answers
+    function checkAnswer(type, answer) {
+      if (answer === 'correct') {
+        alert("Correct!");
+      } else {
+        alert("Try again!");
+      }
+    }
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g6measurement2.html'; 
+  }
+}
+  </script>
+</body>
+</html>

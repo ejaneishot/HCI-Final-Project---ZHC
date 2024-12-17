@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grade 6 Quiz : Geometry</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .question {
+      margin-bottom: 20px;
+    }
+
+    .option {
+      display: block;
+      margin: 10px 0;
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      display: inline-block;
+      margin-top: 20px;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .result {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      margin-top: 20px;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Quiz : Geometry (Grade 6)</h1>
+  </header>
+
+  <div class="content" id="quizPage">
+    <div class="question" id="questionContainer"></div>
+    <button class="button" id="nextButton">Next</button>
+    <div class="result" id="resultContainer" style="display:none;"></div>
+    <button class="button" id="redirectButton" style="display:none;">Next Quiz</button> 
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "What is the perimeter of a rectangle with length 10 cm and width 4 cm?",
+        options: ["28 cm", "40 cm", "36 cm", "24 cm"],
+        correct: 0
+      },
+      {
+        question: "What is the area of a triangle with a base of 6 cm and height of 8 cm?",
+        options: ["24 cm²", "48 cm²", "12 cm²", "36 cm²"],
+        correct: 0
+      },
+      {
+        question: "How many sides does a hexagon have?",
+        options: ["4", "6", "8", "12"],
+        correct: 1
+      },
+      {
+        question: "What is the total interior angle sum of a quadrilateral?",
+        options: ["180°", "360°", "270°", "90°"],
+        correct: 1
+      },
+      {
+        question: "Which shape has no sides and no angles?",
+        options: ["Circle", "Square", "Rectangle", "Triangle"],
+        correct: 0
+      },
+      {
+        question: "How many edges does a cube have?",
+        options: ["6", "12", "8", "10"],
+        correct: 1
+      },
+      {
+        question: "What is the name of the shape with 5 sides?",
+        options: ["Pentagon", "Hexagon", "Octagon", "Quadrilateral"],
+        correct: 0
+      },
+      {
+        question: "Which of the following shapes has exactly 3 sides?",
+        options: ["Rectangle", "Triangle", "Pentagon", "Hexagon"],
+        correct: 1
+      },
+      {
+        question: "Which of the following is a 3D shape?",
+        options: ["Square", "Circle", "Cylinder", "Triangle"],
+        correct: 2
+      },
+      {
+        question: "What is the volume of a cube with a side length of 3 cm?",
+        options: ["27 cm³", "18 cm³", "9 cm³", "12 cm³"],
+        correct: 0
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    const questionContainer = document.getElementById("questionContainer");
+    const nextButton = document.getElementById("nextButton");
+    const resultContainer = document.getElementById("resultContainer");
+    const redirectButton = document.getElementById("redirectButton");
+
+    function loadQuestion(index) {
+      const questionData = questions[index];
+      questionContainer.innerHTML = `${questionData.question}`;
+      questionData.options.forEach((option, i) => {
+        questionContainer.innerHTML += `
+          <label class="option">
+            <input type="radio" name="quizOption" value="${i}"> ${option}
+          </label>
+        `;
+      });
+    }
+
+    function showResult() {
+      questionContainer.style.display = "none";
+      nextButton.style.display = "none";
+      resultContainer.style.display = "block";
+      resultContainer.innerHTML = `You scored ${score} out of ${questions.length}!`;
+      redirectButton.style.display = "inline-block"; 
+    }
+
+    nextButton.addEventListener("click", () => {
+      const selectedOption = document.querySelector("input[name='quizOption']:checked");
+      if (selectedOption) {
+        const answer = parseInt(selectedOption.value, 10);
+        if (answer === questions[currentQuestion].correct) {
+          score++;
+        }
+
+        currentQuestion++;
+
+        if (currentQuestion < questions.length) {
+          loadQuestion(currentQuestion);
+        } else {
+          showResult();
+        }
+      } else {
+        alert("Please select an answer before proceeding.");
+      }
+    });
+
+    redirectButton.addEventListener("click", () => {
+      window.location.href = "quizmain.html"; 
+    });
+
+    document.getElementById("quizPage").style.display = "block";
+    loadQuestion(currentQuestion);
+
+  </script>
+</body>
+</html>

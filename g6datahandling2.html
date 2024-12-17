@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 6: Data Handling</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    img {
+      display: block;
+      margin: 20px auto;
+      max-width: 45%;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .interactive {
+      margin-top: 20px;
+      display: none;
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+    }
+
+    .drag-item {
+      display: inline-block;
+      margin: 5px;
+      padding: 10px;
+      background-color: #6a5acd;
+      color: white;
+      border-radius: 5px;
+      cursor: grab;
+    }
+
+    .drop-zone {
+      border: 2px dashed #6a5acd;
+      padding: 20px;
+      margin-top: 10px;
+      text-align: center;
+      min-height: 50px;
+    }
+
+    .correct {
+      background-color: #4CAF50;
+    }
+
+    .wrong {
+      background-color: #f44336;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Probability and Likelihood of Events</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 1: What is Probability? -->
+  <div class="content" id="page1" style="display: block;">
+    <div class="note">What is Probability?</div>
+    <div class="analogy">
+      <strong>Probability:</strong><br>
+      Probability is the chance of an event happening. It is a way to measure how likely something is to occur. It is expressed as a fraction, decimal, or percentage between 0 and 1:
+      <ul>
+        <li><strong>0</strong> means the event is impossible.</li>
+        <li><strong>1</strong> means the event is certain.</li>
+        <li>Anything between 0 and 1 represents the likelihood of the event.</li>
+      </ul>
+      <strong>Example:</strong><br>
+      The probability of rolling a 3 on a standard 6-sided die is 1 out of 6 (1/6).<br><br>
+      <button id="Start1Button" class="button" onclick="startProbabilityQuiz()">Start</button>
+      <div class="interactive" id="interactive1">
+        <h3>Quick Quiz</h3>
+        <p>What is the probability of rolling a 2 on a standard 6-sided die?</p>
+        <input type="text" id="quiz1Answer" placeholder="Enter your answer (e.g., 1/6)">
+        <button class="button" onclick="checkQuiz1Answer()">Submit Answer</button>
+        <p id="quiz1Feedback"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 2: Basic Probability Terms -->
+  <div class="content" id="page2">
+    <div class="note">Basic Probability Terms</div>
+    <div class="analogy">
+      <strong>Certain:</strong> An event that will definitely happen.<br>
+      <strong>Example:</strong> The sun will rise tomorrow.<br><br>
+      <strong>Impossible:</strong> An event that cannot happen.<br>
+      <strong>Example:</strong> Rolling a 7 on a standard 6-sided die.<br><br>
+      <strong>Likely:</strong> An event that has a high chance of happening.<br>
+      <strong>Example:</strong> It is likely to rain if the forecast predicts a 70% chance of rain.<br><br>
+      <strong>Unlikely:</strong> An event that has a low chance of happening.<br>
+      <strong>Example:</strong> Winning the lottery.<br><br>
+      <button id="Start2Button" class="button" onclick="startMatchingTerms()">Start</button>
+      <div class="interactive" id="interactive2">
+        <h3>Match the Terms</h3>
+        <div id="terms">
+          <div class="drag-item" draggable="true" ondragstart="drag(event)">Certain</div>
+          <div class="drag-item" draggable="true" ondragstart="drag(event)">Impossible</div>
+          <div class="drag-item" draggable="true" ondragstart="drag(event)">Likely</div>
+          <div class="drag-item" draggable="true" ondragstart="drag(event)">Unlikely</div>
+        </div>
+        <div class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)">
+          Definition: an event that will definitely happen
+        </div>
+        <p id="matchingFeedback"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 3: Equally Likely Outcomes -->
+  <div class="content" id="page3">
+    <div class="note">Equally Likely Outcomes</div>
+    <div class="analogy">
+      If there are equally likely outcomes, the probability of any one event is calculated as:
+      <strong>Probability = (Number of desired outcomes) ÷ (Total possible outcomes)</strong><br><br>
+      <strong>Example (Coin Flip):</strong>
+      <ul>
+        <li>A coin has 2 outcomes: heads or tails.</li>
+        <li>Probability of heads = 1 out of 2 = 1/2.</li>
+        <li>Probability of tails = 1 out of 2 = 1/2.</li>
+      </ul>
+      <button id="Start3Button" class="button" onclick="startCoinFlipActivity()">Start</button>
+      <div class="interactive" id="interactive3">
+        <h3>Coin Flip Simulation</h3>
+        <button class="button" onclick="simulateCoinFlip()">Flip a Coin!</button>
+        <p id="coinFlipResult"></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="button" id="prevButton" onclick="changePage(-1)" disabled>Previous</button>
+    <button class="button" id="nextButton" onclick="changePage(1)">Next</button>
+  </div>
+
+  <script>
+    let currentPage = 0;
+    const pages = document.querySelectorAll('.content');
+    const progressFill = document.getElementById('progressFill');
+
+    function changePage(direction) {
+      pages[currentPage].style.display = 'none';
+      currentPage += direction;
+
+      if (currentPage < 0) {
+        currentPage = 0;
+      } else if (currentPage >= pages.length) {
+        currentPage = pages.length - 1;
+      }
+
+      pages[currentPage].style.display = 'block';
+      progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+
+      document.getElementById('prevButton').disabled = currentPage === 0;
+      document.getElementById('nextButton').disabled = currentPage === pages.length - 1;
+    }
+
+    function startProbabilityQuiz() {
+      document.getElementById("interactive1").style.display = "block";
+    }
+
+    function checkQuiz1Answer() {
+      const answer = document.getElementById("quiz1Answer").value;
+      const feedback = document.getElementById("quiz1Feedback");
+      feedback.classList.remove("correct", "wrong");
+      if (answer === "1/6" || answer === "0.1667" || answer === "16.67%") {
+        feedback.textContent = "Correct! The probability of rolling a 2 is 1/6.";
+        feedback.classList.add("correct");
+      } else {
+        feedback.textContent = "Wrong! Try again.";
+        feedback.classList.add("wrong");
+      }
+    }
+
+    function allowDrop(event) {
+      event.preventDefault();
+    }
+
+    function drag(event) {
+      event.dataTransfer.setData("text", event.target.innerHTML);
+    }
+
+    function drop(event) {
+      event.preventDefault();
+      const data = event.dataTransfer.getData("text");
+      const target = event.target;
+      if (data === "Certain") {
+        target.innerHTML = "Certain: An event that will definitely happen.";
+        target.classList.add("correct");
+      } else {
+        target.innerHTML = "Incorrect match. Try again!";
+        target.classList.add("wrong");
+      }
+    }
+
+    function startMatchingTerms() {
+      document.getElementById("interactive2").style.display = "block";
+    }
+
+    function startCoinFlipActivity() {
+      document.getElementById("interactive3").style.display = "block";
+    }
+
+    function simulateCoinFlip() {
+      const result = Math.random() < 0.5 ? "Heads" : "Tails";
+      document.getElementById("coinFlipResult").textContent = "You flipped: " + result;
+    }
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g6main.html'; 
+  }
+}
+  </script>
+</body>
+</html>

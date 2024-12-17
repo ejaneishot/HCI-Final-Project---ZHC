@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 4: Numbers</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+
+    .close-button {
+      font-size: 24px;
+      color: black;
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    table {
+      width: 90%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #6a5acd;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #e0e0e0;
+    }
+
+    .caption {
+      font-weight: bold;
+      background-color: #6a5acd;
+      color: white;
+    }
+
+    img {
+      display: block;
+      margin: 20px auto;
+      max-width: 50%;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    ul {
+      margin-top: 20px;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    .drop-zone {
+      border: 2px dashed #ccc;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .draggable {
+      background-color: #6a5acd;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      display: inline-block;
+      margin: 10px;
+      cursor: move;
+    }
+
+    .quiz-container {
+      margin-top: 20px;
+    }
+
+    .quiz-question {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Understanding Decimals and Rounding</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 0: Introduction to Decimals -->
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">What are Decimals?</div>
+    <div class="analogy">
+      Decimals are numbers that show parts of a whole. They come after a decimal point (.)
+    </div>
+  </div>
+
+  <!-- Page 1: Tenths and Hundredths Explanation -->
+  <div class="content" id="page1">
+    <div class="note">Understanding Tenths and Hundredths</div>
+    <div class="analogy">
+      <strong>Tenths:</strong> The first digit after the decimal point is the tenths place. For example:
+      <ul>
+        <li>0.3 means 3 tenths.</li>
+        <li>0.7 means 7 tenths.</li>
+      </ul>
+      <strong>Hundredths:</strong> The second digit after the decimal point is the hundredths place. For example:
+      <ul>
+        <li>0.45 means 45 hundredths.</li>
+        <li>0.99 means 99 hundredths.</li>
+      </ul>
+      <button id="start1Button" class="button">Start</button>
+    </div>
+    <div id="page1Activity"></div>
+  </div>
+
+  <!-- Page 2: Rounding Decimals -->
+  <div class="content" id="page2">
+    <div class="note">Rounding Decimals to the Nearest Whole Number</div>
+    <div class="analogy">
+      <strong>Step 1:</strong> Look at the tenths place:
+      <ul>
+        <li>If the tenths place is 5 or more, round up.</li>
+        <li>If it’s 4 or less, round down.</li>
+      </ul>
+      <strong>Examples:</strong>
+      <ul>
+        <li>0.7: The tenths place is 7 (5 or more), so round up to 1.</li>
+        <li>3.2: The tenths place is 2 (4 or less), so round down to 3.</li>
+      </ul>
+      <button id="start2Button" class="button">Start</button>
+    </div>
+    <div id="page2Activity"></div>
+  </div>
+
+  <!-- Navigation Buttons -->
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    // Function to go to the next page
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Function to go to the previous page
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    // Page 1: Tenths and Hundredths Drag-and-Drop Activity
+    document.getElementById('start1Button').addEventListener('click', () => {
+      const activity1 = document.getElementById('page1Activity');
+      activity1.innerHTML = `
+        <div class="drop-zone" id="tenthsZone">Drag tenths here (e.g., 0.3)</div>
+        <div class="drop-zone" id="hundredthsZone">Drag hundredths here (e.g., 0.45)</div>
+        <div class="draggable" draggable="true" id="drag1">0.3</div>
+        <div class="draggable" draggable="true" id="drag2">0.45</div>
+        <div class="draggable" draggable="true" id="drag3">0.7</div>
+        <div class="draggable" draggable="true" id="drag4">0.99</div>
+        <div id="page1Feedback"></div>
+      `;
+
+      document.querySelectorAll('.draggable').forEach(draggable => {
+        draggable.addEventListener('dragstart', (event) => {
+          event.dataTransfer.setData('text', event.target.id);
+        });
+      });
+
+      document.querySelectorAll('.drop-zone').forEach(dropZone => {
+        dropZone.addEventListener('dragover', (event) => {
+          event.preventDefault();
+        });
+
+        dropZone.addEventListener('drop', (event) => {
+          event.preventDefault();
+          const id = event.dataTransfer.getData('text');
+          const element = document.getElementById(id);
+          const zoneId = event.target.id;
+
+          if (
+            (zoneId === 'tenthsZone' && (id === 'drag1' || id === 'drag3')) ||
+            (zoneId === 'hundredthsZone' && (id === 'drag2' || id === 'drag4'))
+          ) {
+            event.target.appendChild(element);
+            element.style.backgroundColor = '#e0ffe0';
+            document.getElementById('page1Feedback').innerText = 'Correct!';
+          } else {
+            document.getElementById('page1Feedback').innerText = 'Incorrect. Try again!';
+          }
+        });
+      });
+    });
+
+    // Page 2: Rounding Quiz Activity
+    document.getElementById('start2Button').addEventListener('click', () => {
+      const activity2 = document.getElementById('page2Activity');
+      activity2.innerHTML = `
+        <div class="quiz-container">
+          <div class="quiz-question">Round 0.7 to the nearest whole number:</div>
+          <button onclick="checkAnswer(this,'1')">1</button>
+          <button onclick="checkAnswer(this, '0')">0</button>
+        </div>
+        <div class="quiz-container">
+          <div class="quiz-question">Round 3.2 to the nearest whole number:</div>
+          <button onclick="checkAnswer(this, '3')">3</button>
+          <button onclick="checkAnswer(this, '4')">4</button>
+        </div>
+        <div class="quiz-container">
+          <div class="quiz-question">Round 5.8 to the nearest whole number:</div>
+          <button onclick="checkAnswer(this, '5')">5</button>
+          <button onclick="checkAnswer(this, '6')">6</button>
+        </div>
+        <div id="page2Feedback"></div>
+      `;
+    });
+
+    // Function to check quiz answers
+    function checkAnswer(button, correctAnswer) {
+      const feedback = document.getElementById('page2Feedback');
+      if (button.innerText === correctAnswer) {
+        feedback.innerText = 'Correct!';
+        feedback.style.color = 'green';
+      } else {
+        feedback.innerText = 'Incorrect. Try again!';
+        feedback.style.color = 'red';
+      }
+    }
+    function nextPage() {
+  if (currentPage < pages.length - 1) {
+    pages[currentPage].style.display = 'none';
+    currentPage++;
+    pages[currentPage].style.display = 'block';
+    progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+  } else if (currentPage === pages.length - 1) {
+    window.location.href = 'g4numbers3.html'; 
+  }
+}
+  </script>
+</body>
+</html>
+ 

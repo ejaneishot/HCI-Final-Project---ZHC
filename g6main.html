@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZHC | Home</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /*calc*/
+    .modal {
+        display: none; 
+        position: fixed;
+        z-index: 1; 
+        left: 50%; 
+        top: 50%; 
+        transform: translate(-50%, -50%);
+        width: 300px; 
+        padding: 20px;
+        background-color: #fefefe;
+        border: 1px solid #6a5acd;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    
+    :root {
+      --bg-color: #f7f8fc;
+      --sidebar-bg-color: #ffffff;
+      --header-bg-color: #ffffff;
+      --text-color: #555;
+      --line-color: #e0e0e0; 
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background-color: var(--header-bg-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      border-bottom: 1px solid var(--line-color);
+      z-index: 1000;
+    }
+
+    .header input[type="text"] {
+      margin-left: 200px;
+      padding: 8px;
+      border: 1px solid var(--line-color);
+      border-radius: 4px;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 60px; 
+      left: 0;
+      width: 220px;
+      height: calc(100vh - 60px); 
+      background-color: var(--sidebar-bg-color);
+      border-right: 1px solid var(--line-color);
+      overflow-y: auto;
+      padding: 15px;
+      box-sizing: border-box;
+    }
+
+    .main-content {
+      margin-top: 60px; 
+      margin-left: 220px; 
+      padding: 20px;
+      background-color: var(--bg-color);
+      flex: 1;
+      min-height: calc(100vh - 60px); 
+      overflow-y: auto;
+    }
+
+    iframe {
+      width: 100%;
+      height: calc(100vh - 60px); 
+      border: none;
+    }
+
+    .calculator-keys {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .key {
+      width: 50px;
+      height: 50px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      background-color: #87CEEB; 
+      cursor: pointer;
+    }
+
+    .key:hover {
+      background-color: #4682B4; 
+    }
+  </style>
+</head>
+<body>
+ 
+  <header class="header">
+    <input type="text" placeholder="Search">
+    <div class="buttons">
+      <button class="button" onclick="toggleCalculator()">Calculator</button>
+      <button class="button" id="theme-toggle">◑</button>
+    </div>
+  </header>
+
+ 
+  <nav class="sidebar">
+    <h1>ZHC</h1>
+    <br />
+    <a href="#" class="active" onclick="setActive(this)">Home</a>
+    <a href="videos.html" onclick="setActive(this)">Videos</a>
+    <a href="#" onclick="setActive(this)">Mock Exam</a>
+    <a href="#" onclick="setActive(this)">ZHC AI Tutor</a>
+    <a href="allgradesmain.html" class="active" onclick="setActive(this)">All Grades & Lessons</a>
+    
+    <h2>Misc</h2>
+    <a href="help.html" onclick="setActive(this)">Help Center</a>
+    <a href="profile.html" onclick="setActive(this)">My Profile</a>
+  </nav>
+
+  <div class="main-content">
+    
+
+    <br />
+    <div id="selection">
+      <h1>Grade: 6 <span id="grade"></span></h1>
+    </div>
+  
+    <br />
+  
+    <div class="subjects-header">
+      <h2>All Topics</h2>
+    </div>
+  
+    <div class="subjects">
+      <div class="subject" onclick="window.location.href='g6/g6numbers.html'">
+        <h1>5️⃣</h1>
+        <h2>Numbers</h2>
+      </div>
+      <div class="subject" onclick="window.location.href='g6/g6calculation.html'">
+        <h1>🧮</h1>
+        <h2>Calculation</h2>
+      </div>
+      <div class="subject" onclick="window.location.href='g6/g6geometry.html'">
+        <h1>💠</h1>
+        <h2>Geometry</h2>
+      </div>
+      <div class="subject" onclick="window.location.href='g6/g6measurement.html'">
+        <h1>📊</h1>
+        <h2>Measurement</h2>
+      </div>
+      <div class="subject" onclick="window.location.href='g6/g6datahandling.html'">
+        <h1>📐</h1>
+        <h2>Data Handling</h2>
+      </div>
+  </div>
+
+  <div id="calculatorModal" class="modal">
+    <div class="modal-header">
+      <span class="close" onclick="closeCalculator()">&times;</span>
+      <h2>Calculator</h2>
+    </div>
+    <input type="text" id="result" disabled style="background-color: #f0f0f0; padding: 10px; border: none; border-radius: 5px; width: 100%; box-sizing: border-box;">
+    <div class="calculator-keys">
+      <div class="row">
+        <button class="key" onclick="appendToResult('7')">7</button>
+        <button class="key" onclick="appendToResult('8')">8</button>
+        <button class="key" onclick="appendToResult('9')">9</button>
+        <button class="key" onclick="appendToResult('/')">/</button>
+      </div>
+      <div class="row">
+        <button class="key" onclick="appendToResult('4')">4</button>
+        <button class="key" onclick="appendToResult('5')">5</button>
+        <button class="key" onclick="appendToResult('6')">6</button>
+        <button class="key" onclick="appendToResult('*')">*</button>
+      </div>
+      <div class="row">
+        <button class="key" onclick="appendToResult('1')">1</button>
+        <button class="key" onclick="appendToResult('2')">2</button>
+        <button class="key" onclick="appendToResult('3')">3</button>
+        <button class="key" onclick="appendToResult('-')">-</button>
+      </div>
+      <div class="row">
+        <button class="key" onclick="clearResult()">C</button>
+        <button class="key" onclick="appendToResult('0')">0</button>
+        <button class="key" onclick="calculateResult()">=</button>
+        <button class="key" onclick="appendToResult('+')">+</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="java.js"></script>
+  <script src="ai.js"></script>
+  <script>
+    function toggleCalculator() {
+      const modal = document.getElementById('calculatorModal');
+      modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function closeCalculator() {
+      document.getElementById('calculatorModal').style.display = 'none';
+    }
+
+    dragElement(document.getElementById("calculatorModal"));
+
+    function dragElement(el) {
+      let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+      const header = el.getElementsByClassName("modal-header")[0];
+      if (header) {
+        header.onmousedown = dragMouseDown;
+      } else {
+        el.onmousedown = dragMouseDown;
+      }
+
+      function dragMouseDown(e) {
+        e.preventDefault();
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        document.onmousemove = elementDrag;
+      }
+
+      function elementDrag(e) {
+        e.preventDefault();
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        el.style.top = (el.offsetTop - pos2) + "px";
+        el.style.left = (el.offsetLeft - pos1) + "px";
+      }
+
+      function closeDragElement() {
+        document.onmouseup = null;
+        document.onmousemove = null;
+      }
+    }
+
+    function appendToResult(value) {
+      const resultInput = document.getElementById("result");
+      resultInput.value += value;
+    }
+
+    function clearResult() {
+      const resultInput = document.getElementById("result");
+      resultInput.value = '';
+    }
+
+    function calculateResult() {
+      try {
+        const resultInput = document.getElementById("result");
+        resultInput.value = eval(resultInput.value);
+      } catch {
+        const resultInput = document.getElementById("result");
+        resultInput.value = "Error";
+      }
+    }
+
+    document.getElementById('chatbot -toggle').addEventListener('click', function() {
+      const chatbotContainer = document.getElementById('chatbot-container');
+
+      // Load the chatbot HTML content
+      fetch('ai.html')
+        .then(response => response.text())
+        .then(data => {
+          chatbotContainer.innerHTML = data;
+          chatbotContainer.style.display = 'block'; // Show the chatbot modal
+        });
+    });
+
+    // Close the chatbot when the close button is clicked
+    document.addEventListener('click', function(event) {
+      if (event.target.classList.contains('close-btn') || event.target.classList.contains('material-symbols-outlined')) {
+        document.getElementById('chatbot-container').style.display = 'none'; // Hide the chatbot modal
+      }
+      document.addEventListener("DOMContentLoaded", function() {
+    // Get selected grade and topics from localStorage
+    const selectedGrade = localStorage.getItem('selectedGrade');
+    const selectedTopics = JSON.parse(localStorage.getItem('selectedTopics'));
+
+  // Display the selected grade and topics
+  if (selectedGrade) {
+    document.getElementById('selected-grade').textContent = selectedGrade;
+  } else {
+    document.getElementById('selected-grade').textContent = 'Not selected';
+  }
+
+  if (selectedTopics && selectedTopics.length > 0) {
+    document.getElementById('selected-topics').textContent = selectedTopics.join(', ');
+  } else {
+    document.getElementById('selected-topics').textContent = 'No topics selected';
+  }
+   // Fetch the user's selections from localStorage
+   const grade = localStorage.getItem('selectedGrade');
+    const topics = JSON.parse(localStorage.getItem('selectedTopics')) || [];
+
+    // Display the selections
+    document.getElementById('grade').textContent = grade ? grade : 'Not selected';
+    document.getElementById('topics').textContent = topics.length > 0 ? topics.join(', ') : 'Not selected';
+});
+
+    });
+  </script>
+</body>
+</html>
